@@ -436,7 +436,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 			// energy expenditure from acceleration
 			if (acceleration > 0) {
-				energy -= getMass() * 0.001 * timePerFrame * acceleration;
+				energy -= getMass() * 0.01 * timePerFrame * acceleration;
 			}
 			// energy expenditure from spinning
 //			energy -= getPerimeter() * 0.0001 * timePerFrame * angularVelocity;
