@@ -1,1 +1,2 @@
-jar cvfe jevolution.jar thoughtmerge.jevolution.TestApp -C bin/ *
+jar cvfe jevolution.jar thoughtmerge.jevolution.TestApp -C bin/ .
+pause
