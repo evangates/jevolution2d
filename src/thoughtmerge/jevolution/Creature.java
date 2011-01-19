@@ -379,7 +379,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 	private double getStrength() {
 //		return getAge() + color.getRGB()/0xfff;
 		//return getPerimeter() * Math.sqrt(velocity) * Math.abs(angularVelocity) * color.getRGB()/0xffff;
-		return -color.getRed() - color.getGreen() + color.getBlue()+ 2*height - width;
+		return -color.getRed() - color.getGreen() + color.getBlue()+ 3*(height - width);
 //		return getPerimeter() + velocity/2 - color.getGreen();
 //		return getPerimeter()/getMass() + velocity;
 	}
