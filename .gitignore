@@ -4,4 +4,7 @@ bin/
 .classpath
 .project
 jevolution.jar
+nbproject/
+manifest.mf
+build.xml
 
