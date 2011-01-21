@@ -1,4 +1,4 @@
-package thoughtmerge.jevolution;
+package jevolution;
 
 
 public class Gene implements Comparable<Gene> {

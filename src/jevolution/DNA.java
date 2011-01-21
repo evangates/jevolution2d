@@ -1,11 +1,11 @@
-package thoughtmerge.jevolution;
+package jevolution;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import thoughtmerge.jevolution.Gene.ValueType;
+import jevolution.Gene.ValueType;
 
 public class DNA {
 	private List<Gene> genes;
