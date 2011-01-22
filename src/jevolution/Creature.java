@@ -68,7 +68,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return null;
 	}
 
-	public static Creature random(MyPanel world) {
+	public static Creature random(EnvironmentPanel world) {
 		int x = r.nextInt(world.getWidth());
 		int y = r.nextInt(world.getHeight());
 
@@ -93,7 +93,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 		int green = r.nextInt(256);
 		int blue = r.nextInt(256);
 		
-		double maxVelocity = MyPanel.maxVelocity * r.nextDouble() + 1;
+		double maxVelocity = EnvironmentPanel.maxVelocity * r.nextDouble() + 1;
 		
 		double childEnergyDonation = r.nextDouble()*50;
 		double minEnergyToReproduce = r.nextDouble()*50+childEnergyDonation;
@@ -154,13 +154,13 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 	double width;
 
-	MyPanel world;
+	EnvironmentPanel world;
 
 	double x;
 
 	double y;
 
-	public Creature(MyPanel world, DNA dna) {
+	public Creature(EnvironmentPanel world, DNA dna) {
 		this(world, r.nextInt(world.getWidth()), r.nextInt(world.getHeight()),
 				dna.getDouble(Keys.width), dna.getDouble(Keys.height), dna
 						.getDouble(Keys.minAccel), dna
@@ -175,7 +175,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 						.getInt(Keys.green), dna.getDouble(Keys.maxVelocity),
 						dna.getDouble(Keys.childEnergyDonation), dna.getDouble(Keys.minEnergyToReproduce));
 	}
-	public Creature(MyPanel world, double x, double y, double width,
+	public Creature(EnvironmentPanel world, double x, double y, double width,
 			double height, double minAccel, double accelRange,
 			double minAngular, double angularRange,
 			int minTicksUntilAccelChange, int ticksUntilAccelChangeRange,
@@ -291,16 +291,12 @@ public class Creature extends Thing implements Comparable<Creature> {
 				(int) Math.round(x + mag * Math.cos(angle)),
 				(int) Math.round(y + mag * Math.sin(angle)));
 
-//		String coords = String.format("(%.0f, %.0f)", shape.getBounds2D()
-//				.getCenterX(), shape.getBounds2D().getCenterY());
-//		g.drawString(coords, (int) x, (int) y);
-
 		String energyStr = String.format("%.0f / %.0f", energy, getMaxEnergy());
 		if (getEnergy() > getReproductionThreshold()) {
 			energyStr = "+ " + energyStr;
 		}
 		g.drawString(energyStr, (int) x, (int) y);
-		
+
 		String ageStr = String.format("%.0f", getAge());
 		g.drawString(ageStr, (int)x, (int)y + 10);
 		

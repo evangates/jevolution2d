@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 
-final class MyPanel extends JPanel {
+final class EnvironmentPanel extends JPanel {
 	final static double maxVelocity = 400;
 	
 	final static int minNumCreatures = 50;
@@ -28,7 +28,7 @@ final class MyPanel extends JPanel {
 	double timeSinceLastRandom;
 	double timeSinceLastMating;
 	
-	public MyPanel(int width, int height) {
+	public EnvironmentPanel(int width, int height) {
 		this.width = width;
 		this.height = height;
 		

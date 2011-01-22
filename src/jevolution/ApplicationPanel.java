@@ -2,45 +2,42 @@ package jevolution;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
+import net.miginfocom.swing.MigLayout;
 
 
-public class TestApp extends JFrame {
+public class ApplicationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public static void main(String[] args) {
-		TestApp app = new TestApp();
-	}
-
-	private MyPanel canvas;
+	private EnvironmentPanel canvas;
 	private Timer timer;
 	private long startTime = 0;
 	private int numFrames = 0;
 	private double fps = 60.0f;
+	private int width, height;
 	
-	public TestApp() {
-		canvas = new MyPanel(800,600);
+	public ApplicationPanel() {
+		super(new MigLayout("fill", "[grow,center]", "[center,grow][center,grow]"));
 
-		this.add(canvas);
+		width = 800;
+		height = 600;
+
+		canvas = new EnvironmentPanel(width, height);
+		this.add(canvas, "wrap");
+		this.add(new ConfigurationPanel(width));
 
 		timer = new Timer(20, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateFPS();
 				canvas.tick(1/fps);
-				repaint();
+				canvas.repaint();
 			}
 		});
 		timer.start();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		this.pack();
 		this.setVisible(true);
-
-		setLocationRelativeTo(null);
-		setResizable(false);
 	}
 
 	public void updateFPS() {
