@@ -10,7 +10,7 @@ import java.util.Random;
 import javax.swing.JPanel;
 
 
-final class EnvironmentPanel extends JPanel {
+public class EnvironmentPanel extends JPanel {
 	final static double maxVelocity = 400;
 	
 	final static int minNumCreatures = 50;

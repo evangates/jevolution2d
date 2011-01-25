@@ -380,6 +380,14 @@ public class Creature extends Thing implements Comparable<Creature> {
 //		return getPerimeter()/getMass() + velocity;
 	}
 
+	public double getWidth() {
+		return width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
 	private double headingLineMagnitude() {
 		return (velocity / maxVelocity) * width + width;
 	}
