@@ -5,7 +5,6 @@
 
 package jevolution.expressions;
 
-import com.sun.java.swing.plaf.windows.resources.windows_de;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.StringTokenizer;
@@ -70,16 +69,5 @@ public class CreatureExpressionParser {
 		}
 		
 		return nodes.pop();
-	}
-
-	public static String[] getTokens(String expression) {
-		StringTokenizer tokenizer = new StringTokenizer(expression);
-		String[] tokens = new String[tokenizer.countTokens()];
-
-		for(int i = 0; i < tokenizer.countTokens(); ++i) {
-			tokens[i] = tokenizer.nextToken();
-		}
-
-		return tokens;
 	}
 }
