@@ -7,10 +7,7 @@ package jevolution.tests;
 
 import jevolution.expressions.tests.CreatureExpressionParserTests;
 import jevolution.expressions.tests.CreatureExpressionTests;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import jevolution.expressions.tests.CreatureExpressionTokenizerTests;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -19,6 +16,10 @@ import org.junit.runners.Suite;
  * @author kuhlmancer
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({CreatureExpressionParserTests.class, CreatureExpressionTests.class})
+@Suite.SuiteClasses({
+	CreatureExpressionParserTests.class,
+	CreatureExpressionTests.class,
+	CreatureExpressionTokenizerTests.class
+})
 public class AllTests {
 }

@@ -6,8 +6,8 @@
 package jevolution.expressions;
 
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Stack;
-import java.util.StringTokenizer;
 
 /**
  *
@@ -24,50 +24,50 @@ public class CreatureExpressionParser {
 	}
 
 	public static CreatureExpressionNode parse(String expression) {
-		StringTokenizer tokenizer = new StringTokenizer(expression, " *\t\n\r", true);
+		Queue<Token> tokens = CreatureExpressionTokenizer.tokenize(expression);
 
 		Stack<CreatureExpressionNode> nodes = new Stack<CreatureExpressionNode>();
 
-		while(tokenizer.hasMoreTokens()) {
-			String token;
-			do {
-				token = tokenizer.nextToken();
-			} while(StringUtils.isBlank(token) && tokenizer.hasMoreTokens());
+		while(!tokens.isEmpty()) {
+			Token token = tokens.poll();
 
-			if (StringUtils.isBlank(token) && !tokenizer.hasMoreTokens()) {
-				return nodes.pop();
-			}
+			switch (token) {
+				case HEIGHT:
+					nodes.push(new HeightNode());
+					break;
+				case WIDTH:
+					nodes.push(new WidthNode());
+					break;
+				case MULTIPLY:
+					// need another token
+					if (tokens.isEmpty()) {
+						return new InvalidTokenNode(token.toString());
+					}
 
-			if (!terminals.contains(token)) {
-				return new InvalidTokenNode(token);
-			}
-			else if (token.equals("width")) {
-				nodes.push(new WidthNode());
-			}
-			else if (token.equals("height")) {
-				nodes.push(new HeightNode());
-			}
-			else if (token.equals("*")) {
-				if (!tokenizer.hasMoreTokens()) {
-					return new InvalidTokenNode(token);
-				}
+					Token rhsToken = tokens.poll();
 
-				CreatureExpressionNode lhs = nodes.pop();
-				String nextToken = tokenizer.nextToken();
-				CreatureExpressionNode rhs;
-
-				if (nextToken.equals("width")) {
-					rhs = new WidthNode();
-				}
-				else if (nextToken.equals("height")) {
-					rhs = new HeightNode();
-				}
-				else return new InvalidTokenNode(token);
-
-				nodes.push(new MultiplicationNode(lhs, rhs));
+					CreatureExpressionNode lhs, rhs;
+					switch(rhsToken) {
+						case HEIGHT:
+							lhs = nodes.pop();
+							rhs = new HeightNode();
+							nodes.push(new MultiplicationNode(lhs, rhs));
+							break;
+						case WIDTH:
+							lhs = nodes.pop();
+							rhs = new WidthNode();
+							nodes.push(new MultiplicationNode(lhs, rhs));
+							break;
+						default:
+							return new InvalidTokenNode(rhsToken.toString());
+					}
+					break;
+					// end MULTIPLY case
+				default:
+					return new InvalidTokenNode(token.toString());
 			}
 		}
-		
+
 		return nodes.pop();
 	}
 }

@@ -46,4 +46,10 @@ public class CreatureExpressionParserTests {
 		 assertTrue("Parser didn't ignore whitespace properly.", result instanceof WidthNode);
 	 }
 
+	 @Test
+	 public void ignoreWhitespaceBetweenTokensTest() {
+		 CreatureExpressionNode node = CreatureExpressionParser.parse("width   *    height");
+
+		 assertTrue("Parser didn't ignore whitespace properly.", node instanceof MultiplicationNode);
+	 }
 }
