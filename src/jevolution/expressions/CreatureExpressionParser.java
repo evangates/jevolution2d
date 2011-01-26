@@ -30,6 +30,15 @@ public class CreatureExpressionParser {
 				case WIDTH:
 					nodes.push(new WidthNode());
 					break;
+				case RED:
+					nodes.push(new RedNode());
+					break;
+				case GREEN:
+					nodes.push(new GreenNode());
+					break;
+				case BLUE:
+					nodes.push(new BlueNode());
+					break;
 				case MULTIPLY:
 					// need another token
 					if (tokens.isEmpty()) {

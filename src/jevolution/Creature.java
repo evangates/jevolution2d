@@ -313,8 +313,16 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return ageInTicks;
 	}
 
+	public int getBlue() {
+		return color.getBlue();
+	}
+
 	public double getChildEnergyDonation() {
 		return childEnergyDonation;
+	}
+
+	public int getRed() {
+		return color.getRed();
 	}
 
 	public DNA getDNA() {
@@ -342,6 +350,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 		}
 
 		return dna;
+	}
+
+	public int getGreen() {
+		return color.getGreen();
 	}
 
 	private double getMass() {

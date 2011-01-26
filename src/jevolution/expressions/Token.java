@@ -13,6 +13,9 @@ public enum Token {
 	INVALID,
 	WIDTH,
 	HEIGHT,
+	RED,
+	GREEN,
+	BLUE,
 	MULTIPLY,
 	ADD
 }

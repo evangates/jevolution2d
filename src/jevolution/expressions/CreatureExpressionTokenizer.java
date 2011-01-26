@@ -32,6 +32,15 @@ public class CreatureExpressionTokenizer {
 			else if (token.equals("height")) {
 				tokens.addLast(Token.HEIGHT);
 			}
+			else if (token.equals("red")) {
+				tokens.addLast(Token.RED);
+			}
+			else if (token.equals("green")) {
+				tokens.addLast(Token.GREEN);
+			}
+			else if (token.equals("blue")) {
+				tokens.addLast(Token.BLUE);
+			}
 			else if (token.equals("*")) {
 				tokens.addLast(Token.MULTIPLY);
 			}

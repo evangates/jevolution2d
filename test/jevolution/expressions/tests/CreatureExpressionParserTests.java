@@ -29,6 +29,27 @@ public class CreatureExpressionParserTests {
 	 }
 
 	 @Test
+	 public void redExpressionTest() {
+		 CreatureExpressionNode result = CreatureExpressionParser.parse("red");
+
+		 assertTrue("Expression wasn't a red node.", result instanceof RedNode);
+	 }
+
+	 @Test
+	 public void blueExpressionTest() {
+		 CreatureExpressionNode result = CreatureExpressionParser.parse("blue");
+
+		 assertTrue("Expression wasn't a blue node.", result instanceof BlueNode);
+	 }
+
+	 @Test
+	 public void greenExpressionTest() {
+		 CreatureExpressionNode result = CreatureExpressionParser.parse("green");
+
+		 assertTrue("Expression wasn't a green node.", result instanceof GreenNode);
+	 }
+
+	 @Test
 	 public void multiplicationExpressionTest() {
 		 CreatureExpressionNode result = CreatureExpressionParser.parse("width*height");
 

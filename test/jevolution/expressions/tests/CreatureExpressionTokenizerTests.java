@@ -68,4 +68,10 @@ public class CreatureExpressionTokenizerTests {
 		 assertTrue("There were more than 3 tokens.", tokens.isEmpty());
 	 }
 
+	 @Test
+	 public void canTokenizeRedExpression() {
+		 Queue<Token> tokens = CreatureExpressionTokenizer.tokenize("red");
+
+		 assertEquals("Tokenizer didn't create the correct token.", Token.RED, tokens.peek());
+	 }
 }
