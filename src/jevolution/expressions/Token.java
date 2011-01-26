@@ -14,4 +14,5 @@ public enum Token {
 	WIDTH,
 	HEIGHT,
 	MULTIPLY,
+	ADD
 }

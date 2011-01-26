@@ -59,6 +59,17 @@ public class CreatureExpressionTests {
 		double actualValue = e.evaluate(c);
 
 		assertEquals("Expression did not evaluate to the correct value.", expectedValue, actualValue, delta);
+	}
 
+	@Test
+	public void canEvalutateAdditionExpression() {
+		CreatureExpression e = new CreatureExpression("width + height");
+		EnvironmentPanel panel = new EnvironmentPanel(800, 600);
+		Creature c = Creature.random(panel);
+
+		double expectedValue = c.getWidth() + c.getHeight();
+		double actualValue = e.evaluate(c);
+
+		assertEquals("Expression did not evaluate to the correct value.", expectedValue, actualValue, delta);
 	}
 }

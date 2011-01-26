@@ -5,11 +5,7 @@
 
 package jevolution.expressions.tests;
 
-import jevolution.expressions.HeightNode;
-import jevolution.expressions.WidthNode;
-import jevolution.expressions.CreatureExpressionNode;
-import jevolution.expressions.CreatureExpressionParser;
-import jevolution.expressions.MultiplicationNode;
+import jevolution.expressions.*;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -37,6 +33,13 @@ public class CreatureExpressionParserTests {
 		 CreatureExpressionNode result = CreatureExpressionParser.parse("width*height");
 
 		 assertTrue("Expression wasn't a multiplication node.", result instanceof MultiplicationNode);
+	 }
+
+	 @Test
+	 public void additionExpressionTest() {
+		 CreatureExpressionNode result = CreatureExpressionParser.parse("width + width");
+
+		 assertTrue("Expression wasn't an addition node.", result instanceof AdditionNode);
 	 }
 
 	 @Test

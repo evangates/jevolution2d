@@ -58,4 +58,14 @@ public class CreatureExpressionTokenizerTests {
 		 assertTrue("There were more than 3 tokens.", tokens.isEmpty());
 	 }
 
+	 @Test
+	 public void additionExpressionIsThreeTokens() {
+		 Queue<Token> tokens = CreatureExpressionTokenizer.tokenize("width + height");
+
+		 assertEquals("First token wasn't width.", Token.WIDTH, tokens.poll());
+		 assertEquals("Second token wasn't multiplication.", Token.ADD, tokens.poll());
+		 assertEquals("Third token wasn't height.", Token.HEIGHT, tokens.poll());
+		 assertTrue("There were more than 3 tokens.", tokens.isEmpty());
+	 }
+
 }

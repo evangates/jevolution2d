@@ -20,6 +20,8 @@ public class CreatureExpressionParser {
 
 		while(!tokens.isEmpty()) {
 			Token token = tokens.poll();
+			Token rhsToken;
+			CreatureExpressionNode lhs, rhs;
 
 			switch (token) {
 				case HEIGHT:
@@ -34,9 +36,8 @@ public class CreatureExpressionParser {
 						return new InvalidTokenNode(token.toString());
 					}
 
-					Token rhsToken = tokens.poll();
+					rhsToken = tokens.poll();
 
-					CreatureExpressionNode lhs, rhs;
 					switch(rhsToken) {
 						case HEIGHT:
 							lhs = nodes.pop();
@@ -53,6 +54,30 @@ public class CreatureExpressionParser {
 					}
 					break;
 					// end MULTIPLY case
+				case ADD:
+					// need another token
+					if (tokens.isEmpty()) {
+						return new InvalidTokenNode(token.toString());
+					}
+
+					rhsToken = tokens.poll();
+
+					switch(rhsToken) {
+						case HEIGHT:
+							lhs = nodes.pop();
+							rhs = new HeightNode();
+							nodes.push(new AdditionNode(lhs, rhs));
+							break;
+						case WIDTH:
+							lhs = nodes.pop();
+							rhs = new WidthNode();
+							nodes.push(new AdditionNode(lhs, rhs));
+							break;
+						default:
+							return new InvalidTokenNode(rhsToken.toString());
+					}
+					break;
+					// end ADD case
 				default:
 					return new InvalidTokenNode(token.toString());
 			}

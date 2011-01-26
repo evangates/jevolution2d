@@ -35,6 +35,9 @@ public class CreatureExpressionTokenizer {
 			else if (token.equals("*")) {
 				tokens.addLast(Token.MULTIPLY);
 			}
+			else if (token.equals("+")) {
+				tokens.addLast(Token.ADD);
+			}
 			else tokens.addLast(Token.INVALID);
 		}
 
