@@ -5,7 +5,6 @@
 
 package jevolution.expressions;
 
-import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -14,15 +13,6 @@ import java.util.Stack;
  * @author kuhlmancer
  */
 public class CreatureExpressionParser {
-	public final static ArrayList<String> terminals;
-
-	static {
-		 terminals = new ArrayList<String>();
-		 terminals.add("width");
-		 terminals.add("height");
-		 terminals.add("*");
-	}
-
 	public static CreatureExpressionNode parse(String expression) {
 		Queue<Token> tokens = CreatureExpressionTokenizer.tokenize(expression);
 
