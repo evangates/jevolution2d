@@ -6,9 +6,6 @@ bin/
 jevolution.jar
 nbproject/
 manifest.mf
-build.xml
 build/
 dist/
-master-*.jnlp
-preview-*.html
 
