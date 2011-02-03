@@ -40,7 +40,7 @@ whitespace = [ \t]
 "height"				{ return symbol(HEIGHT); }
 
 /* literals */
-{literal}				{ return symbol(LITERAL, Double.parseDouble(yytext())); }
+{literal}				{ return symbol(LITERAL, yytext()); }
 
 /* parens */
 "("						{ return symbol(LPAREN); }

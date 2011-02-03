@@ -35,4 +35,34 @@ public class BinaryExpressionTests extends ExpressionTestBase {
 	public void twoMultOpsTest() {
 		testExpression("red * red  * red", creature.getRed() * creature.getRed() * creature.getRed());
 	}
+
+	@Test
+	public void literalAdditionTest() {
+		testExpression("1 + 1", 2);
+	}
+
+	@Test
+	public void literalMultiplicationTest() {
+		testExpression("2 * 3", 6);
+	}
+
+	@Test
+	public void positiveLiteralAndPropertyTest() {
+		testExpression("2.5 * red", 2.5 * creature.getRed());
+	}
+
+	@Test
+	public void propertyAndPositiveLiteralTest() {
+		testExpression("red * 2.5", creature.getRed() * 2.5);
+	}
+
+	@Test
+	public void negativeLiteralAndPropertyTest() {
+		testExpression("-2.5 * red", -2.5 * creature.getRed());
+	}
+
+	@Test
+	public void propertyAndNegativeLiteralTest() {
+		testExpression("red * -2.5", creature.getRed() * -2.5);
+	}
 }

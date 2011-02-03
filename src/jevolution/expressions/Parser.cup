@@ -39,4 +39,5 @@ value ::=
 				| BLUE {: RESULT = new BlueNode(); :}
 				| WIDTH {: RESULT = new WidthNode(); :}
 				| HEIGHT {: RESULT = new HeightNode(); :}
+				| LITERAL:e {: RESULT = new LiteralNode(Double.parseDouble(e)); :}
 				;
