@@ -33,4 +33,18 @@ public class BinaryExpressionTests {
 
 		assertTrue("Parser didn't ignore whitespace properly.", node instanceof MultiplicationNode);
 	}
+
+	@Test
+	public void twoAdditionOpsTest() {
+		CreatureExpressionNode result = CreatureExpressionParser.parse("red + red + red");
+
+		assertTrue("Expression wasn't an addition node.", result instanceof AdditionNode);
+	}
+
+	@Test
+	public void twoMultOpsTest() {
+		CreatureExpressionNode result = CreatureExpressionParser.parse("red * red * red");
+
+		assertTrue("Expression wasn't an addition node.", result instanceof MultiplicationNode);
+	}
 }
