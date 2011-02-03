@@ -16,6 +16,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	PropertyTests.class,
+	BinaryExpressionTests.class,
 	CreatureExpressionTests.class
 })
 public class AllTests {
