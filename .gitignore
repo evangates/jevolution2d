@@ -9,3 +9,7 @@ manifest.mf
 build/
 dist/
 
+src/jevolution/expressions/Parser.java
+src/jevolution/expressions/sym.java
+src/jevolution/expressions/Scanner.java
+
