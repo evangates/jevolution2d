@@ -26,7 +26,7 @@ import java_cup.runtime.*;
   }
 %}
 
-literal = (-)?(0 | [1-9][0-9]* ("." [0-9]*)?)
+literal = 0 | [0-9]* ("." [0-9]*)?
 
 whitespace = [ \t]
 

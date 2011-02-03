@@ -17,24 +17,21 @@ terminal		POWOP;
 /* parens */
 terminal		LPAREN, RPAREN;
 
-non terminal CreatureExpressionNode expr, multExpr, addExpr;
+non terminal CreatureExpressionNode expr, literalExpr;
 non terminal ValueNode value;
 
-expr ::=		addExpr:e {: RESULT = e; :}
+/* precedences */
+precedence left ADDOP;
+precedence left MULTOP;
+
+expr ::=		LPAREN expr:e RPAREN {: RESULT = e; :}
+				| expr:lhs ADDOP expr:rhs {: RESULT = new AdditionNode(lhs, rhs); :}
+				| expr:lhs MULTOP expr:rhs {: RESULT = new MultiplicationNode( lhs, rhs); :}
+				| SUBOP expr:e {: RESULT = new NegateNode(e); :}
+				| value:e {: RESULT = e; :}
 				;
 
-addExpr ::=		addExpr:lhs ADDOP multExpr:rhs {: RESULT = new AdditionNode(lhs, rhs); :}
-				|
-				multExpr:e {: RESULT = e; :}
-				;
-
-multExpr ::=	multExpr:lhs MULTOP value:rhs {: RESULT = new MultiplicationNode(lhs, rhs); :}
-				|
-				value:e {: RESULT = e; :}
-				;
-
-value ::=
-				RED {: RESULT = new RedNode(); :}
+value ::=		RED {: RESULT = new RedNode(); :}
 				| GREEN {: RESULT = new GreenNode(); :}
 				| BLUE {: RESULT = new BlueNode(); :}
 				| WIDTH {: RESULT = new WidthNode(); :}

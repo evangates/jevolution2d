@@ -32,4 +32,9 @@ public class LiteralTests extends ExpressionTestBase {
 	 public void negativeDoubleLiteralTest() {
 		 testExpression("-10.23", -10.23);
 	 }
+
+	 @Test
+	 public void noDigitsBeforeDecimialTesT() {
+		 testExpression(".5", .5);
+	 }
 }
