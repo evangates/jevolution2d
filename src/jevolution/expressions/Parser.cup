@@ -1,0 +1,32 @@
+package jevolution.expressions;
+
+import java_cup.runtime.*;
+
+/* properties */
+terminal		RED, GREEN, BLUE;
+terminal		WIDTH, HEIGHT;
+
+/* literal, everything a double right now */
+terminal String LITERAL;
+
+/* operators */
+terminal		ADDOP, SUBOP;
+terminal		MULTOP, DIVOP;
+terminal		POWOP;
+
+/* parens */
+terminal		LPAREN, RPAREN;
+
+non terminal CreatureExpressionNode expr;
+non terminal ValueNode value;
+
+expr ::=		value:e {: RESULT = e; :} // propogate value
+				;
+
+value ::=
+				RED {: RESULT = new RedNode(); :}
+				| GREEN {: RESULT = new GreenNode(); :}
+				| BLUE {: RESULT = new BlueNode(); :}
+				| WIDTH {: RESULT = new WidthNode(); :}
+				| HEIGHT {: RESULT = new HeightNode(); :}
+				;

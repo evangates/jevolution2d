@@ -11,16 +11,21 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class WidthNode extends ValueNode {
+public class LiteralNode extends ValueNode {
+	double value;
+
+	public LiteralNode(double value) {
+		this.value = value;
+	}
 
 	@Override
 	public double evaluate(Creature c) {
-		return c.getWidth();
+		return value;
 	}
 
 	@Override
 	public String toString() {
-		return "width";
+		return String.valueOf(value);
 	}
 
 }

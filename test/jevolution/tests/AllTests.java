@@ -5,9 +5,7 @@ package jevolution.tests;
  * and open the template in the editor.
  */
 
-import jevolution.expressions.tests.CreatureExpressionParserTests;
-import jevolution.expressions.tests.CreatureExpressionTests;
-import jevolution.expressions.tests.CreatureExpressionTokenizerTests;
+import jevolution.expressions.tests.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -18,8 +16,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	CreatureExpressionParserTests.class,
-	CreatureExpressionTests.class,
-	CreatureExpressionTokenizerTests.class
+	CreatureExpressionTests.class
 })
 public class AllTests {
 }

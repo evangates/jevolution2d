@@ -11,7 +11,7 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class BlueNode extends CreatureExpressionNode {
+public class BlueNode extends ValueNode {
 
 	@Override
 	public double evaluate(Creature c) {

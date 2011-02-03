@@ -10,6 +10,44 @@
 <project name="jevolution" default="default" basedir=".">
     <description>Builds, tests, and runs the project jevolution.</description>
     <import file="nbproject/build-impl.xml"/>
+
+	<!-- parser stuff -->
+	<property name="parser.dir" location="src/jevolution/expressions" />
+	<property name="dest.dir" location="src" />
+	<property name="cup.file" location="${parser.dir}/Parser.cup" />
+	<property name="generated.parser" location="${parser.dir}/Parser.java" />
+	<property name="generated.sym" location="${parser.dir}/sym.java" />
+
+	<!-- scanner stuff -->
+	<property name="jflex.file" location="${parser.dir}/Scanner.flex" />
+	<property name="generated.scanner" location="${parser.dir}/Scanner.java" />
+
+	<!-- target stuff -->
+	<target name="-pre-compile" depends="make-scanner" />
+	<target name="-post-clean" depends="-custom-clean" />
+
+	<target name="make-parser" description="Builds the parser.">
+		<taskdef name="cup" classname="java_cup.anttask.CUPTask" classpath="lib/java-cup-11a.jar" />
+		<echo message="CUP file is ${cup.file}" />
+		<echo message="Output dir is ${dest.dir}" />
+		<cup srcfile="${cup.file}" destdir="${dest.dir}" parser="Parser" force="true" interface="true"/>
+	</target>
+
+	<target name="make-scanner" depends="make-parser, clean-scanner" description="Builds the scanner.">
+		<taskdef classname="JFlex.anttask.JFlexTask" classpath="lib/JFlex.jar" name="jflex" />
+		<echo message="JFlex file is ${jflex.file}" />
+		<echo message="Output dir is ${dest.dir}" />
+		<jflex file="${jflex.file}" destdir="${dest.dir}" />
+	</target>
+
+	<target name="-custom-clean" depends="clean-scanner" description="Removes the generated parser and scanner java files.">
+		<delete file="${generated.parser}" verbose="true"/>
+		<delete file="${generated.sym}" verbose="true"/>
+	</target>
+
+	<target name="clean-scanner" description="Removes the generated scanner java file.">
+		<delete file="${generated.scanner}" verbose="true" />
+	</target>
     <!--
 
     There exist several targets which are by default empty and which can be 

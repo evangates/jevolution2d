@@ -10,7 +10,7 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class HeightNode extends CreatureExpressionNode {
+public class HeightNode extends ValueNode {
 
 	@Override
 	public double evaluate(Creature c) {
