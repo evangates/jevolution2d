@@ -5,54 +5,40 @@
 
 package jevolution.expressions.tests;
 
-import jevolution.expressions.*;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author kuhlmancer
  */
-public class PropertyTests {
+public class PropertyTests extends ExpressionTestBase {
      @Test
      public void widthExpressionTest() {
-		 CreatureExpressionNode result = CreatureExpressionParser.parse("width");
-		 
-		 assertTrue("Expression wasn't a width node.", result instanceof WidthNode);
+		 testExpression("width", creature.getWidth());
 	 }
 
 	 @Test
 	 public void heightExpressionTest() {
-		 CreatureExpressionNode result = CreatureExpressionParser.parse("height");
-
-		 assertTrue("Expression wasn't a height node.", result instanceof HeightNode);
+		 testExpression("height", creature.getHeight());
 	 }
 
 	 @Test
 	 public void redExpressionTest() {
-		 CreatureExpressionNode result = CreatureExpressionParser.parse("red");
-
-		 assertTrue("Expression wasn't a red node.", result instanceof RedNode);
+		 testExpression("red", creature.getRed());
 	 }
 
 	 @Test
 	 public void blueExpressionTest() {
-		 CreatureExpressionNode result = CreatureExpressionParser.parse("blue");
-
-		 assertTrue("Expression wasn't a blue node.", result instanceof BlueNode);
+		 testExpression("blue", creature.getBlue());
 	 }
 
 	 @Test
 	 public void greenExpressionTest() {
-		 CreatureExpressionNode result = CreatureExpressionParser.parse("green");
-
-		 assertTrue("Expression wasn't a green node.", result instanceof GreenNode);
+		 testExpression("green", creature.getGreen());
 	 }
 
 	 @Test
 	 public void ignoreWhitespaceTest() {
-		 CreatureExpressionNode result = CreatureExpressionParser.parse("  width  ");
-
-		 assertTrue("Parser didn't ignore whitespace properly.", result instanceof WidthNode);
+		 testExpression("   width   \t", creature.getWidth());
 	 }
 }

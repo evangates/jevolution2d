@@ -4,47 +4,35 @@
  */
 package jevolution.expressions.tests;
 
-import jevolution.expressions.*;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
  * @author kuhlmancer
  */
-public class BinaryExpressionTests {
+public class BinaryExpressionTests extends ExpressionTestBase {
 	@Test
 	public void multiplicationExpressionTest() {
-		CreatureExpressionNode result = CreatureExpressionParser.parse("width*height");
-
-		assertTrue("Expression wasn't a multiplication node.", result instanceof MultiplicationNode);
+		testExpression("width*height", creature.getWidth() * creature.getHeight());
 	}
 
 	@Test
 	public void additionExpressionTest() {
-		CreatureExpressionNode result = CreatureExpressionParser.parse("width + width");
-
-		assertTrue("Expression wasn't an addition node.", result instanceof AdditionNode);
+		testExpression("width + width", creature.getWidth() + creature.getWidth());
 	}
 
 	@Test
 	public void ignoreWhitespaceBetweenTokensTest() {
-		CreatureExpressionNode node = CreatureExpressionParser.parse("width   *    height");
-
-		assertTrue("Parser didn't ignore whitespace properly.", node instanceof MultiplicationNode);
+		testExpression("width   \t  *  \t height", creature.getWidth() * creature.getHeight());
 	}
 
 	@Test
 	public void twoAdditionOpsTest() {
-		CreatureExpressionNode result = CreatureExpressionParser.parse("red + red + red");
-
-		assertTrue("Expression wasn't an addition node.", result instanceof AdditionNode);
+		testExpression("red + red + red", creature.getRed() + creature.getRed() + creature.getRed());
 	}
 
 	@Test
 	public void twoMultOpsTest() {
-		CreatureExpressionNode result = CreatureExpressionParser.parse("red * red * red");
-
-		assertTrue("Expression wasn't an addition node.", result instanceof MultiplicationNode);
+		testExpression("red * red  * red", creature.getRed() * creature.getRed() * creature.getRed());
 	}
 }
