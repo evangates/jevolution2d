@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  *
  * @author kuhlmancer
  */
-public class CreatureExpressionParserTests {
+public class PropertyTests {
      @Test
      public void widthExpressionTest() {
 		 CreatureExpressionNode result = CreatureExpressionParser.parse("width");

@@ -15,7 +15,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-	CreatureExpressionParserTests.class,
+	PropertyTests.class,
 	CreatureExpressionTests.class
 })
 public class AllTests {
