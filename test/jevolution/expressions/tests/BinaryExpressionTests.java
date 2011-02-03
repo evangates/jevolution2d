@@ -65,4 +65,11 @@ public class BinaryExpressionTests extends ExpressionTestBase {
 	public void propertyAndNegativeLiteralTest() {
 		testExpression("red * -2.5", creature.getRed() * -2.5);
 	}
+
+	@Test
+	public void multiplicationHasHigherPrecedenceThanAddition() {
+		testExpression("2 + 3 * 4", 14);
+		testExpression("3 * 4 + 2", 14);
+		testExpression("2 * 3 + 4", 10);
+	}
 }
