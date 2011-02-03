@@ -72,4 +72,15 @@ public class BinaryExpressionTests extends ExpressionTestBase {
 		testExpression("3 * 4 + 2", 14);
 		testExpression("2 * 3 + 4", 10);
 	}
+
+	@Test
+	public void sutractionTest() {
+		testExpression("3 - 2", 1);
+	}
+
+	@Test
+	public void subtractionLeftAssociativityTest() {
+		testExpression("10 - 5 - 2", 3);
+		testExpression("10 - (5 - 2)", 7);
+	}
 }

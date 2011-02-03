@@ -41,4 +41,10 @@ public class ParenthesisTests extends ExpressionTestBase {
 		 testExpression("((3))", 3);
 		 testExpression("((3+2)*4 + 3) * 2", 46);
 	 }
+
+	 @Test
+	 public void currentStrengthFormulaTest() {
+		 testExpression("-red - green + blue + 3*(height - width)",
+				 -creature.getRed() - creature.getGreen() + creature.getBlue() + 3*(creature.getHeight() - creature.getWidth()));
+	 }
 }

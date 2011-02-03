@@ -18,6 +18,11 @@ public class PropertyTests extends ExpressionTestBase {
 	 }
 
 	 @Test
+	 public void negatedWidthTest() {
+		 testExpression("-width", -creature.getWidth());
+	 }
+
+	 @Test
 	 public void heightExpressionTest() {
 		 testExpression("height", creature.getHeight());
 	 }

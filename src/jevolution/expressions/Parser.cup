@@ -21,11 +21,12 @@ non terminal CreatureExpressionNode expr, literalExpr;
 non terminal ValueNode value;
 
 /* precedences */
-precedence left ADDOP;
+precedence left ADDOP, SUBOP;
 precedence left MULTOP;
 
 expr ::=		LPAREN expr:e RPAREN {: RESULT = e; :}
 				| expr:lhs ADDOP expr:rhs {: RESULT = new AdditionNode(lhs, rhs); :}
+				| expr:lhs SUBOP expr:rhs {: RESULT = new SubtractionNode(lhs, rhs); :}
 				| expr:lhs MULTOP expr:rhs {: RESULT = new MultiplicationNode( lhs, rhs); :}
 				| SUBOP expr:e {: RESULT = new NegateNode(e); :}
 				| value:e {: RESULT = e; :}
