@@ -19,7 +19,7 @@ public class EnvironmentPanel extends JPanel {
 	private CreatureExpression strengthExpression;
 	private CreatureExpression costOfLivingExpression;
 	
-	final static int minNumCreatures = 2;
+	final static int minNumCreatures = 15;
 	final static int preferredNumCreatures = 75;
 	final static int maxNumCreatures = 100;
 	final static double secondsBetweenRandoms = 1;

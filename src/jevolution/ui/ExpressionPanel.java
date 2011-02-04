@@ -6,6 +6,8 @@
 package jevolution.ui;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import jevolution.ui.ApplicationPanel;
 import jevolution.ui.CreatureExpressionTextField;
 import net.miginfocom.swing.MigLayout;
@@ -22,22 +24,34 @@ import net.miginfocom.swing.MigLayout;
  * @author kuhlmancer
  */
 public class ExpressionPanel extends JPanel {
-	ApplicationPanel parent;
+	private ApplicationPanel parent;
 
 	final static String initialStrengthFunction = "blue - red - green + 3*(width - height)";
 	final static String initialCostOfLivingFunction = "0.01 * width * height * acceleration";
 
-	public ExpressionPanel(ApplicationPanel parent) {
-		super(new MigLayout("fillx, wrap", "left", "[top|]50[|]"));
+	private JSlider speedSlider;
+
+	public ExpressionPanel(ApplicationPanel app) {
+		super(new MigLayout("fillx, wrap", "left", "[top|]50[|]50[|]"));
 		
-		this.parent = parent;
+		this.parent = app;
 
 		// strength function
 		this.add(new JLabel("How much energy per second that creatures steal while they touch each other:"));
-		this.add(new CreatureExpressionTextField(initialStrengthFunction, ExpressionId.STRENGTH, parent), "growx");
+		this.add(new CreatureExpressionTextField(initialStrengthFunction, ExpressionId.STRENGTH, app), "growx");
 
 		// cost of living
 		this.add(new JLabel("How much energy per second a creature loses just for existing:"));
-		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, parent), "growx");;
+		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, app), "growx");
+
+		// speed
+		speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 100);
+		speedSlider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				parent.updateSpeedModifier(speedSlider.getValue() / 100d);
+			}
+		});
+		this.add(new JLabel("Simulation speed:"));
+		this.add(speedSlider);
 	}
 }

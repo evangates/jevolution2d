@@ -17,6 +17,8 @@ public class ApplicationPanel extends JPanel {
 	private int numFrames = 0;
 	private double fps = 60.0f;
 	private int width, height;
+
+	private double speedModifier;
 	
 	public ApplicationPanel() {
 		super(new MigLayout("fill, wrap", "[grow, center]", "[grow, center][grow, center]"));
@@ -33,11 +35,12 @@ public class ApplicationPanel extends JPanel {
 
 		this.add(configPanel, "grow");
 
-		timer = new Timer(20, new ActionListener() {
+		speedModifier = 1d;
+		timer = new Timer(15, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateFPS();
-				canvas.tick(1/fps);
+				canvas.tick(speedModifier / fps);
 				canvas.repaint();
 			}
 		});
@@ -73,5 +76,9 @@ public class ApplicationPanel extends JPanel {
 				canvas.setCostOfLivingExpression(expr);
 				break;
 		}
+	}
+
+	public void updateSpeedModifier(double modifier) {
+		this.speedModifier = modifier;
 	}
 }
