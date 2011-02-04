@@ -20,11 +20,11 @@ public class Creature extends Thing implements Comparable<Creature> {
 		public final static String minAccel = "minAccel";
 		public final static String minAngular = "minAngular";
 		public final static String minEnergyToReproduce = "minEnergyToReproduce";
-		public final static String minTicksUntilAccelChange = "minTicksUntilAccelChange";
-		public final static String minTicksUntilAngleChange = "minTicksUntilAngleChange";
+		public final static String minTimeUntilAccelChange = "minTicksUntilAccelChange";
+		public final static String minTimeUntilAngleChange = "minTicksUntilAngleChange";
 		public final static String red = "red";
-		public final static String ticksUntilAccelChangeRange = "ticksUntilAccelChangeRange";
-		public final static String ticksUntilAngleChangeRange = "ticksUntilAngleChangeRange";
+		public final static String timeUntilAccelChangeRange = "ticksUntilAccelChangeRange";
+		public final static String timeUntilAngleChangeRange = "ticksUntilAngleChangeRange";
 		public final static String width = "width";
 	}
 	
@@ -80,15 +80,14 @@ public class Creature extends Thing implements Comparable<Creature> {
 		double accelRange = r.nextDouble() * ACCEL_RANGE;
 
 		double minAngular = 0;
-		double angularRange = r.nextDouble() * Math.PI / 120;
+		// up to a quarter of a turn per second
+		double angularRange = r.nextDouble() * Math.PI / 2;
 
-		int minTicksUntilAccelChange = r.nextInt(100) + 10;
-		int ticksUntilAccelChangeRange = r.nextInt(500)
-				+ minTicksUntilAccelChange;
+		double minTimeUntilAccelChange = 0.1d * r.nextDouble() + 0.01;
+		double ticksUntilAccelChangeRange = 2.5d * r.nextDouble() + minTimeUntilAccelChange;
 
-		int minTicksUntilAngleChange = r.nextInt(100) + 10;
-		int ticksUntilAngleChangeRange = r.nextInt(500)
-				+ minTicksUntilAngleChange;
+		double minTimeUntilAngleChange = 0.1d * r.nextDouble() + 0.01;
+		double timeUntilAngleChangeRange = 2.5d * r.nextDouble() + minTimeUntilAngleChange;
 
 		int red = r.nextInt(256);
 		int green = r.nextInt(256);
@@ -100,9 +99,9 @@ public class Creature extends Thing implements Comparable<Creature> {
 		double minEnergyToReproduce = r.nextDouble()*50+childEnergyDonation;
 		
 		Creature retval = new Creature(world, x, y, width, height, minAccel, accelRange,
-				minAngular, angularRange, minTicksUntilAccelChange,
-				ticksUntilAccelChangeRange, minTicksUntilAngleChange,
-				ticksUntilAngleChangeRange, red, green, blue, maxVelocity,
+				minAngular, angularRange, minTimeUntilAccelChange,
+				ticksUntilAccelChangeRange, minTimeUntilAngleChange,
+				timeUntilAngleChangeRange, red, green, blue, maxVelocity,
 				childEnergyDonation, minEnergyToReproduce);
 		retval.energy = retval.getMaxEnergy();
 		
@@ -139,15 +138,13 @@ public class Creature extends Thing implements Comparable<Creature> {
 	double minAngular;
 	private double minEnergyToReproduce;
 
-	int minTicksUntilNextAccelerationChange;
+	double minTimeUntilNextAccelerationChange;
+	double minTimeUntilNextAngleChange;
+	double timeUntilNextAccelerationChange;
+	double timeUntilNextAccelerationRange;
 
-	int minTicksUntilNextAngleChange;
-	int ticksUntilNextAccelerationChange;
-	int ticksUntilNextAccelerationRange;
-
-	int ticksUntilNextAngleChange;
-
-	int ticksUntilNextAngleRange;
+	double timeUntilNextAngleChange;
+	double timeUntilNextAngleRange;
 
 	double velocity;
 
@@ -163,24 +160,28 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 	public Creature(EnvironmentPanel world, DNA dna) {
 		this(world, r.nextInt(world.getWidth()), r.nextInt(world.getHeight()),
-				dna.getDouble(Keys.width), dna.getDouble(Keys.height), dna
-						.getDouble(Keys.minAccel), dna
-						.getDouble(Keys.accelRange), dna
-						.getDouble(Keys.minAngular), dna
-						.getDouble(Keys.angularRange), dna
-						.getInt(Keys.minTicksUntilAccelChange), dna
-						.getInt(Keys.ticksUntilAccelChangeRange), dna
-						.getInt(Keys.minTicksUntilAngleChange), dna
-						.getInt(Keys.ticksUntilAngleChangeRange), dna
-						.getInt(Keys.red), dna.getInt(Keys.blue), dna
-						.getInt(Keys.green), dna.getDouble(Keys.maxVelocity),
-						dna.getDouble(Keys.childEnergyDonation), dna.getDouble(Keys.minEnergyToReproduce));
+				dna.getDouble(Keys.width),
+				dna.getDouble(Keys.height),
+				dna.getDouble(Keys.minAccel),
+				dna.getDouble(Keys.accelRange),
+				dna.getDouble(Keys.minAngular),
+				dna.getDouble(Keys.angularRange),
+				dna.getDouble(Keys.minTimeUntilAccelChange),
+				dna.getDouble(Keys.timeUntilAccelChangeRange),
+				dna.getDouble(Keys.minTimeUntilAngleChange),
+				dna.getDouble(Keys.timeUntilAngleChangeRange),
+				dna.getInt(Keys.red),
+				dna.getInt(Keys.blue),
+				dna.getInt(Keys.green),
+				dna.getDouble(Keys.maxVelocity),
+				dna.getDouble(Keys.childEnergyDonation),
+				dna.getDouble(Keys.minEnergyToReproduce));
 	}
 	public Creature(EnvironmentPanel world, double x, double y, double width,
 			double height, double minAccel, double accelRange,
 			double minAngular, double angularRange,
-			int minTicksUntilAccelChange, int ticksUntilAccelChangeRange,
-			int minTicksUntilAngleChange, int ticksUntilAngleChangeRange,
+			double minTimeUntilAccelChange, double timeUntilAccelChangeRange,
+			double minTimeUntilAngleChange, double timeUntilAngleChangeRange,
 			int red, int blue, int green, double maxVelocity, double childEnergyDonation, double minEnergyToReproduce) {
 		this.world = world;
 		this.x = x;
@@ -223,18 +224,18 @@ public class Creature extends Thing implements Comparable<Creature> {
 			return;
 		}
 
-		if (minTicksUntilAccelChange > 0 && ticksUntilAccelChangeRange > 0) {
-			this.minTicksUntilNextAccelerationChange = minTicksUntilAccelChange;
-			this.ticksUntilNextAccelerationRange = ticksUntilAccelChangeRange;
+		if (minTimeUntilAccelChange > 0 && timeUntilAccelChangeRange > 0) {
+			this.minTimeUntilNextAccelerationChange = minTimeUntilAccelChange;
+			this.timeUntilNextAccelerationRange = timeUntilAccelChangeRange;
 		} else {
 			viable = false;
 			//System.out.println(String.format("bad accel ticks: %d x rand() + %d", ticksUntilAccelChangeRange, minTicksUntilAccelChange));
 			return;
 		}
 
-		if (minTicksUntilAngleChange > 0 && ticksUntilAngleChangeRange > 0) {
-			this.minTicksUntilNextAngleChange = minTicksUntilAngleChange;
-			this.ticksUntilNextAngleRange = ticksUntilAngleChangeRange;
+		if (minTimeUntilAngleChange > 0 && timeUntilAngleChangeRange > 0) {
+			this.minTimeUntilNextAngleChange = minTimeUntilAngleChange;
+			this.timeUntilNextAngleRange = timeUntilAngleChangeRange;
 		} else {
 			viable = false;
 			//System.out.println(String.format("bad angle ticks: %d x rand() + %d", ticksUntilAngleChangeRange, minTicksUntilAngleChange));
@@ -243,6 +244,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 		
 		if (maxVelocity > 0 && maxVelocity < Math.min(world.getWidth(), world.getHeight())) {
 			this.maxVelocity = maxVelocity;
+			this.velocity = maxVelocity * r.nextDouble();
 		}
 		else {
 			viable = false;
@@ -298,7 +300,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 		}
 		g.drawString(energyStr, (int) x, (int) y);
 
-		String ageStr = String.format("%.0f", getAge());
+		String ageStr = String.format("%.0f", getStrength());
 		g.drawString(ageStr, (int)x, (int)y + 10);
 		
 		if (numChildren > 0) {
@@ -348,14 +350,12 @@ public class Creature extends Thing implements Comparable<Creature> {
 			dna.add(Keys.height, height);
 			dna.add(Keys.accelRange, accelRange);
 			dna.addRadian(Keys.angularRange, angularRange);
-			dna.add(Keys.ticksUntilAccelChangeRange,
-					ticksUntilNextAccelerationRange);
-			dna.add(Keys.ticksUntilAngleChangeRange, ticksUntilNextAngleRange);
+			dna.add(Keys.timeUntilAccelChangeRange,	timeUntilNextAccelerationRange);
+			dna.add(Keys.timeUntilAngleChangeRange, timeUntilNextAngleRange);
 			dna.add(Keys.minAccel, minAccel);
 			dna.addRadian(Keys.minAngular, minAngular);
-			dna.add(Keys.minTicksUntilAccelChange,
-					minTicksUntilNextAccelerationChange);
-			dna.add(Keys.minTicksUntilAngleChange, minTicksUntilNextAngleChange);
+			dna.add(Keys.minTimeUntilAccelChange, minTimeUntilNextAccelerationChange);
+			dna.add(Keys.minTimeUntilAngleChange, minTimeUntilNextAngleChange);
 			dna.add(Keys.width, width);
 			dna.add(Keys.maxVelocity, maxVelocity);
 			dna.add(Keys.minEnergyToReproduce, minEnergyToReproduce);
@@ -435,29 +435,27 @@ public class Creature extends Thing implements Comparable<Creature> {
 		boolean none = false;
 
 		if (moving) {
-			--ticksUntilNextAccelerationChange;
-			--ticksUntilNextAngleChange;
+			timeUntilNextAccelerationChange -= timePerFrame;
+			timeUntilNextAngleChange -= timePerFrame;
 
-			if (ticksUntilNextAccelerationChange <= 0 || velocity <= 0) {
+			if (timeUntilNextAccelerationChange <= 0 || velocity <= 0) {
 				acceleration = accelRange * r.nextDouble() + minAccel;
 				if (r.nextBoolean()) {
 					acceleration *= -1;
 				}
-				ticksUntilNextAccelerationChange = r
-						.nextInt(ticksUntilNextAccelerationRange)
-						+ minTicksUntilNextAccelerationChange;
+				timeUntilNextAccelerationChange = timeUntilNextAccelerationRange * r.nextDouble() + minTimeUntilNextAccelerationChange;
 			}
-			if (ticksUntilNextAngleChange <= 0) {
+			if (timeUntilNextAngleChange <= 0) {
 				angularVelocity = angularRange * r.nextDouble() + minAngular;
 				if (r.nextBoolean()) {
 					angularVelocity *= -1;
 				}
-				ticksUntilNextAngleChange = r.nextInt(ticksUntilNextAngleRange)
-						+ minTicksUntilNextAngleChange;
+				timeUntilNextAngleChange = timeUntilNextAngleRange * r.nextDouble()	+ minTimeUntilNextAngleChange;
 			}
 
-			angle += angularVelocity;
-			velocity += acceleration;
+			angle += angularVelocity * timePerFrame;
+			velocity += (acceleration - 0.1 * velocity)* timePerFrame;
+//			velocity += acceleration * timePerFrame;
 
 			clampVelocity();
 
@@ -469,7 +467,9 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 
 			// cost of living
-			energy -= timePerFrame * getCostOfLiving();
+			if (acceleration > 0) {
+				energy -= timePerFrame * getCostOfLiving();
+			}
 
 			// energy expenditure from spinning
 //			energy -= getPerimeter() * 0.0001 * timePerFrame * angularVelocity;
