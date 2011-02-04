@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import jevolution.Gene.ValueType;
 
 public class DNA {
 	private List<Gene> genes;
