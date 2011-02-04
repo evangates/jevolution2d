@@ -318,6 +318,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return ageInTicks;
 	}
 
+	public double getAngularVelocity() {
+		return angularVelocity;
+	}
+
 	public int getBlue() {
 		return color.getBlue();
 	}

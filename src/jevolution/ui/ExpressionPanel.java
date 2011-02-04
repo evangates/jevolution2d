@@ -28,7 +28,7 @@ public class ExpressionPanel extends JPanel {
 	final static String initialCostOfLivingFunction = "0.01 * width * height * acceleration";
 
 	public ExpressionPanel(ApplicationPanel parent) {
-		super(new MigLayout("fill, insets 0, nogrid, flowy", "[grow, left]", "[top]"));
+		super(new MigLayout("fillx, wrap", "left", "[top|]50[|]"));
 		
 		this.parent = parent;
 
@@ -37,7 +37,7 @@ public class ExpressionPanel extends JPanel {
 		this.add(new CreatureExpressionTextField(initialStrengthFunction, ExpressionId.STRENGTH, parent), "growx");
 
 		// cost of living
-		this.add(new JLabel("How much energy per second a creature loses just for existing."));
+		this.add(new JLabel("How much energy per second a creature loses just for existing:"));
 		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, parent), "growx");;
 	}
 }

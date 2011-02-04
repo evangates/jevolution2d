@@ -54,6 +54,11 @@ public class PropertyTests extends ExpressionTestBase {
 
 	 @Test
 	 public void accelerationTest() {
-		 testExpression("acceleration", creature.getAcceleration());
+		 testExpression("acceleration", Math.abs(creature.getAcceleration()));
+	 }
+
+	 @Test
+	 public void angularVelocityTest() {
+		 testExpression("angularVelocity", Math.abs(creature.getAngularVelocity()));
 	 }
 }

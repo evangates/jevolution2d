@@ -48,6 +48,7 @@ whitespace = [ \t]
 
 "velocity"				{ return symbol(VELOCITY); }
 "acceleration"			{ return symbol(ACCELERATION); }
+"angularVelocity"		{ return symbol(ANGULAR_VELOCITY); }
 
 /* literals */
 {literal}				{ return symbol(LITERAL, yytext()); }

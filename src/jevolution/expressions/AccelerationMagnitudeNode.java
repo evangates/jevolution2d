@@ -11,10 +11,10 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class AccelerationNode extends ValueNode {
+public class AccelerationMagnitudeNode extends ValueNode {
 	@Override
 	public double evaluate(Creature c) {
-		return c.getAcceleration();
+		return Math.abs(c.getAcceleration());
 	}
 
 	@Override
