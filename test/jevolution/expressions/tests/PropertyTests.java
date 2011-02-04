@@ -46,4 +46,14 @@ public class PropertyTests extends ExpressionTestBase {
 	 public void ignoreWhitespaceTest() {
 		 testExpression("   width   \t", creature.getWidth());
 	 }
+
+	 @Test
+	 public void velocityTest() {
+		 testExpression("velocity", creature.getVelocity());
+	 }
+
+	 @Test
+	 public void accelerationTest() {
+		 testExpression("acceleration", creature.getAcceleration());
+	 }
 }

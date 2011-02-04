@@ -20,11 +20,12 @@ import net.miginfocom.swing.MigLayout;
  */
 public class InfoPanel extends JPanel {
 	public InfoPanel() {
-		super(new MigLayout("fill, wrap, gap 0", "", "[||]20[|||||]20[|]"));
+		super(new MigLayout("fill, wrap, gap 0", "", "[|||]20[|||||]20[|]"));
 
 		addHeader("properties:");
 		addInfo("red, green, blue");
 		addInfo("width, height");
+		addInfo("velocity, acceleration");
 
 		addHeader("operations:");
 		addInfo("+ addition");

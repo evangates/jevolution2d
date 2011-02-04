@@ -36,8 +36,12 @@ whitespace = [ \t]
 "red"					{ return symbol(RED); }
 "green"					{ return symbol(GREEN); }
 "blue"					{ return symbol(BLUE); }
+
 "width"					{ return symbol(WIDTH); }
 "height"				{ return symbol(HEIGHT); }
+
+"velocity"				{ return symbol(VELOCITY); }
+"acceleration"			{ return symbol(ACCELERATION); }
 
 /* literals */
 {literal}				{ return symbol(LITERAL, yytext()); }

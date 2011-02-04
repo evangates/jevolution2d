@@ -306,6 +306,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 		}
 	}
 
+	public double getAcceleration() {
+		return acceleration;
+	}
+
 	private double getAge() {
 		return age;
 	}
@@ -392,6 +396,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 //		return getPerimeter() + velocity/2 - color.getGreen();
 //		return getPerimeter()/getMass() + velocity;
 		return world.getStrengthExpression().evaluate(this);
+	}
+
+	public double getVelocity() {
+		return velocity;
 	}
 
 	public double getWidth() {

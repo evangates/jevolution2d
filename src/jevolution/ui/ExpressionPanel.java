@@ -30,7 +30,7 @@ public class ExpressionPanel extends JPanel {
 		this.parent = parent;
 
 		// strength function
-		this.add(new JLabel("Strength function:"));
+		this.add(new JLabel("How much energy per tick that creatures exchange while they touch each other:"));
 		this.add(new CreatureExpressionTextField(initialStrengthFunction, parent), "growx");
 	}
 }

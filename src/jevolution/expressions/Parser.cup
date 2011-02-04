@@ -22,6 +22,7 @@ parser code {:
 /* properties */
 terminal		RED, GREEN, BLUE;
 terminal		WIDTH, HEIGHT;
+terminal		VELOCITY, ACCELERATION;
 
 /* literal, everything a double right now */
 terminal String LITERAL;
@@ -42,12 +43,15 @@ non terminal ValueNode value;
 
 /* precedences */
 precedence left ADDOP, SUBOP;
-precedence left MULTOP;
+precedence left MULTOP, DIVOP;
+precedence right POWOP;
 
 expr ::=		LPAREN expr:e RPAREN {: RESULT = new ParenthesisExpression(e); :}
 				| expr:lhs ADDOP expr:rhs {: RESULT = new AdditionNode(lhs, rhs); :}
 				| expr:lhs SUBOP expr:rhs {: RESULT = new SubtractionNode(lhs, rhs); :}
 				| expr:lhs MULTOP expr:rhs {: RESULT = new MultiplicationNode( lhs, rhs); :}
+				| expr:lhs DIVOP expr:rhs {: RESULT = new DivisionNode( lhs, rhs); :}
+				| expr:lhs POWOP expr:rhs {: RESULT = new ExponentiationNode( lhs, rhs); :}
 				| SUBOP expr:e {: RESULT = new NegateNode(e); :}
 				| value:e {: RESULT = e; :}
 				| ERROR:e {: parser.done_parsing(); RESULT = new ErrorNode(e); :}
@@ -58,5 +62,7 @@ value ::=		RED {: RESULT = new RedNode(); :}
 				| BLUE {: RESULT = new BlueNode(); :}
 				| WIDTH {: RESULT = new WidthNode(); :}
 				| HEIGHT {: RESULT = new HeightNode(); :}
+				| VELOCITY {: RESULT = new VelocityNode(); :}
+				| ACCELERATION {: RESULT = new AccelerationNode(); :}
 				| LITERAL:e {: RESULT = new LiteralNode(Double.parseDouble(e)); :}
 				;
