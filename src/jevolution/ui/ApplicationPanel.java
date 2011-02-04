@@ -1,5 +1,4 @@
 package jevolution.ui;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +9,8 @@ import net.miginfocom.swing.MigLayout;
 
 public class ApplicationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
+
+	private final static int TICK_INTERVAL = 2;
 
 	private EnvironmentPanel canvas;
 	private Timer timer;
@@ -36,7 +37,7 @@ public class ApplicationPanel extends JPanel {
 		this.add(configPanel, "grow");
 
 		speedModifier = 1d;
-		timer = new Timer(15, new ActionListener() {
+		timer = new Timer(TICK_INTERVAL, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateFPS();
