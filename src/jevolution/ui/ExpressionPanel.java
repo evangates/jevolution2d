@@ -25,7 +25,7 @@ public class ExpressionPanel extends JPanel {
 	private ApplicationPanel parent;
 
 	private final static String initialStrengthFunction = "blue - red - green + 3*(width - height)";
-	private final static String initialCostOfLivingFunction = "0.01 * width * height * acceleration";
+	private final static String initialCostOfLivingFunction = "0.001 * width * height * acceleration";
 
 	private final static int MAX_SPEED = 20;
 	private final static int INITIAL_SPEED = 1;

@@ -10,7 +10,7 @@ import net.miginfocom.swing.MigLayout;
 public class ApplicationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	private final static int TICK_INTERVAL = 2;
+	private final static int TICK_INTERVAL = 15;
 
 	private EnvironmentPanel canvas;
 	private Timer timer;
@@ -22,7 +22,7 @@ public class ApplicationPanel extends JPanel {
 	private double speedModifier;
 	
 	public ApplicationPanel() {
-		super(new MigLayout("fill, wrap", "[grow, center]", "[grow, center][grow, center]"));
+		super(new MigLayout("fill, wrap", "[grow, center]", "[center, top][grow, center, top]"));
 
 		width = 800;
 		height = 600;
