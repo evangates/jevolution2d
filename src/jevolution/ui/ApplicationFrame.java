@@ -4,7 +4,6 @@
  */
 package jevolution.ui;
 
-import jevolution.ui.ApplicationPanel;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 

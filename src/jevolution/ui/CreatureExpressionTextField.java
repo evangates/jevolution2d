@@ -4,7 +4,6 @@
  */
 package jevolution.ui;
 
-import jevolution.ui.ApplicationPanel;
 import java.awt.Color;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -29,6 +28,7 @@ public class CreatureExpressionTextField extends JTextField {
 	private ApplicationPanel panel;
 
 	public CreatureExpressionTextField(String expression, ApplicationPanel panel) {
+		super(expression);
 		this.panel = panel;
 
 		addFocusListener(new FocusAdapter() {
@@ -50,19 +50,7 @@ public class CreatureExpressionTextField extends JTextField {
 			}
 		});
 
-		CreatureExpression parsed = new CreatureExpression(expression);
-
-		isValidExpression = parsed.isValid();
-
-		if (isValidExpression) {
-			lastValidExpression = parsed;
-			lastSubmittedText = parsed.toString();
-		}
-		else {
-			lastSubmittedText = expression;
-		}
-
-		setText(lastSubmittedText);
+		updateExpression();
 	}
 
 	public CreatureExpression getExpression() {
@@ -89,7 +77,7 @@ public class CreatureExpressionTextField extends JTextField {
 			this.lastValidExpression = newExpression;
 			isValidExpression = true;
 			setText(newText);
-			panel.updateStrengthFunction();
+			panel.updateStrengthFunction(newExpression);
 
 		} else {
 			isValidExpression = false;
