@@ -83,4 +83,24 @@ public class BinaryExpressionTests extends ExpressionTestBase {
 		testExpression("10 - 5 - 2", 3);
 		testExpression("10 - (5 - 2)", 7);
 	}
+
+	@Test
+	public void plusMinusTest() {
+		testExpression("3 + -2", 1);
+	}
+
+	@Test
+	public void minusMinusTest() {
+		testExpression("3 - -2", 5);
+	}
+
+	@Test
+	public void minusMinusPropertyTest() {
+		testExpression("red --blue", creature.getRed() + creature.getBlue());
+	}
+
+	@Test
+	public void bubbleUpBadNodeTest() {
+		testExpression("eree + 5", Double.NaN);
+	}
 }

@@ -8,10 +8,13 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javax.swing.JPanel;
+import jevolution.expressions.CreatureExpression;
 
 
 public class EnvironmentPanel extends JPanel {
 	final static double maxVelocity = 400;
+
+	private CreatureExpression strengthExpression;
 	
 	final static int minNumCreatures = 50;
 	final static int preferredNumCreatures = 75;
@@ -49,6 +52,15 @@ public class EnvironmentPanel extends JPanel {
 		for(int i = 0; i < preferredNumCreatures; ++i) {
 			creatures.add(Creature.random(this));
 		}
+	}
+
+	public CreatureExpression getStrengthExpression() {
+		return this.strengthExpression;
+	}
+
+	public void setStrengthExpression(CreatureExpression expr) {
+		this.strengthExpression = expr;
+		System.out.println(String.format("evironment panel strength function updated: %s", expr.toString()));
 	}
 	
 	private void drawLines(Graphics2D g) {

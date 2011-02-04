@@ -56,4 +56,4 @@ whitespace = [ \t]
 {whitespace}			{ /* ignore */ }
 
 /* error fallback */
-.|\n					{ error("Illegal character <" + yytext() + ">"); }
+.|\n					{ error("Illegal character <" + yytext() + ">"); return symbol(ERROR, yytext()); }

@@ -16,4 +16,8 @@ public abstract class CreatureExpressionNode {
 
 	@Override
 	public abstract String toString();
+
+	public boolean isValid() {
+		return true;
+	}
 }

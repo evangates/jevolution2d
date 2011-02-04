@@ -2,8 +2,8 @@ package jevolution;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
+import jevolution.expressions.CreatureExpression;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -11,6 +11,7 @@ public class ApplicationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private EnvironmentPanel canvas;
+	private CreatureExpressionTextField strengthFunctionTextField;
 	private Timer timer;
 	private long startTime = 0;
 	private int numFrames = 0;
@@ -18,14 +19,24 @@ public class ApplicationPanel extends JPanel {
 	private int width, height;
 	
 	public ApplicationPanel() {
-		super(new MigLayout("fill", "[grow,center]", "[center,grow][center,grow]"));
+		super(new MigLayout("fill", "center"));
+
+		String initialStrengthFunction = "-red - green + blue + 3*(width - height)";
 
 		width = 800;
 		height = 600;
 
 		canvas = new EnvironmentPanel(width, height);
 		this.add(canvas, "wrap");
-		this.add(new ConfigurationPanel(width));
+
+		JPanel configPanel = new JPanel(new MigLayout("fill", String.format("[%d]", width)));
+		this.add(configPanel);
+
+		// strength function
+		configPanel.add(new JLabel("Strength function:"), "left, grow, wrap");
+		strengthFunctionTextField = new CreatureExpressionTextField(initialStrengthFunction, this);
+		updateStrengthFunction();
+		configPanel.add(strengthFunctionTextField, "left, grow, wrap");
 
 		timer = new Timer(20, new ActionListener() {
 			@Override
@@ -57,6 +68,8 @@ public class ApplicationPanel extends JPanel {
 			}
 		}
 	}
-	
-	
+
+	public void updateStrengthFunction() {
+		canvas.setStrengthExpression(strengthFunctionTextField.getExpression());
+	}
 }

@@ -19,6 +19,37 @@ public class CreatureExpression {
 	}
 
 	public double evaluate(Creature c) {
-		return node.evaluate(c);
+		if (isValid()) {
+			return node.evaluate(c);
+		}
+		else return Double.NaN;
+	}
+
+	public boolean isValid() {
+		return node != null && node.isValid();
+	}
+
+	@Override
+	public String toString() {
+		if (isValid()) {
+			return node.toString();
+		}
+		else return "";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null || obj instanceof CreatureExpression == false) {
+			return false;
+		}
+
+		CreatureExpression other = (CreatureExpression)obj;
+
+		return toString().equals(other.toString());
+	}
+
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
 	}
 }

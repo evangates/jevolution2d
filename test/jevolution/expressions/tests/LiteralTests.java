@@ -37,4 +37,9 @@ public class LiteralTests extends ExpressionTestBase {
 	 public void noDigitsBeforeDecimialTesT() {
 		 testExpression(".5", .5);
 	 }
+
+	 @Test
+	 public void badLiteralTest() {
+		 testExpression("ree", Double.NaN);
+	 }
 }

@@ -2,6 +2,23 @@ package jevolution.expressions;
 
 import java_cup.runtime.*;
 
+parser code {:
+	boolean syntaxErrors = false;
+
+	public void report_error(String message, Object info) {
+		syntaxErrors = true;
+
+		System.out.println(message);
+
+		if ( !(info instanceof Symbol) ) return;
+		Symbol symbol = (Symbol) info;
+
+		if ( symbol.left < 0 || symbol.right < 0 ) return;
+
+		System.out.println(" at line "+symbol.left+", column "+symbol.right);
+	}
+:}
+
 /* properties */
 terminal		RED, GREEN, BLUE;
 terminal		WIDTH, HEIGHT;
@@ -14,6 +31,9 @@ terminal		ADDOP, SUBOP;
 terminal		MULTOP, DIVOP;
 terminal		POWOP;
 
+/* error */
+terminal String ERROR;
+
 /* parens */
 terminal		LPAREN, RPAREN;
 
@@ -24,12 +44,13 @@ non terminal ValueNode value;
 precedence left ADDOP, SUBOP;
 precedence left MULTOP;
 
-expr ::=		LPAREN expr:e RPAREN {: RESULT = e; :}
+expr ::=		LPAREN expr:e RPAREN {: RESULT = new ParenthesisExpression(e); :}
 				| expr:lhs ADDOP expr:rhs {: RESULT = new AdditionNode(lhs, rhs); :}
 				| expr:lhs SUBOP expr:rhs {: RESULT = new SubtractionNode(lhs, rhs); :}
 				| expr:lhs MULTOP expr:rhs {: RESULT = new MultiplicationNode( lhs, rhs); :}
 				| SUBOP expr:e {: RESULT = new NegateNode(e); :}
 				| value:e {: RESULT = e; :}
+				| ERROR:e {: parser.done_parsing(); RESULT = new ErrorNode(e); :}
 				;
 
 value ::=		RED {: RESULT = new RedNode(); :}

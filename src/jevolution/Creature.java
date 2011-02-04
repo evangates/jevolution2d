@@ -373,8 +373,8 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 
 	public Shape getShape() {
-		Shape shape = new Rectangle2D.Double(-width / 2, -height / 2, width,
-				height);
+		Shape shape = new Rectangle2D.Double(-height / 2, -width / 2, height,
+				width);
 
 		AffineTransform transform = new AffineTransform();
 
@@ -387,9 +387,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 	private double getStrength() {
 //		return getAge() + color.getRGB()/0xfff;
 		//return getPerimeter() * Math.sqrt(velocity) * Math.abs(angularVelocity) * color.getRGB()/0xffff;
-		return -color.getRed() - color.getGreen() + color.getBlue()+ 3*(height - width);
+//		return -color.getRed() - color.getGreen() + color.getBlue()+ 3*(height - width);
 //		return getPerimeter() + velocity/2 - color.getGreen();
 //		return getPerimeter()/getMass() + velocity;
+		return world.getStrengthExpression().evaluate(this);
 	}
 
 	public double getWidth() {
@@ -401,7 +402,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 
 	private double headingLineMagnitude() {
-		return (velocity / maxVelocity) * width + width;
+		return (velocity / maxVelocity) * height + height;
 	}
 
 	public void interactWith(Thing other, double timePerFrame) {

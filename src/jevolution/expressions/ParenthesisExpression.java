@@ -11,26 +11,21 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class NegateNode extends CreatureExpressionNode {
-	CreatureExpressionNode expr;
+public class ParenthesisExpression extends CreatureExpressionNode {
+	private CreatureExpressionNode expr;
 
-	public NegateNode(CreatureExpressionNode expr) {
+	public ParenthesisExpression(CreatureExpressionNode expr) {
 		this.expr = expr;
 	}
 
 	@Override
 	public double evaluate(Creature c) {
-		return -expr.evaluate(c);
-	}
-
-	@Override
-	public boolean isValid() {
-		return expr.isValid();
+		return expr.evaluate(c);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("-%s", expr.toString());
+		return String.format("(%s)", expr.toString());
 	}
 
 }
