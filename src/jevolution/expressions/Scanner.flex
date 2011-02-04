@@ -26,7 +26,13 @@ import java_cup.runtime.*;
   }
 %}
 
-literal = 0 | [0-9]* ("." [0-9]*)?
+int = [0-9]+
+
+exponent_part = [\e\E][\+\-]?{int}
+
+float = {int}\.{int}{exponent_part}? | \.{int}{exponent_part}? | {int}{exponent_part}
+
+literal = 0 | {int} | {float}
 
 whitespace = [ \t]
 

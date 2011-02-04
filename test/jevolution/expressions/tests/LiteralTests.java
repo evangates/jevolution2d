@@ -42,4 +42,29 @@ public class LiteralTests extends ExpressionTestBase {
 	 public void badLiteralTest() {
 		 testExpression("ree", Double.NaN);
 	 }
+
+	 @Test
+	 public void positiveExponentLiteralTest() {
+		 testExpression("0.1e4", 0.1e4);
+	 }
+
+	 @Test
+	 public void negativeExponentLiteralTest() {
+		 testExpression("0.1e-4", 0.1e-4);
+	 }
+
+	 @Test
+	 public void missingExponentPartLiteralTest() {
+		 testExpression("0.1e", Double.NaN);
+	 }
+
+	 @Test
+	 public void noLeadingDigitTest() {
+		 testExpression(".1e-4", 0.1e-4);
+	 }
+
+	 @Test
+	 public void capitalETest() {
+		 testExpression("0.1E-4", 0.1E-4);
+	 }
 }
