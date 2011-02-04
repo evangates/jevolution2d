@@ -11,8 +11,8 @@ import javax.swing.SwingUtilities;
  *
  * @author kuhlmancer
  */
-public class ApplicationFrame extends JFrame implements Runnable {
-	public void run() {
+public class ApplicationFrame extends JFrame {
+	public static void createAndShowGUI() {
 		ApplicationPanel panel = new ApplicationPanel();
 		JFrame window = new JFrame("jevolution 2D");
 		window.add(panel);
@@ -25,6 +25,10 @@ public class ApplicationFrame extends JFrame implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new ApplicationFrame());
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
 	}
 }
