@@ -1,4 +1,5 @@
 package jevolution.ui;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,9 +19,7 @@ public class ApplicationPanel extends JPanel {
 	private int width, height;
 	
 	public ApplicationPanel() {
-		super(new MigLayout("fill, debug, wrap", "[grow, center]", "[grow, center][grow, center]"));
-
-		String initialStrengthFunction = "-red - green + blue + 3*(width - height)";
+		super(new MigLayout("fill, wrap", "[grow, center]", "[grow, center][grow, center]"));
 
 		width = 800;
 		height = 600;
@@ -28,17 +27,9 @@ public class ApplicationPanel extends JPanel {
 		canvas = new EnvironmentPanel(width, height);
 		this.add(canvas);
 
-		JPanel configPanel = new JPanel(new MigLayout("debug, fill, insets 0", "[grow | ]", "[grow, top]"));
-		JPanel expressionPanel = new JPanel(new MigLayout("debug, fill, insets 0, wrap", "[grow, left]"));
-
-		// strength function
-		expressionPanel.add(new JLabel("Strength function:"));
-		expressionPanel.add(new CreatureExpressionTextField(initialStrengthFunction, this), "left, grow, wrap");
-
-		configPanel.add(expressionPanel);
-
-		JPanel infoPanel = new InfoPanel();
-		configPanel.add(infoPanel);
+		JPanel configPanel = new JPanel(new MigLayout("fill, insets 0", "[grow | ]", "[grow, top]"));
+		configPanel.add(new ExpressionPanel(this), "grow");
+		configPanel.add(new InfoPanel());
 
 		this.add(configPanel, "grow");
 
