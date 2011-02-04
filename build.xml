@@ -30,10 +30,10 @@
 		<taskdef name="cup" classname="java_cup.anttask.CUPTask" classpath="lib/java-cup-11a.jar" />
 		<echo message="CUP file is ${cup.file}" />
 		<echo message="Output dir is ${dest.dir}" />
-		<cup srcfile="${cup.file}" destdir="${dest.dir}" parser="Parser" interface="true"/>
+		<cup srcfile="${cup.file}" destdir="${dest.dir}" force="true" parser="Parser" interface="true"/>
 	</target>
 
-	<target name="make-scanner" depends="make-parser" description="Builds the scanner.">
+	<target name="make-scanner" depends="-custom-clean, make-parser" description="Builds the scanner.">
 		<taskdef classname="JFlex.anttask.JFlexTask" classpath="lib/JFlex.jar" name="jflex" />
 		<echo message="JFlex file is ${jflex.file}" />
 		<echo message="Output dir is ${dest.dir}" />
