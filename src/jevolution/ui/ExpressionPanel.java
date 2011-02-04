@@ -8,8 +8,6 @@ package jevolution.ui;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import jevolution.ui.ApplicationPanel;
-import jevolution.ui.CreatureExpressionTextField;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -26,10 +24,15 @@ import net.miginfocom.swing.MigLayout;
 public class ExpressionPanel extends JPanel {
 	private ApplicationPanel parent;
 
-	final static String initialStrengthFunction = "blue - red - green + 3*(width - height)";
-	final static String initialCostOfLivingFunction = "0.01 * width * height * acceleration";
+	private final static String initialStrengthFunction = "blue - red - green + 3*(width - height)";
+	private final static String initialCostOfLivingFunction = "0.01 * width * height * acceleration";
+
+	private final static int MAX_SPEED = 20;
+	private final static int INITIAL_SPEED = 1;
+	private final static double MULTIPLIER = 100;
 
 	private JSlider speedSlider;
+	private JLabel speedLabel;
 
 	public ExpressionPanel(ApplicationPanel app) {
 		super(new MigLayout("fillx, wrap", "left", "[top|]50[|]50[|]"));
@@ -41,17 +44,28 @@ public class ExpressionPanel extends JPanel {
 		this.add(new CreatureExpressionTextField(initialStrengthFunction, ExpressionId.STRENGTH, app), "growx");
 
 		// cost of living
-		this.add(new JLabel("How much energy per second a creature loses just for existing:"));
+		this.add(new JLabel("How much energy per second a creature loses when accelerating:"));
 		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, app), "growx");
 
 		// speed
-		speedSlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, 100);
+		speedLabel = new JLabel();
+		speedSlider = new JSlider(JSlider.HORIZONTAL, 0, MAX_SPEED * (int)MULTIPLIER, INITIAL_SPEED * (int)MULTIPLIER);
 		speedSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
-				parent.updateSpeedModifier(speedSlider.getValue() / 100d);
+				parent.updateSpeedModifier(getSpeed());
+				updateSpeedLabelText();
 			}
 		});
-		this.add(new JLabel("Simulation speed:"));
-		this.add(speedSlider);
+		this.add(speedLabel);
+		this.add(speedSlider, "growx");
+		updateSpeedLabelText();
+	}
+
+	private double getSpeed() {
+		return speedSlider.getValue() / MULTIPLIER;
+	}
+
+	private void updateSpeedLabelText() {
+		this.speedLabel.setText(String.format("Simulation speed: %2.2fx", getSpeed()));
 	}
 }

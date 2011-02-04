@@ -19,11 +19,11 @@ public class EnvironmentPanel extends JPanel {
 	private CreatureExpression strengthExpression;
 	private CreatureExpression costOfLivingExpression;
 	
-	final static int minNumCreatures = 15;
+	final static int minNumCreatures = 20;
 	final static int preferredNumCreatures = 75;
 	final static int maxNumCreatures = 100;
-	final static double secondsBetweenRandoms = 1;
-	final static double secondsBetweenMatings = 0.05;
+	final static double timeBetweenRandoms = 1;
+	final static double timeBetweenMatings = 0.05;
 	
 	private static final long serialVersionUID = 1L;
 	private LinkedList<Creature> creatures;
@@ -144,12 +144,12 @@ public class EnvironmentPanel extends JPanel {
 			creatures.add(Creature.random(this));
 		}
 		
-		if (timeSinceLastRandom > secondsBetweenRandoms && creatures.size() < preferredNumCreatures) {
+		if (timeSinceLastRandom > timeBetweenRandoms && creatures.size() < preferredNumCreatures) {
 			creatures.add(Creature.random(this));
 			timeSinceLastRandom = 0;
 		}
 		
-		if (timeSinceLastMating > secondsBetweenMatings && creatures.size() < maxNumCreatures) {
+		if (timeSinceLastMating > timeBetweenMatings && creatures.size() < maxNumCreatures) {
 			Random r = new Random();
 			
 			int index1 = r.nextInt(creatures.size());
