@@ -17,8 +17,9 @@ public class EnvironmentPanel extends JPanel {
 	public final static double maxVelocity = 400;
 
 	private CreatureExpression strengthExpression;
+	private CreatureExpression costOfLivingExpression;
 	
-	final static int minNumCreatures = 50;
+	final static int minNumCreatures = 2;
 	final static int preferredNumCreatures = 75;
 	final static int maxNumCreatures = 100;
 	final static double secondsBetweenRandoms = 1;
@@ -60,9 +61,18 @@ public class EnvironmentPanel extends JPanel {
 		return this.strengthExpression;
 	}
 
+	public CreatureExpression getCostOfLivingExpression() {
+		return this.costOfLivingExpression;
+	}
+
 	public void setStrengthExpression(CreatureExpression expr) {
 		this.strengthExpression = expr;
 		System.out.println(String.format("evironment panel strength function updated: %s", expr.toString()));
+	}
+
+	public void setCostOfLivingExpression(CreatureExpression expr) {
+		this.costOfLivingExpression = expr;
+		System.out.println(String.format("environment panel cost of living function updated: %s", expr.toString()));
 	}
 	
 	private void drawLines(Graphics2D g) {

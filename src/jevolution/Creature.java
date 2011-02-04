@@ -326,6 +326,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return childEnergyDonation;
 	}
 
+	private double getCostOfLiving() {
+		return world.getCostOfLivingExpression().evaluate(this);
+	}
+
 	public int getRed() {
 		return color.getRed();
 	}
@@ -449,7 +453,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 			}
 
 			angle += angularVelocity;
-			velocity += acceleration - 0.01*velocity;
+			velocity += acceleration;
 
 			clampVelocity();
 
@@ -460,10 +464,9 @@ public class Creature extends Thing implements Comparable<Creature> {
 			y += yDelta;
 
 
-			// energy expenditure from acceleration
-			if (acceleration > 0) {
-				energy -= getMass() * 0.01 * timePerFrame * acceleration;
-			}
+			// cost of living
+			energy -= timePerFrame * getCostOfLiving();
+
 			// energy expenditure from spinning
 //			energy -= getPerimeter() * 0.0001 * timePerFrame * angularVelocity;
 

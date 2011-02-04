@@ -64,7 +64,14 @@ public class ApplicationPanel extends JPanel {
 		}
 	}
 
-	public void updateStrengthFunction(CreatureExpression expr) {
-		canvas.setStrengthExpression(expr);
+	public void updateExpression(CreatureExpression expr, ExpressionId id) {
+		switch(id) {
+			case STRENGTH:
+				canvas.setStrengthExpression(expr);
+				break;
+			case COST_OF_LIVING:
+				canvas.setCostOfLivingExpression(expr);
+				break;
+		}
 	}
 }

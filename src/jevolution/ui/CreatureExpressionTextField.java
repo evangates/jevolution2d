@@ -26,10 +26,12 @@ public class CreatureExpressionTextField extends JTextField {
 	private final static Color validTextColor = Color.BLACK;
 	private final static Color invalidTextColor = Color.RED;
 	private ApplicationPanel panel;
+	private ExpressionId id;
 
-	public CreatureExpressionTextField(String expression, ApplicationPanel panel) {
+	public CreatureExpressionTextField(String expression, ExpressionId type, ApplicationPanel panel) {
 		super(expression);
 		this.panel = panel;
+		this.id = type;
 
 		addFocusListener(new FocusAdapter() {
 			@Override
@@ -77,7 +79,7 @@ public class CreatureExpressionTextField extends JTextField {
 			this.lastValidExpression = newExpression;
 			isValidExpression = true;
 			setText(newText);
-			panel.updateStrengthFunction(newExpression);
+			panel.updateExpression(newExpression, this.id);
 
 		} else {
 			isValidExpression = false;

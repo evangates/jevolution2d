@@ -6,6 +6,8 @@
 package jevolution.ui;
 
 import javax.swing.*;
+import jevolution.ui.ApplicationPanel;
+import jevolution.ui.CreatureExpressionTextField;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -23,6 +25,7 @@ public class ExpressionPanel extends JPanel {
 	ApplicationPanel parent;
 
 	final static String initialStrengthFunction = "blue - red - green + 3*(width - height)";
+	final static String initialCostOfLivingFunction = "0.01 * width * height * acceleration";
 
 	public ExpressionPanel(ApplicationPanel parent) {
 		super(new MigLayout("fill, insets 0, nogrid, flowy", "[grow, left]", "[top]"));
@@ -30,7 +33,11 @@ public class ExpressionPanel extends JPanel {
 		this.parent = parent;
 
 		// strength function
-		this.add(new JLabel("How much energy per tick that creatures exchange while they touch each other:"));
-		this.add(new CreatureExpressionTextField(initialStrengthFunction, parent), "growx");
+		this.add(new JLabel("How much energy per second that creatures steal while they touch each other:"));
+		this.add(new CreatureExpressionTextField(initialStrengthFunction, ExpressionId.STRENGTH, parent), "growx");
+
+		// cost of living
+		this.add(new JLabel("How much energy per second a creature loses just for existing."));
+		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, parent), "growx");;
 	}
 }
