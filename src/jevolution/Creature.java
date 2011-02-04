@@ -1,5 +1,6 @@
 package jevolution;
 
+import jevolution.ui.EnvironmentPanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;

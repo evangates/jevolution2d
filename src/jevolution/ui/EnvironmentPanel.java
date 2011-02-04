@@ -1,4 +1,4 @@
-package jevolution;
+package jevolution.ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,11 +8,13 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import javax.swing.JPanel;
+import jevolution.Creature;
+import jevolution.Thing;
 import jevolution.expressions.CreatureExpression;
 
 
 public class EnvironmentPanel extends JPanel {
-	final static double maxVelocity = 400;
+	public final static double maxVelocity = 400;
 
 	private CreatureExpression strengthExpression;
 	

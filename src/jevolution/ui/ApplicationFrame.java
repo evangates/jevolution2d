@@ -2,8 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package jevolution;
+package jevolution.ui;
 
+import jevolution.ui.ApplicationPanel;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 

@@ -1,9 +1,8 @@
-package jevolution;
+package jevolution.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import jevolution.expressions.CreatureExpression;
 import net.miginfocom.swing.MigLayout;
 
 

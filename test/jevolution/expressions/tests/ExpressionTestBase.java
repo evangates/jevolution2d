@@ -5,6 +5,7 @@
 
 package jevolution.expressions.tests;
 
+import jevolution.ui.EnvironmentPanel;
 import jevolution.*;
 import jevolution.expressions.*;
 import org.junit.Before;
