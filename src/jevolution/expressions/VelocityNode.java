@@ -15,7 +15,7 @@ public class VelocityNode extends ValueNode {
 
 	@Override
 	public double evaluate(Creature c) {
-		return c.getVelocity();
+		return Math.abs(c.getVelocity());
 	}
 
 	@Override
