@@ -114,25 +114,4 @@ public class BinaryExpressionTests extends ExpressionTestBase {
 		testExpression("12 / 6 / 2", 1);
 		testExpression("12 / (6 / 2)", 4);
 	}
-
-	@Test
-	public void exponentiationTest() {
-		testExpression("2^3", 8);
-	}
-
-	@Test
-	public void exponentiationAssociativityTest() {
-		testExpression("4^3^2", Math.pow(4,9));
-		testExpression("(4^3)^2", 64*64);
-	}
-
-	@Test
-	public void additonAndExponentiationTest() {
-		testExpression("2^3+3^4", 89);
-	}
-
-	@Test
-	public void multiplicationAndExponentiationTest() {
-		testExpression("2^3*3^4", 8*81);
-	}
 }
