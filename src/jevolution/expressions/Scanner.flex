@@ -62,7 +62,6 @@ whitespace = [ \t]
 "-"						{ return symbol(SUBOP); }
 "*"						{ return symbol(MULTOP); }
 "/"						{ return symbol(DIVOP); }
-"^"						{ return symbol(POWOP); }
 
 {whitespace}			{ /* ignore */ }
 

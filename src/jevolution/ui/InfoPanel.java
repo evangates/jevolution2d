@@ -20,7 +20,7 @@ import net.miginfocom.swing.MigLayout;
  */
 public class InfoPanel extends JPanel {
 	public InfoPanel() {
-		super(new MigLayout("fill, wrap, gap 0", "", "[||||]20[|||||]20[|]"));
+		super(new MigLayout("fill, wrap, gap 0", "", "[||||]20[||||]20[|]"));
 
 		addHeader("properties:");
 		addInfo("red, green, blue");
@@ -34,7 +34,6 @@ public class InfoPanel extends JPanel {
 		addInfo("-  subtraction");
 		addInfo("*  multiplication");
 		addInfo("/  division");
-		addInfo("^  exponentiation");
 
 		addMemo("You can use parenthesis too.");
 		addMemo(Color.red,"Red text means it's a bad expression.");
