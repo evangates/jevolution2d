@@ -271,9 +271,9 @@ public class Creature extends Thing implements Comparable<Creature> {
 		if (velocity > maxVelocity) {
 			velocity = maxVelocity;
 		}
-//		else if (velocity < 0) {
-//			velocity = 0;
-//		}
+		else if (velocity < -maxVelocity) {
+			velocity = -maxVelocity;
+		}
 	}
 
 	@Override
