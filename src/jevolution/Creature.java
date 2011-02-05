@@ -270,9 +270,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 	private void clampVelocity() {
 		if (velocity > maxVelocity) {
 			velocity = maxVelocity;
-		} else if (velocity < 0) {
-			velocity = 0;
 		}
+//		else if (velocity < 0) {
+//			velocity = 0;
+//		}
 	}
 
 	@Override
@@ -419,7 +420,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 
 	private double headingLineMagnitude() {
-		return (velocity / maxVelocity) * height + height;
+		return (velocity / maxVelocity) * 1.5d * height;
 	}
 
 	public void interactWith(Thing other, double timePerFrame) {
@@ -438,7 +439,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 			timeUntilNextAccelerationChange -= timePerFrame;
 			timeUntilNextAngleChange -= timePerFrame;
 
-			if (timeUntilNextAccelerationChange <= 0 || velocity <= 0) {
+			if (timeUntilNextAccelerationChange <= 0) {
 				acceleration = accelRange * r.nextDouble() + minAccel;
 				if (r.nextBoolean()) {
 					acceleration *= -1;
@@ -467,7 +468,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 
 			// cost of living
-			if (acceleration > 0) {
+			if ((acceleration > 0 && velocity < 0) || (acceleration < 0 && velocity > 0)) {
 				energy -= timePerFrame * getCostOfLiving();
 			}
 
