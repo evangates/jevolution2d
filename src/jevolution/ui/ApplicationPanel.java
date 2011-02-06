@@ -79,7 +79,14 @@ public class ApplicationPanel extends JPanel {
 		}
 	}
 
-	public void updateSpeedModifier(double modifier) {
-		this.speedModifier = modifier;
+	public void updateValue(double value, ValueId id) {
+		switch(id) {
+			case SIMULATION_SPEED:
+				this.speedModifier = value;
+				break;
+			case MATINGS_PER_SECOND:
+				canvas.setMatingsPerSecond(value);
+				break;
+		}
 	}
 }

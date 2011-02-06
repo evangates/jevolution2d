@@ -35,7 +35,7 @@ public class ExpressionPanel extends JPanel {
 	private JLabel speedLabel;
 
 	public ExpressionPanel(ApplicationPanel app) {
-		super(new MigLayout("fillx, wrap", "left", "[top|]50[|]50[|]"));
+		super(new MigLayout("fillx, wrap", "left", "[top|]50[|]50[||]"));
 		
 		this.parent = app;
 
@@ -48,24 +48,9 @@ public class ExpressionPanel extends JPanel {
 		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, app), "growx");
 
 		// speed
-		speedLabel = new JLabel();
-		speedSlider = new JSlider(JSlider.HORIZONTAL, 0, MAX_SPEED * (int)MULTIPLIER, INITIAL_SPEED * (int)MULTIPLIER);
-		speedSlider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				parent.updateSpeedModifier(getSpeed());
-				updateSpeedLabelText();
-			}
-		});
-		this.add(speedLabel);
-		this.add(speedSlider, "growx");
-		updateSpeedLabelText();
-	}
+		this.add(new ValueSliderWithLabel("Simulation speed: %.2fx", ValueId.SIMULATION_SPEED, 20, 1000, 1, app), "growx");
 
-	private double getSpeed() {
-		return speedSlider.getValue() / MULTIPLIER;
-	}
-
-	private void updateSpeedLabelText() {
-		this.speedLabel.setText(String.format("Simulation speed: %2.2fx", getSpeed()));
+		// mate rate
+		this.add(new ValueSliderWithLabel("Matings per second: %.2f", ValueId.MATINGS_PER_SECOND, 40, 100, 20, app), "growx");
 	}
 }

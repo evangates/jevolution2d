@@ -23,16 +23,16 @@ public class EnvironmentPanel extends JPanel {
 	final static int preferredNumCreatures = 75;
 	final static int maxNumCreatures = 100;
 	final static double timeBetweenRandoms = 1;
-	final static double timeBetweenMatings = 0.05;
+	private double timeBetweenMatings = 0.05;
 	
 	private static final long serialVersionUID = 1L;
 	private LinkedList<Creature> creatures;
-	int height;
-	
-	int width;
-	
-	double timeSinceLastRandom;
-	double timeSinceLastMating;
+
+	private int height;
+	private int width;
+
+	private double timeSinceLastRandom;
+	private double timeSinceLastMating;
 	
 	public EnvironmentPanel(int width, int height) {
 		this.width = width;
@@ -73,6 +73,10 @@ public class EnvironmentPanel extends JPanel {
 	public void setCostOfLivingExpression(CreatureExpression expr) {
 		this.costOfLivingExpression = expr;
 		System.out.println(String.format("environment panel cost of living function updated: %s", expr.toString()));
+	}
+
+	public void setMatingsPerSecond(double matingsPerSecond) {
+		timeBetweenMatings = 1d/matingsPerSecond;
 	}
 	
 	private void drawLines(Graphics2D g) {

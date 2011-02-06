@@ -75,7 +75,6 @@ public class CreatureExpressionTextField extends JTextField {
 		this.lastSubmittedText = newText;
 
 		if (newExpression.isValid()) {
-			System.out.println("updated expression");
 			this.lastValidExpression = newExpression;
 			isValidExpression = true;
 			setText(newText);
