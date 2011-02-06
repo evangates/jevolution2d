@@ -23,6 +23,7 @@ parser code {:
 terminal		RED, GREEN, BLUE;
 terminal		WIDTH, HEIGHT;
 terminal		VELOCITY, ACCELERATION, ANGULAR_VELOCITY;
+terminal		PI;
 
 /* literal, everything a double right now */
 terminal String LITERAL;
@@ -62,5 +63,6 @@ value ::=		RED {: RESULT = new RedNode(); :}
 				| VELOCITY {: RESULT = new VelocityNode(); :}
 				| ACCELERATION {: RESULT = new AccelerationMagnitudeNode(); :}
 				| ANGULAR_VELOCITY {: RESULT = new AngularVelocityMagnitudeNode(); :}
+				| PI {: RESULT = new PiNode(); :}
 				| LITERAL:e {: RESULT = new LiteralNode(Double.parseDouble(e)); :}
 				;

@@ -20,12 +20,13 @@ import net.miginfocom.swing.MigLayout;
  */
 public class InfoPanel extends JPanel {
 	public InfoPanel() {
-		super(new MigLayout("fill, wrap, gap 0", "", "[||||]20[||||]20[|]"));
+		super(new MigLayout("fill, wrap, gap 0", "", "[|||||]20[||||]20[|]20[|]"));
 
 		addHeader("properties:");
 		addInfo("red, green, blue");
 		addInfo("width, height");
-		addInfo("velocity, acceleration, angularVelocity");
+		addInfo("velocity, acceleration");
+		addInfo("angularVelocity (in degrees)");
 		
 		addMemo("all will always be >= 0");
 
@@ -34,6 +35,9 @@ public class InfoPanel extends JPanel {
 		addInfo("-  subtraction");
 		addInfo("*  multiplication");
 		addInfo("/  division");
+
+		addHeader("constants:");
+		addInfo("pi");
 
 		addMemo("You can use parenthesis too.");
 		addMemo(Color.red,"Red text means it's a bad expression.");

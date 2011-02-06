@@ -11,15 +11,16 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class AngularVelocityMagnitudeNode extends ValueNode {
+public class PiNode extends ValueNode {
+
 	@Override
 	public double evaluate(Creature c) {
-		return 180d / Math.PI * Math.abs(c.getAngularVelocity());
+		return Math.PI;
 	}
 
 	@Override
 	public String toString() {
-		return "angularVelocity";
+		return "pi";
 	}
 
 }
