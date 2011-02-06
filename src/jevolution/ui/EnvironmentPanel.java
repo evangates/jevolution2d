@@ -84,38 +84,12 @@ public class EnvironmentPanel extends JPanel {
 		timeBetweenRandoms = 1d/creaturesPerSecond;
 	}
 	
-	private void drawLines(Graphics2D g) {
-		int spacing = 40;
-
-		// lines
-		g.setColor(Color.white);
-		for (int cursor = 1; cursor <= width/spacing; ++cursor) {
-			g.drawLine(cursor * spacing, 0, cursor * spacing, height);
-		}
-		for (int cursor = 1; cursor <= height/spacing; ++cursor) {
-			g.drawLine(0, cursor * spacing, width, cursor * spacing);
-		}
-
-		// line numbers
-		g.setColor(Color.red);
-		for (int cursor = 1; cursor <= width/spacing; ++cursor) {
-			g.drawString(cursor * spacing + "", cursor * spacing - 22, 10);
-		}
-
-		for (int cursor = 1; cursor <= height/spacing; ++cursor) {
-			g.drawString(cursor * spacing + "", 2, cursor * spacing - 2);
-
-		}
-	}
-	
 	@Override
 	public void paintComponent(Graphics gc) {
 		super.paintComponent(gc); // clear off-screen bitmap
 
 		Graphics2D g = (Graphics2D) gc;
 
-//		drawLines(g);
-		
 		for(Thing t : creatures) {
 			t.draw(g);
 		}

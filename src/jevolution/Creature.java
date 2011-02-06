@@ -20,11 +20,11 @@ public class Creature extends Thing implements Comparable<Creature> {
 		public final static String minAccel = "minAccel";
 		public final static String minAngular = "minAngular";
 		public final static String minEnergyToReproduce = "minEnergyToReproduce";
-		public final static String minTimeUntilAccelChange = "minTicksUntilAccelChange";
-		public final static String minTimeUntilAngleChange = "minTicksUntilAngleChange";
+		public final static String minTimeUntilAccelChange = "minTimeUntilAccelChange";
+		public final static String minTimeUntilAngleChange = "minTimeUntilAngleChange";
 		public final static String red = "red";
-		public final static String timeUntilAccelChangeRange = "ticksUntilAccelChangeRange";
-		public final static String timeUntilAngleChangeRange = "ticksUntilAngleChangeRange";
+		public final static String timeUntilAccelChangeRange = "timeUntilAccelChangeRange";
+		public final static String timeUntilAngleChangeRange = "timeUntilAngleChangeRange";
 		public final static String width = "width";
 	}
 	
@@ -39,14 +39,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 	static Random r = new Random();
 
-	private static double colorDistance(Color a, Color b) {
-		int dred = a.getRed() - b.getRed();
-		int dblue = a.getBlue() - b.getBlue();
-		int dgreen = a.getGreen() - b.getGreen();
-		
-		return Math.sqrt(dred*dred + dblue*dblue + dgreen*dgreen);
-	}
-	
 	public static Creature mate(Creature one, Creature two) {
 		if (one.getEnergy() >= one.getReproductionThreshold() && two.getEnergy() > two.getReproductionThreshold()) {
 			DNA left = one.getDNA();
@@ -117,8 +109,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 	double accelRange;
 
 	private double age;
-
-	private int ageInTicks;
 
 	double angle;
 
@@ -263,8 +253,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 		}
 
 		maxEnergy = getMaxEnergy();
-
-		ageInTicks = 0;
 	}
 
 	private void clampVelocity() {
@@ -282,6 +270,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 				/ other.getMaxEnergy());
 	}
 
+	@Override
 	public void draw(Graphics2D g) {
 		g.setColor(color);
 
@@ -301,12 +290,12 @@ public class Creature extends Thing implements Comparable<Creature> {
 		}
 		g.drawString(energyStr, (int) x, (int) y);
 
-		String ageStr = String.format("%.0f", getStrength());
+		double strength = getStrength();
+
+		String ageStr = String.format(Math.abs(strength) < 1 ? "%.2f" : "%.0f", strength);
 		g.drawString(ageStr, (int)x, (int)y + 10);
 		
-		if (numChildren > 0) {
-			g.drawString("" + numChildren, (int)x, (int)y + 20);
-		}
+		g.drawString("" + numChildren, (int)x, (int)y + 20);
 	}
 
 	public double getAcceleration() {
@@ -315,10 +304,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 	private double getAge() {
 		return age;
-	}
-
-	public int getAgeInTicks() {
-		return ageInTicks;
 	}
 
 	public double getAngularVelocity() {
@@ -374,18 +359,16 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return width * height;
 	}
 
+	@Override
 	public double getMaxEnergy() {
 		return getMass();
 	}
 
-	private double getPerimeter() {
-		return 2 * (width + height);
-	}
-	
 	public double getReproductionThreshold() {
 		return minEnergyToReproduce;
 	}
 
+	@Override
 	public Shape getShape() {
 		Shape shape = new Rectangle2D.Double(-height / 2, -width / 2, height,
 				width);
@@ -399,11 +382,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 
 	private double getStrength() {
-//		return getAge() + color.getRGB()/0xfff;
-		//return getPerimeter() * Math.sqrt(velocity) * Math.abs(angularVelocity) * color.getRGB()/0xffff;
-//		return -color.getRed() - color.getGreen() + color.getBlue()+ 3*(height - width);
-//		return getPerimeter() + velocity/2 - color.getGreen();
-//		return getPerimeter()/getMass() + velocity;
 		return world.getStrengthExpression().evaluate(this);
 	}
 
@@ -423,14 +401,17 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return (velocity / maxVelocity) * 1.5d * height;
 	}
 
+	@Override
 	public void interactWith(Thing other, double timePerFrame) {
 		takeEnergyFrom(other, getStrength() * timePerFrame);
 	}
 
+	@Override
 	public boolean isViable() {
 		return viable;
 	}
 	
+	@Override
 	public void tick(double timePerFrame) {
 		boolean moving = true;
 		boolean none = false;
@@ -484,7 +465,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 			angle += rPerFrame;
 		}
 
-		++ageInTicks;
 		age += timePerFrame;
 	}
 	
