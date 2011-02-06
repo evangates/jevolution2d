@@ -27,12 +27,14 @@ public class ExpressionPanel extends JPanel {
 	private final static String initialStrengthFunction = "blue - red - green + 3*(width - height)";
 	private final static String initialCostOfLivingFunction = "0.001 * width * height * acceleration";
 
-	private final static int MAX_SPEED = 20;
-	private final static int INITIAL_SPEED = 1;
-	private final static double MULTIPLIER = 100;
+	private final static int initialSimulationSpeed = 1;
+	private final static int maxSimulationSpeed = 20;
 
-	private JSlider speedSlider;
-	private JLabel speedLabel;
+	private final static double initialMatingsPerSecond = 20;
+	private final static int maxMatingsPerSecond = 40;
+
+	private final static double initialRandomCreaturesCreatedPerSecond = 1;
+	private final static int maxRandomCreaturesPerSecond = 20;
 
 	public ExpressionPanel(ApplicationPanel app) {
 		super(new MigLayout("fillx, wrap", "left", "[top|]50[|]50[||]"));
@@ -48,9 +50,12 @@ public class ExpressionPanel extends JPanel {
 		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, app), "growx");
 
 		// speed
-		this.add(new ValueSliderWithLabel("Simulation speed: %.2fx", ValueId.SIMULATION_SPEED, 20, 1000, 1, app), "growx");
+		this.add(new ValueSliderWithLabel("Simulation speed: %.2fx", ValueId.SIMULATION_SPEED, maxSimulationSpeed, initialSimulationSpeed, app), "growx");
 
 		// mate rate
-		this.add(new ValueSliderWithLabel("Matings per second: %.2f", ValueId.MATINGS_PER_SECOND, 40, 100, 20, app), "growx");
+		this.add(new ValueSliderWithLabel("Matings per second: %.2f", ValueId.MATINGS_PER_SECOND, maxMatingsPerSecond, initialMatingsPerSecond, app), "growx");
+
+		// random rate
+		this.add(new ValueSliderWithLabel("Random creatures created per second: %.2f", ValueId.RANDOM_CREATURES_PER_SECOND, maxRandomCreaturesPerSecond, initialRandomCreaturesCreatedPerSecond, app), "growx");
 	}
 }

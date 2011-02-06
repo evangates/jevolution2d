@@ -87,6 +87,9 @@ public class ApplicationPanel extends JPanel {
 			case MATINGS_PER_SECOND:
 				canvas.setMatingsPerSecond(value);
 				break;
+			case RANDOM_CREATURES_PER_SECOND:
+				canvas.setRandomCreaturesPerSecond(value);
+				break;
 		}
 	}
 }

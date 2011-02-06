@@ -12,4 +12,5 @@ package jevolution.ui;
 public enum ValueId {
 	SIMULATION_SPEED,
 	MATINGS_PER_SECOND,
+	RANDOM_CREATURES_PER_SECOND,
 }

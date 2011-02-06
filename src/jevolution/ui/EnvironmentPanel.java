@@ -22,7 +22,8 @@ public class EnvironmentPanel extends JPanel {
 	final static int minNumCreatures = 20;
 	final static int preferredNumCreatures = 75;
 	final static int maxNumCreatures = 100;
-	final static double timeBetweenRandoms = 1;
+
+	private double timeBetweenRandoms = 1;
 	private double timeBetweenMatings = 0.05;
 	
 	private static final long serialVersionUID = 1L;
@@ -77,6 +78,10 @@ public class EnvironmentPanel extends JPanel {
 
 	public void setMatingsPerSecond(double matingsPerSecond) {
 		timeBetweenMatings = 1d/matingsPerSecond;
+	}
+
+	public void setRandomCreaturesPerSecond(double creaturesPerSecond) {
+		timeBetweenRandoms = 1d/creaturesPerSecond;
 	}
 	
 	private void drawLines(Graphics2D g) {
@@ -144,16 +149,12 @@ public class EnvironmentPanel extends JPanel {
 		
 		creatures.removeAll(deads);
 		
-		while (creatures.size() < minNumCreatures) {
-			creatures.add(Creature.random(this));
-		}
-		
-		if (timeSinceLastRandom > timeBetweenRandoms && creatures.size() < preferredNumCreatures) {
+		if (timeSinceLastRandom > timeBetweenRandoms) {
 			creatures.add(Creature.random(this));
 			timeSinceLastRandom = 0;
 		}
 		
-		if (timeSinceLastMating > timeBetweenMatings && creatures.size() < maxNumCreatures) {
+		if (timeSinceLastMating > timeBetweenMatings) {
 			Random r = new Random();
 			
 			int index1 = r.nextInt(creatures.size());

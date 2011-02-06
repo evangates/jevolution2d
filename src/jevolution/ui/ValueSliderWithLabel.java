@@ -14,21 +14,21 @@ import net.miginfocom.swing.MigLayout;
  */
 public class ValueSliderWithLabel extends JPanel {
 
+	private final static int NUM_TICKS = 1000;
+
 	private ApplicationPanel application;
 	private JLabel label;
 	private JSlider slider;
 	private ValueId id;
 	private String labelFormatStr;
-	private double multiplier;
 
-	public ValueSliderWithLabel(String formatStr, ValueId valueId, int max, int numTicks, double initialValue, ApplicationPanel app) {
+	public ValueSliderWithLabel(String formatStr, ValueId valueId, int max, double initialValue, ApplicationPanel app) {
 		super(new MigLayout("fill, left, wrap, insets 0", "[grow]", "[top|top, grow]"));
 
 		id = valueId;
-		slider = new JSlider(JSlider.HORIZONTAL, 0, max * numTicks, (int) (initialValue * numTicks));
+		slider = new JSlider(JSlider.HORIZONTAL, 0, max * NUM_TICKS, (int) (initialValue * NUM_TICKS));
 		labelFormatStr = formatStr;
 		label = new JLabel(String.format(formatStr, initialValue));
-		multiplier = numTicks;
 
 		this.add(label);
 		this.add(slider, "growx");
@@ -51,6 +51,6 @@ public class ValueSliderWithLabel extends JPanel {
 	}
 
 	public double getValue() {
-		return (double) slider.getValue() / multiplier;
+		return (double) slider.getValue() / NUM_TICKS;
 	}
 }
