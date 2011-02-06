@@ -6,8 +6,6 @@
 package jevolution.ui;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -25,7 +23,7 @@ public class ExpressionPanel extends JPanel {
 	private ApplicationPanel parent;
 
 	private final static String initialStrengthFunction = "blue - red - green + 3*(width - height)";
-	private final static String initialCostOfLivingFunction = "0.001 * width * height * acceleration";
+	private final static String initialCostOfLivingFunction = "0.01 * width * height * acceleration";
 
 	private final static int initialSimulationSpeed = 1;
 	private final static int maxSimulationSpeed = 20;
