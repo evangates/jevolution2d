@@ -455,8 +455,10 @@ public class Creature extends Thing implements Comparable<Creature> {
 			}
 
 			angle += angularVelocity * timePerFrame;
-			velocity += (acceleration - 0.1 * velocity)* timePerFrame;
-//			velocity += acceleration * timePerFrame;
+			velocity += (acceleration - 0.1 * velocity) * timePerFrame;
+
+			// cost of living
+			energy -= timePerFrame * getCostOfLiving();
 
 			clampVelocity();
 
@@ -465,15 +467,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 			x += xDelta;
 			y += yDelta;
-
-
-			// cost of living
-			if ((acceleration > 0 && velocity < 0) || (acceleration < 0 && velocity > 0)) {
-				energy -= timePerFrame * getCostOfLiving();
-			}
-
-			// energy expenditure from spinning
-//			energy -= getPerimeter() * 0.0001 * timePerFrame * angularVelocity;
 
 			wrap();
 		} else if (!none) {
