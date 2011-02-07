@@ -128,7 +128,7 @@ public class EnvironmentPanel extends JPanel {
 			timeSinceLastRandom = 0;
 		}
 		
-		if (timeSinceLastMating > timeBetweenMatings) {
+		if (timeSinceLastMating > timeBetweenMatings && creatures.size() > 0) {
 			Random r = new Random();
 			
 			int index1 = r.nextInt(creatures.size());
