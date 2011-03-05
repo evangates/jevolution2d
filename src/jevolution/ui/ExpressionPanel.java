@@ -44,7 +44,7 @@ public class ExpressionPanel extends JPanel {
 		this.add(new CreatureExpressionTextField(initialStrengthFunction, ExpressionId.STRENGTH, app), "growx");
 
 		// cost of living
-		this.add(new JLabel("How much energy per second a creature loses when accelerating:"));
+		this.add(new JLabel("Energy cost of living per second:"));
 		this.add(new CreatureExpressionTextField(initialCostOfLivingFunction, ExpressionId.COST_OF_LIVING, app), "growx");
 
 		// speed
