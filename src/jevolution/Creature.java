@@ -413,57 +413,39 @@ public class Creature extends Thing implements Comparable<Creature> {
 	
 	@Override
 	public void tick(double timePerFrame) {
-		boolean moving = true;
-		boolean none = false;
+		timeUntilNextAccelerationChange -= timePerFrame;
+		timeUntilNextAngleChange -= timePerFrame;
 
-		if (moving) {
-			timeUntilNextAccelerationChange -= timePerFrame;
-			timeUntilNextAngleChange -= timePerFrame;
-
-			if (timeUntilNextAccelerationChange <= 0) {
-				acceleration = accelRange * r.nextDouble() + minAccel;
-				if (r.nextBoolean()) {
-					acceleration *= -1;
-				}
-				timeUntilNextAccelerationChange = timeUntilNextAccelerationRange * r.nextDouble() + minTimeUntilNextAccelerationChange;
+		if (timeUntilNextAccelerationChange <= 0) {
+			acceleration = accelRange * r.nextDouble() + minAccel;
+			if (r.nextBoolean()) {
+				acceleration *= -1;
 			}
-			if (timeUntilNextAngleChange <= 0) {
-				angularVelocity = angularRange * r.nextDouble() + minAngular;
-				if (r.nextBoolean()) {
-					angularVelocity *= -1;
-				}
-				timeUntilNextAngleChange = timeUntilNextAngleRange * r.nextDouble()	+ minTimeUntilNextAngleChange;
-			}
-
-			angle += angularVelocity * timePerFrame;
-			velocity += (acceleration - 0.1 * velocity) * timePerFrame;
-
-			// cost of living
-			energy -= timePerFrame * getCostOfLiving();
-
-			clampVelocity();
-
-			double xDelta = velocity * Math.cos(angle) * timePerFrame;
-			double yDelta = velocity * Math.sin(angle) * timePerFrame;
-
-			x += xDelta;
-			y += yDelta;
-
-			wrap();
-		} else if (!none) {
-			double rotationPerSecond = Math.PI / 2;
-			double xPerSecond = 10;
-			double yPerSecond = 10;
-
-			double rPerFrame = rotationPerSecond * timePerFrame;
-			double xPerFrame = xPerSecond * timePerFrame;
-			double yPerFrame = yPerSecond * timePerFrame;
-
-			x += xPerFrame;
-			y += yPerFrame;
-
-			angle += rPerFrame;
+			timeUntilNextAccelerationChange = timeUntilNextAccelerationRange * r.nextDouble() + minTimeUntilNextAccelerationChange;
 		}
+		if (timeUntilNextAngleChange <= 0) {
+			angularVelocity = angularRange * r.nextDouble() + minAngular;
+			if (r.nextBoolean()) {
+				angularVelocity *= -1;
+			}
+			timeUntilNextAngleChange = timeUntilNextAngleRange * r.nextDouble()	+ minTimeUntilNextAngleChange;
+		}
+
+		angle += angularVelocity * timePerFrame;
+		velocity += (acceleration - 0.1 * velocity) * timePerFrame;
+
+		// cost of living
+		energy -= timePerFrame * getCostOfLiving();
+
+		clampVelocity();
+
+		double xDelta = velocity * Math.cos(angle) * timePerFrame;
+		double yDelta = velocity * Math.sin(angle) * timePerFrame;
+
+		x += xDelta;
+		y += yDelta;
+
+		wrap();
 
 		age += timePerFrame;
 	}
