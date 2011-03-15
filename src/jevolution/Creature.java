@@ -438,12 +438,12 @@ public class Creature implements Comparable<Creature> {
 		x += xDelta;
 		y += yDelta;
 
-		wrap();
+		clipLocation();
 
 		age += timePerFrame;
 	}
 	
-	private void wrap() {
+	private void clipLocation() {
 		double worldWidth = environment.getWidth();
 		double worldHeight = environment.getHeight();
 
