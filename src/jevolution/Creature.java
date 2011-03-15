@@ -1,7 +1,6 @@
 package jevolution;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -272,33 +271,6 @@ public class Creature implements Comparable<Creature> {
 				/ other.getMaxEnergy());
 	}
 
-	public void draw(Graphics2D g) {
-		g.setColor(color);
-
-		Shape shape = getShape();
-
-		g.fill(shape);
-
-		g.setColor(Color.WHITE);
-		double mag = headingLineMagnitude();
-		g.drawLine((int) x, (int) y,
-				(int) Math.round(x + mag * Math.cos(angle)),
-				(int) Math.round(y + mag * Math.sin(angle)));
-
-		String energyStr = String.format("%.0f / %.0f", energy, getMaxEnergy());
-		if (getEnergy() > getReproductionThreshold()) {
-			energyStr = "+ " + energyStr;
-		}
-		g.drawString(energyStr, (int) x, (int) y);
-
-		double strength = getStrength();
-
-		String ageStr = String.format(Math.abs(strength) < 1 ? "%.2f" : "%.0f", strength);
-		g.drawString(ageStr, (int)x, (int)y + 10);
-		
-		g.drawString("" + numChildren, (int)x, (int)y + 20);
-	}
-
 	public double getAcceleration() {
 		return acceleration;
 	}
@@ -307,12 +279,20 @@ public class Creature implements Comparable<Creature> {
 		return age;
 	}
 
+	public double getAngle() {
+		return angle;
+	}
+
 	public double getAngularVelocity() {
 		return angularVelocity;
 	}
 
 	public int getBlue() {
 		return color.getBlue();
+	}
+
+	public Color getColor() {
+		return color;
 	}
 
 	public double getChildEnergyDonation() {
@@ -368,9 +348,24 @@ public class Creature implements Comparable<Creature> {
 		return minEnergyToReproduce;
 	}
 
+	public double getStrength() {
+		return environment.getStrengthExpression().evaluate(this);
+	}
+
+	public double getVelocity() {
+		return velocity;
+	}
+
+	public double getMaxVelocity() {
+		return maxVelocity;
+	}
+
+	public int getNumChildren() {
+		return numChildren;
+	}
+
 	public Shape getShape() {
-		Shape shape = new Rectangle2D.Double(-height / 2, -width / 2, height,
-				width);
+		Shape shape = new Rectangle2D.Double(-height / 2, -width / 2, height, width);
 
 		AffineTransform transform = new AffineTransform();
 
@@ -380,28 +375,26 @@ public class Creature implements Comparable<Creature> {
 		return transform.createTransformedShape(shape);
 	}
 
-	private double getStrength() {
-		return environment.getStrengthExpression().evaluate(this);
-	}
-
-	public double getVelocity() {
-		return velocity;
-	}
-
 	public double getWidth() {
 		return width;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
 	}
 
 	public double getHeight() {
 		return height;
 	}
 
-	private double headingLineMagnitude() {
-		return (velocity / maxVelocity) * 1.5d * height;
-	}
-
 	public void interactWith(Creature other, double timePerFrame) {
-		takeEnergyFrom(other, getStrength() * timePerFrame);
+		if (getShape().intersects(other.getShape().getBounds())) {
+			takeEnergyFrom(other, getStrength() * timePerFrame);
+		}
 	}
 
 	public boolean isViable() {

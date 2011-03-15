@@ -112,9 +112,7 @@ public class Environment {
 		for(Creature t: creatures) {
 			for (Creature other: creatures) {
 				if (t != other) {
-					if (t.getShape().intersects(other.getShape().getBounds2D())) {
-						t.interactWith(other, timePerFrame);
-					}
+					t.interactWith(other, timePerFrame);
 				}
 			}
 		}
