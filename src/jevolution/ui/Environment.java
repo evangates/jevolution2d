@@ -13,7 +13,7 @@ import jevolution.Thing;
 import jevolution.expressions.CreatureExpression;
 
 /**
- *
+ * TODO: move to jevolution package
  * @author kuhlmancer
  */
 public class Environment {
@@ -74,6 +74,18 @@ public class Environment {
 	 */
 	List<Creature> getCreatures() {
 		return creatures;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public double getMaxVelocity() {
+		return Math.min(width, height);
 	}
 
 	public CreatureExpression getStrengthExpression() {
