@@ -75,6 +75,13 @@ public class ApplicationPanel extends JPanel {
 		}
 	}
 
+	/*
+	 * This is a hack to funnel change messages to the environment
+	 * when the user updates one of the changable functions.
+	 *
+	 * Should probably do proper custom events.  Those require extra thought and
+	 * work that can be put off for now, as eventing isn't the focus of this project.
+	 */
 	public void updateExpression(CreatureExpression expr, ExpressionId id) {
 		switch(id) {
 			case STRENGTH:
@@ -86,6 +93,13 @@ public class ApplicationPanel extends JPanel {
 		}
 	}
 
+	/*
+	 * This is a hack to funnel change messages to the environment
+	 * when the user updates one of the changable values.
+	 *
+	 * Should probably do proper custom events.  Those require extra thought and
+	 * work that can be put off for now, as eventing isn't the focus of this project.
+	 */
 	public void updateValue(double value, ValueId id) {
 		switch(id) {
 			case SIMULATION_SPEED:
