@@ -256,7 +256,7 @@ public class Creature implements Comparable<Creature> {
 		maxEnergy = getMaxEnergy();
 	}
 
-	private void clampVelocity() {
+	private void clipVelocity() {
 		if (velocity > maxVelocity) {
 			velocity = maxVelocity;
 		}
@@ -426,7 +426,7 @@ public class Creature implements Comparable<Creature> {
 		// cost of living
 		energy -= timePerFrame * getCostOfLiving();
 
-		clampVelocity();
+		clipVelocity();
 
 		double xDelta = velocity * Math.cos(angle) * timePerFrame;
 		double yDelta = velocity * Math.sin(angle) * timePerFrame;
