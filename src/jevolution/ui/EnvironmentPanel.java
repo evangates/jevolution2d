@@ -68,12 +68,12 @@ public class EnvironmentPanel extends JPanel {
 
 	public void setStrengthExpression(CreatureExpression expr) {
 		this.strengthExpression = expr;
-		System.out.println(String.format("evironment panel strength function updated: %s", expr.toString()));
+//		System.out.println(String.format("evironment panel strength function updated: %s", expr.toString()));
 	}
 
 	public void setCostOfLivingExpression(CreatureExpression expr) {
 		this.costOfLivingExpression = expr;
-		System.out.println(String.format("environment panel cost of living function updated: %s", expr.toString()));
+//		System.out.println(String.format("environment panel cost of living function updated: %s", expr.toString()));
 	}
 
 	public void setMatingsPerSecond(double matingsPerSecond) {
