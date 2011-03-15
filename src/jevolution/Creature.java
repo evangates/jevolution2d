@@ -1,6 +1,5 @@
 package jevolution;
 
-import jevolution.ui.EnvironmentPanel;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
@@ -47,7 +46,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 			DNA dna = DNA.splice(left, right);
 			dna.mutate();
 			
-			Creature child = new Creature(one.world, dna);
+			Creature child = new Creature(one.environment, dna);
 			
 			if (child.isViable()) {
 				child.takeEnergyFrom(one, one.childEnergyDonation);
@@ -61,11 +60,11 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return null;
 	}
 
-	public static Creature random(EnvironmentPanel world) {
+	public static Creature random(Environment environment) {
 		final double RANDOM_MAX_VELOCITY = 400d;
 		
-		int x = r.nextInt(world.getWidth());
-		int y = r.nextInt(world.getHeight());
+		int x = r.nextInt(environment.getWidth());
+		int y = r.nextInt(environment.getHeight());
 
 		int width = r.nextInt(MAX_DIMENSION - MIN_DIMENSION) + MIN_DIMENSION;
 		int height = r.nextInt(MAX_DIMENSION - MIN_DIMENSION) + MIN_DIMENSION;
@@ -92,7 +91,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 		double childEnergyDonation = r.nextDouble()*50;
 		double minEnergyToReproduce = r.nextDouble()*50+childEnergyDonation;
 		
-		Creature retval = new Creature(world, x, y, width, height, minAccel, accelRange,
+		Creature retval = new Creature(environment, x, y, width, height, minAccel, accelRange,
 				minAngular, angularRange, minTimeUntilAccelChange,
 				ticksUntilAccelChangeRange, minTimeUntilAngleChange,
 				timeUntilAngleChangeRange, red, green, blue, maxVelocity,
@@ -144,14 +143,14 @@ public class Creature extends Thing implements Comparable<Creature> {
 
 	double width;
 
-	EnvironmentPanel world;
+	Environment environment;
 
 	double x;
 
 	double y;
 
-	public Creature(EnvironmentPanel world, DNA dna) {
-		this(world, r.nextInt(world.getWidth()), r.nextInt(world.getHeight()),
+	public Creature(Environment environment, DNA dna) {
+		this(environment, r.nextInt(environment.getWidth()), r.nextInt(environment.getHeight()),
 				dna.getDouble(Keys.width),
 				dna.getDouble(Keys.height),
 				dna.getDouble(Keys.minAccel),
@@ -169,13 +168,13 @@ public class Creature extends Thing implements Comparable<Creature> {
 				dna.getDouble(Keys.childEnergyDonation),
 				dna.getDouble(Keys.minEnergyToReproduce));
 	}
-	public Creature(EnvironmentPanel world, double x, double y, double width,
+	public Creature(Environment environment, double x, double y, double width,
 			double height, double minAccel, double accelRange,
 			double minAngular, double angularRange,
 			double minTimeUntilAccelChange, double timeUntilAccelChangeRange,
 			double minTimeUntilAngleChange, double timeUntilAngleChangeRange,
 			int red, int blue, int green, double maxVelocity, double childEnergyDonation, double minEnergyToReproduce) {
-		this.world = world;
+		this.environment = environment;
 		this.x = x;
 		this.y = y;
 		this.angle = 2*Math.PI*r.nextDouble();
@@ -189,7 +188,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 			return;
 		}
 
-		if (width > 0 && height > 0 && width < world.getWidth() && height < world.getHeight()) {
+		if (width > 0 && height > 0 && width < environment.getWidth() && height < environment.getHeight()) {
 			this.width = width;
 			this.height = height;
 		} else {
@@ -234,7 +233,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 			return;
 		}
 		
-		if (maxVelocity > 0 && maxVelocity < Math.min(world.getWidth(), world.getHeight())) {
+		if (maxVelocity > 0 && maxVelocity < Math.min(environment.getWidth(), environment.getHeight())) {
 			this.maxVelocity = maxVelocity;
 			this.velocity = maxVelocity * r.nextDouble();
 		}
@@ -321,7 +320,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 
 	private double getCostOfLiving() {
-		return world.getCostOfLivingExpression().evaluate(this);
+		return environment.getCostOfLivingExpression().evaluate(this);
 	}
 
 	public int getRed() {
@@ -384,7 +383,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 
 	private double getStrength() {
-		return world.getStrengthExpression().evaluate(this);
+		return environment.getStrengthExpression().evaluate(this);
 	}
 
 	public double getVelocity() {
@@ -453,8 +452,8 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 	
 	private void wrap() {
-		double worldWidth = world.getWidth();
-		double worldHeight = world.getHeight();
+		double worldWidth = environment.getWidth();
+		double worldHeight = environment.getHeight();
 
 		while (x < 0) {
 			x += worldWidth;

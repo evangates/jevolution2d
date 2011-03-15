@@ -63,7 +63,7 @@ public class Environment {
 
 	private void addThings() {
 		for(int i = 0; i < preferredNumCreatures; ++i) {
-			creatures.add(Creature.random(panel));
+			creatures.add(newRandomCreature());
 		}
 	}
 
@@ -110,6 +110,10 @@ public class Environment {
 		timeBetweenRandoms = 1d/creaturesPerSecond;
 	}
 
+	public Creature newRandomCreature() {
+		return Creature.random(this);
+	}
+
 	public void tick(double timePerFrame) {
 		for(Thing t: creatures) {
 			t.tick(timePerFrame);
@@ -139,7 +143,7 @@ public class Environment {
 		creatures.removeAll(deads);
 
 		if (timeSinceLastRandom > timeBetweenRandoms) {
-			creatures.add(Creature.random(panel));
+			creatures.add(newRandomCreature());
 			timeSinceLastRandom = 0;
 		}
 
