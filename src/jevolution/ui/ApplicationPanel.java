@@ -51,7 +51,7 @@ public class ApplicationPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateFPS();
-				environmentPanel.tick(speedModifier / fps);
+				environment.tick(speedModifier / fps);
 				environmentPanel.repaint();
 			}
 		});

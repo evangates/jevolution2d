@@ -37,10 +37,6 @@ public class EnvironmentPanel extends JPanel {
 		}
 	}
 
-	public void tick(double timePerFrame) {
-		environment.tick(timePerFrame);
-	}
-
 	public CreatureExpression getStrengthExpression() {
 		return environment.getStrengthExpression();
 	}
