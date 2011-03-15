@@ -14,7 +14,7 @@ public class ApplicationPanel extends JPanel {
 	private final static int TICK_INTERVAL = 15;
 
 	private Environment environment;
-	private EnvironmentPanel canvas;
+	private EnvironmentPanel environmentPanel;
 	private StatsPanel stats;
 	private Timer timer;
 	private long startTime = 0;
@@ -31,11 +31,11 @@ public class ApplicationPanel extends JPanel {
 		height = 600;
 
 		environment = new Environment(width, height);
-		canvas = new EnvironmentPanel(environment);
+		environmentPanel = new EnvironmentPanel(environment);
 		stats = new StatsPanel(width, height);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
-		tabbedPane.addTab("World", canvas);
+		tabbedPane.addTab("World", environmentPanel);
 		tabbedPane.addTab("Statistics", stats);
 
 		this.add(tabbedPane);
@@ -51,8 +51,8 @@ public class ApplicationPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateFPS();
-				canvas.tick(speedModifier / fps);
-				canvas.repaint();
+				environmentPanel.tick(speedModifier / fps);
+				environmentPanel.repaint();
 			}
 		});
 		timer.start();
@@ -88,10 +88,10 @@ public class ApplicationPanel extends JPanel {
 	public void updateExpression(CreatureExpression expr, ExpressionId id) {
 		switch(id) {
 			case STRENGTH:
-				canvas.setStrengthExpression(expr);
+				environmentPanel.setStrengthExpression(expr);
 				break;
 			case COST_OF_LIVING:
-				canvas.setCostOfLivingExpression(expr);
+				environmentPanel.setCostOfLivingExpression(expr);
 				break;
 		}
 	}
@@ -109,10 +109,10 @@ public class ApplicationPanel extends JPanel {
 				this.speedModifier = value;
 				break;
 			case MATINGS_PER_SECOND:
-				canvas.setMatingsPerSecond(value);
+				environmentPanel.setMatingsPerSecond(value);
 				break;
 			case RANDOM_CREATURES_PER_SECOND:
-				canvas.setRandomCreaturesPerSecond(value);
+				environmentPanel.setRandomCreaturesPerSecond(value);
 				break;
 		}
 	}
