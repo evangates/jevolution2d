@@ -39,7 +39,7 @@ public class Creature implements Comparable<Creature> {
 	static Random r = new Random();
 
 	public static Creature mate(Creature one, Creature two) {
-		if (one.getEnergy() >= one.getReproductionThreshold() && two.getEnergy() > two.getReproductionThreshold()) {
+		if (one.getEnergy() >= one.getMinEnergyToMate() && two.getEnergy() > two.getMinEnergyToMate()) {
 			DNA left = one.getDNA();
 			DNA right = two.getDNA();
 	
@@ -48,7 +48,7 @@ public class Creature implements Comparable<Creature> {
 			
 			Creature child = new Creature(one.environment, dna);
 			
-			if (child.isViable()) {
+			if (child.isPhysicallyPossible()) {
 				child.takeEnergyFrom(one, one.childEnergyDonation);
 				child.takeEnergyFrom(two, two.childEnergyDonation);
 				one.numChildren++;
@@ -127,7 +127,7 @@ public class Creature implements Comparable<Creature> {
 	double minAccel;
 
 	double minAngular;
-	private double minEnergyToReproduce;
+	private double minEnergyToMate;
 
 	double minTimeUntilNextAccelerationChange;
 	double minTimeUntilNextAngleChange;
@@ -139,7 +139,7 @@ public class Creature implements Comparable<Creature> {
 
 	double velocity;
 
-	private boolean viable = true;
+	private boolean physicallyPossible = true;
 
 	double width;
 
@@ -183,7 +183,7 @@ public class Creature implements Comparable<Creature> {
 				&& within(0, green, 255)) {
 			color = new Color(red, green, blue);
 		} else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("Color out of bounds: RGB = (%d, %d, %d)", red, green, blue));
 			return;
 		}
@@ -192,7 +192,7 @@ public class Creature implements Comparable<Creature> {
 			this.width = width;
 			this.height = height;
 		} else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("dimensions out of bounds: [%.2f x %.2f]", width, height));
 			return;
 		}
@@ -201,7 +201,7 @@ public class Creature implements Comparable<Creature> {
 			this.accelRange = accelRange;
 			this.minAccel = minAccel;
 		} else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("bad acceleration: %.2f x rand() + %.2f", accelRange, minAccel));
 			return;
 		}
@@ -210,7 +210,7 @@ public class Creature implements Comparable<Creature> {
 			this.angularRange = angularRange;
 			this.minAngular = minAngular;
 		} else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("bad angular: %.2f x rand() + %.2f", angularRange, minAngular));
 			return;
 		}
@@ -219,7 +219,7 @@ public class Creature implements Comparable<Creature> {
 			this.minTimeUntilNextAccelerationChange = minTimeUntilAccelChange;
 			this.timeUntilNextAccelerationRange = timeUntilAccelChangeRange;
 		} else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("bad accel ticks: %d x rand() + %d", ticksUntilAccelChangeRange, minTicksUntilAccelChange));
 			return;
 		}
@@ -228,7 +228,7 @@ public class Creature implements Comparable<Creature> {
 			this.minTimeUntilNextAngleChange = minTimeUntilAngleChange;
 			this.timeUntilNextAngleRange = timeUntilAngleChangeRange;
 		} else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("bad angle ticks: %d x rand() + %d", ticksUntilAngleChangeRange, minTicksUntilAngleChange));
 			return;
 		}
@@ -238,17 +238,17 @@ public class Creature implements Comparable<Creature> {
 			this.velocity = maxVelocity * r.nextDouble();
 		}
 		else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("bad max velocity: %.2f", maxVelocity));
 			return;
 		}
 		
 		if (minEnergyToReproduce > 0 && childEnergyDonation > 0 && childEnergyDonation < minEnergyToReproduce) {
-			this.minEnergyToReproduce = minEnergyToReproduce;
+			this.minEnergyToMate = minEnergyToReproduce;
 			this.childEnergyDonation = childEnergyDonation;
 		}
 		else {
-			viable = false;
+			physicallyPossible = false;
 			//System.out.println(String.format("bad minEnergyToReproduce/childEnergyDonation: %.2f/%.2f", minEnergyToReproduce, childEnergyDonation));
 			return;
 		}
@@ -329,7 +329,7 @@ public class Creature implements Comparable<Creature> {
 			dna.add(Keys.minTimeUntilAngleChange, minTimeUntilNextAngleChange);
 			dna.add(Keys.width, width);
 			dna.add(Keys.maxVelocity, maxVelocity);
-			dna.add(Keys.minEnergyToReproduce, minEnergyToReproduce);
+			dna.add(Keys.minEnergyToReproduce, minEnergyToMate);
 			dna.add(Keys.childEnergyDonation, childEnergyDonation);
 		}
 
@@ -348,8 +348,8 @@ public class Creature implements Comparable<Creature> {
 		return getMass();
 	}
 
-	public double getReproductionThreshold() {
-		return minEnergyToReproduce;
+	public double getMinEnergyToMate() {
+		return minEnergyToMate;
 	}
 
 	public double getStrength() {
@@ -401,8 +401,8 @@ public class Creature implements Comparable<Creature> {
 		}
 	}
 
-	public boolean isViable() {
-		return viable;
+	public boolean isPhysicallyPossible() {
+		return physicallyPossible;
 	}
 	
 	public void tick(double timePerFrame) {

@@ -63,7 +63,7 @@ public class EnvironmentPanel extends JPanel {
 				(int) Math.round(y + mag * Math.sin(angle)));
 
 		String energyStr = String.format("%.0f / %.0f", creature.getEnergy(), creature.getMaxEnergy());
-		if (creature.getEnergy() > creature.getReproductionThreshold()) {
+		if (creature.getEnergy() > creature.getMinEnergyToMate()) {
 			energyStr = "+ " + energyStr;
 		}
 		g.drawString(energyStr, (int) x, (int) y);
