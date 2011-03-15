@@ -27,7 +27,6 @@ public class Creature implements Comparable<Creature> {
 	}
 	
 	final static double ACCEL_RANGE = 5;
-	final static double ANGULAR_RANGE = Math.PI / 20;
 
 	final static int MIN_DIMENSION = 4;
 	final static int MAX_DIMENSION = 60;
