@@ -88,10 +88,10 @@ public class ApplicationPanel extends JPanel {
 	public void updateExpression(CreatureExpression expr, ExpressionId id) {
 		switch(id) {
 			case STRENGTH:
-				environmentPanel.setStrengthExpression(expr);
+				environment.setStrengthExpression(expr);
 				break;
 			case COST_OF_LIVING:
-				environmentPanel.setCostOfLivingExpression(expr);
+				environment.setCostOfLivingExpression(expr);
 				break;
 		}
 	}
@@ -109,10 +109,10 @@ public class ApplicationPanel extends JPanel {
 				this.speedModifier = value;
 				break;
 			case MATINGS_PER_SECOND:
-				environmentPanel.setMatingsPerSecond(value);
+				environment.setMatingsPerSecond(value);
 				break;
 			case RANDOM_CREATURES_PER_SECOND:
-				environmentPanel.setRandomCreaturesPerSecond(value);
+				environment.setRandomCreaturesPerSecond(value);
 				break;
 		}
 	}

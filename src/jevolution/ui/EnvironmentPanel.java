@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 import jevolution.Creature;
-import jevolution.expressions.CreatureExpression;
 
 
 public class EnvironmentPanel extends JPanel {
@@ -35,29 +34,5 @@ public class EnvironmentPanel extends JPanel {
 		for(Creature t : environment.getCreatures()) {
 			t.draw(g);
 		}
-	}
-
-	public CreatureExpression getStrengthExpression() {
-		return environment.getStrengthExpression();
-	}
-
-	public CreatureExpression getCostOfLivingExpression() {
-		return environment.getCostOfLivingExpression();
-	}
-
-	public void setStrengthExpression(CreatureExpression expr) {
-		environment.setStrengthExpression(expr);
-	}
-
-	public void setCostOfLivingExpression(CreatureExpression expr) {
-		environment.setCostOfLivingExpression(expr);
-	}
-
-	public void setMatingsPerSecond(double matingsPerSecond) {
-		environment.setMatingsPerSecond(1d/matingsPerSecond);
-	}
-
-	public void setRandomCreaturesPerSecond(double creaturesPerSecond) {
-		environment.setRandomCreaturesPerSecond(1d/creaturesPerSecond);
 	}
 }
