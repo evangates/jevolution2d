@@ -62,6 +62,8 @@ public class Creature extends Thing implements Comparable<Creature> {
 	}
 
 	public static Creature random(EnvironmentPanel world) {
+		final double RANDOM_MAX_VELOCITY = 400d;
+		
 		int x = r.nextInt(world.getWidth());
 		int y = r.nextInt(world.getHeight());
 
@@ -85,7 +87,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 		int green = r.nextInt(256);
 		int blue = r.nextInt(256);
 		
-		double maxVelocity = EnvironmentPanel.maxVelocity * r.nextDouble() + 1;
+		double maxVelocity = RANDOM_MAX_VELOCITY * r.nextDouble() + 1;
 		
 		double childEnergyDonation = r.nextDouble()*50;
 		double minEnergyToReproduce = r.nextDouble()*50+childEnergyDonation;

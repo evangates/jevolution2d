@@ -11,10 +11,6 @@ import jevolution.expressions.CreatureExpression;
 
 
 public class EnvironmentPanel extends JPanel {
-	// TODO: move to Creature.random
-	// that's the only place it's used
-	public final static double maxVelocity = 400;
-
 	private static final long serialVersionUID = 1L;
 
 	private Environment environment;
