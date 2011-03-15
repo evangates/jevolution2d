@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import jevolution.Environment;
 import jevolution.expressions.CreatureExpression;
 import net.miginfocom.swing.MigLayout;
 
@@ -12,6 +13,7 @@ public class ApplicationPanel extends JPanel {
 
 	private final static int TICK_INTERVAL = 15;
 
+	private Environment environment;
 	private EnvironmentPanel canvas;
 	private StatsPanel stats;
 	private Timer timer;
@@ -28,7 +30,8 @@ public class ApplicationPanel extends JPanel {
 		width = 800;
 		height = 600;
 
-		canvas = new EnvironmentPanel(width, height);
+		environment = new Environment(width, height);
+		canvas = new EnvironmentPanel(environment);
 		stats = new StatsPanel(width, height);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);

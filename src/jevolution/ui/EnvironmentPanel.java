@@ -16,14 +16,14 @@ public class EnvironmentPanel extends JPanel {
 
 	private Environment environment;
 	
-	public EnvironmentPanel(int width, int height) {
-		Dimension size = new Dimension(width,height);
+	public EnvironmentPanel(Environment environment) {
+		Dimension size = new Dimension(environment.getWidth(),environment.getHeight());
 		setSize(size);
 		setPreferredSize(size);
 		
 		setBackground(Color.DARK_GRAY);
 		
-		environment = new Environment(width, height);
+		this.environment = environment;
 	}
 	
 	@Override
