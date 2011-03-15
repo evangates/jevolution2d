@@ -13,6 +13,7 @@ public class ApplicationPanel extends JPanel {
 	private final static int TICK_INTERVAL = 15;
 
 	private EnvironmentPanel canvas;
+	private StatsPanel stats;
 	private Timer timer;
 	private long startTime = 0;
 	private int numFrames = 0;
@@ -28,7 +29,13 @@ public class ApplicationPanel extends JPanel {
 		height = 600;
 
 		canvas = new EnvironmentPanel(width, height);
-		this.add(canvas);
+		stats = new StatsPanel(width, height);
+
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
+		tabbedPane.addTab("World", canvas);
+		tabbedPane.addTab("Statistics", stats);
+
+		this.add(tabbedPane);
 
 		JPanel configPanel = new JPanel(new MigLayout("fill, insets 0", "[grow | ]", "[grow, top]"));
 		configPanel.add(new ExpressionPanel(this), "grow");
