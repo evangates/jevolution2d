@@ -3,17 +3,15 @@
  * and open the template in the editor.
  */
 
-package jevolution.ui;
+package jevolution;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import jevolution.Creature;
-import jevolution.Thing;
 import jevolution.expressions.CreatureExpression;
+import jevolution.ui.EnvironmentPanel;
 
 /**
- * TODO: move to jevolution package
  * @author kuhlmancer
  */
 public class Environment {
@@ -72,7 +70,7 @@ public class Environment {
 	/*
 	 * Recheck if this is needed after factoring out Environment from EnvironmentPanel.
 	 */
-	List<Creature> getCreatures() {
+	public Iterable<Creature> getCreatures() {
 		return creatures;
 	}
 
