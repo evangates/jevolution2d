@@ -295,6 +295,10 @@ public class Creature implements Comparable<Creature> {
 		return color;
 	}
 
+	/*
+	 * This is the amount of energy that will be transfered to any offspring of
+	 * this creature upon their birth.
+	 */
 	public double getChildEnergyDonation() {
 		return childEnergyDonation;
 	}
