@@ -33,15 +33,13 @@ import static org.junit.Assert.*;
 public abstract class ExpressionTestBase {
 	protected final static double TOLERANCE = 0.0001;
 
-	protected EnvironmentPanel panel;
 	protected Environment environment;
 	protected Creature creature;
 
 	@Before
 	public void setup() {
-		panel = new EnvironmentPanel(800, 600);
-		environment = new Environment(800, 600, panel);
-		creature = Creature.random(environment);
+		environment = new Environment(800, 600);
+		creature = environment.newRandomCreature();
 	}
 
 	protected void testExpression(String expression, double expectedValue) {

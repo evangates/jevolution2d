@@ -38,18 +38,7 @@ public class Environment {
 	private double timeSinceLastRandom;
 	private double timeSinceLastMating;
 
-	// TODO: this is here as part of an artifact of factoring Environment out of EnvironmentPanel
-	// the dependency should go to other way when done refactoring
-	private EnvironmentPanel panel;
-
-	/*
-	 * TODO: panel should not be needed when done factoring out Environment.
-	 * An Environment instance should be injected into the EnvironmentPanel instead.
-	 */
-	public Environment(int width, int height, EnvironmentPanel panel) {
-		// TODO: remove this when the panel references is no longer needed
-		this.panel = panel;
-
+	public Environment(int width, int height) {
 		this.width = width;
 		this.height = height;
 

@@ -23,7 +23,7 @@ public class EnvironmentPanel extends JPanel {
 		
 		setBackground(Color.DARK_GRAY);
 		
-		environment = new Environment(width, height, this);
+		environment = new Environment(width, height);
 	}
 	
 	@Override
