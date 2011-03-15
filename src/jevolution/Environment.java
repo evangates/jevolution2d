@@ -5,11 +5,13 @@
 
 package jevolution;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
 import jevolution.expressions.CreatureExpression;
-import jevolution.ui.EnvironmentPanel;
 
 /**
  * @author kuhlmancer
@@ -56,9 +58,6 @@ public class Environment {
 		}
 	}
 
-	/*
-	 * Recheck if this is needed after factoring out Environment from EnvironmentPanel.
-	 */
 	public Iterable<Creature> getCreatures() {
 		return creatures;
 	}
@@ -104,14 +103,14 @@ public class Environment {
 	}
 
 	public void tick(double timePerFrame) {
-		for(Thing t: creatures) {
+		for(Creature t: creatures) {
 			t.tick(timePerFrame);
 		}
 
-		LinkedList<Thing> deads = new LinkedList<Thing>();
+		Collection<Creature> deads = new ArrayList<Creature>(creatures.size());
 
-		for(Thing t: creatures) {
-			for (Thing other: creatures) {
+		for(Creature t: creatures) {
+			for (Creature other: creatures) {
 				if (t != other) {
 					if (t.getShape().intersects(other.getShape().getBounds2D())) {
 						t.interactWith(other, timePerFrame);
@@ -120,7 +119,7 @@ public class Environment {
 			}
 		}
 
-		for(Thing t: creatures) {
+		for(Creature t: creatures) {
 			if (t.isDead()) {
 				deads.add(t);
 			}
@@ -128,7 +127,6 @@ public class Environment {
 				t.clipEnergy();
 			}
 		}
-
 		creatures.removeAll(deads);
 
 		if (timeSinceLastRandom > timeBetweenRandoms) {

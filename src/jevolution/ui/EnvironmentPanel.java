@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
-import jevolution.Thing;
+import jevolution.Creature;
 import jevolution.expressions.CreatureExpression;
 
 
@@ -32,7 +32,7 @@ public class EnvironmentPanel extends JPanel {
 
 		Graphics2D g = (Graphics2D) gc;
 
-		for(Thing t : environment.getCreatures()) {
+		for(Creature t : environment.getCreatures()) {
 			t.draw(g);
 		}
 	}

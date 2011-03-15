@@ -7,7 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
 import java.util.Random;
 
-public class Creature extends Thing implements Comparable<Creature> {
+public class Creature implements Comparable<Creature> {
 	private static class Keys {
 		public final static String accelRange = "maxAccel";
 		public final static String angularRange = "maxAngular";
@@ -35,6 +35,7 @@ public class Creature extends Thing implements Comparable<Creature> {
 	final static int MIN_DIMENSION = 4;
 	
 	private int numChildren;
+	private double energy;
 
 	static Random r = new Random();
 
@@ -271,7 +272,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 				/ other.getMaxEnergy());
 	}
 
-	@Override
 	public void draw(Graphics2D g) {
 		g.setColor(color);
 
@@ -360,7 +360,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return width * height;
 	}
 
-	@Override
 	public double getMaxEnergy() {
 		return getMass();
 	}
@@ -369,7 +368,6 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return minEnergyToReproduce;
 	}
 
-	@Override
 	public Shape getShape() {
 		Shape shape = new Rectangle2D.Double(-height / 2, -width / 2, height,
 				width);
@@ -402,17 +400,14 @@ public class Creature extends Thing implements Comparable<Creature> {
 		return (velocity / maxVelocity) * 1.5d * height;
 	}
 
-	@Override
-	public void interactWith(Thing other, double timePerFrame) {
+	public void interactWith(Creature other, double timePerFrame) {
 		takeEnergyFrom(other, getStrength() * timePerFrame);
 	}
 
-	@Override
 	public boolean isViable() {
 		return viable;
 	}
 	
-	@Override
 	public void tick(double timePerFrame) {
 		timeUntilNextAccelerationChange -= timePerFrame;
 		timeUntilNextAngleChange -= timePerFrame;
@@ -468,5 +463,23 @@ public class Creature extends Thing implements Comparable<Creature> {
 		while (y >= worldHeight) {
 			y -= worldHeight;
 		}
+	}
+
+	public double getEnergy() {
+		return energy;
+	}
+
+	public void takeEnergyFrom(Creature other, double amount) {
+		energy += amount;
+		other.energy -= amount;
+	}
+
+	public void clipEnergy() {
+		if (energy > getMaxEnergy()) {
+			energy = getMaxEnergy();
+		}
+	}
+	public final boolean isDead() {
+		return energy <= 0;
 	}
 }
