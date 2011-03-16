@@ -10,7 +10,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
-import java.util.Vector;
 import jevolution.expressions.CreatureExpression;
 
 /**
@@ -48,13 +47,11 @@ public class Environment {
 		timeSinceLastMating = 0;
 
 		creatures = new LinkedList<Creature>();
-
-		addThings();
 	}
 
-	private void addThings() {
+	public void addCreatures() {
 		for(int i = 0; i < preferredNumCreatures; ++i) {
-			creatures.add(newRandomCreature());
+			addCreature(newRandomCreature());
 		}
 	}
 
@@ -102,6 +99,10 @@ public class Environment {
 		return Creature.random(this);
 	}
 
+	public void addCreature(Creature creature) {
+		creatures.add(creature);
+	}
+
 	public void tick(double timePerFrame) {
 		for(Creature t: creatures) {
 			t.tick(timePerFrame);
@@ -128,7 +129,7 @@ public class Environment {
 		creatures.removeAll(deads);
 
 		if (timeSinceLastRandom > timeBetweenRandoms) {
-			creatures.add(newRandomCreature());
+			addCreature(newRandomCreature());
 			timeSinceLastRandom = 0;
 		}
 
@@ -144,7 +145,7 @@ public class Environment {
 			Creature child = Creature.mate(one, two);
 
 			if (child != null) {
-				creatures.add(child);
+				addCreature(child);
 				timeSinceLastMating = 0;
 			}
 		}

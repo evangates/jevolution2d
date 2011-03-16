@@ -31,6 +31,8 @@ public class ApplicationPanel extends JPanel {
 		height = 600;
 
 		environment = new Environment(width, height);
+		environment.addCreatures();
+		
 		environmentPanel = new EnvironmentPanel(environment);
 		stats = new StatsPanel(width, height);
 

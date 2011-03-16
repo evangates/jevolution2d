@@ -1,11 +1,8 @@
-package jevolution.tests;
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+package jevolution.tests.suites;
 
 import jevolution.expressions.tests.*;
+import jevolution.tests.StatsTests_WithEmptyEnvironment;
+import jevolution.tests.StatsTests_WithOneCreatureEnvironment;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -18,7 +15,10 @@ import org.junit.runners.Suite;
 	ParenthesisTests.class,
 	LiteralTests.class,
 	PropertyTests.class,
-	BinaryExpressionTests.class
+	BinaryExpressionTests.class,
+
+	StatsTests_WithEmptyEnvironment.class,
+	StatsTests_WithOneCreatureEnvironment.class
 })
 public class AllTests {
 }
