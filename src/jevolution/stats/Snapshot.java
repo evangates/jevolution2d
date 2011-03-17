@@ -36,4 +36,8 @@ public class Snapshot {
 	public double getStandardDeviation() {
 		return standardDeviation;
 	}
+
+	public long getTime() {
+		return time;
+	}
 }
