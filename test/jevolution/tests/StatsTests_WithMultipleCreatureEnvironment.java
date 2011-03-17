@@ -34,7 +34,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 
 	@Test
 	public void minimumsShouldMatchTheCreaturesValues() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -47,7 +47,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 
 	@Test
 	public void averagesShouldMatchTheCreaturesValues() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -60,7 +60,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 
 	@Test
 	public void maximumsShouldMatchTheCreaturesValues() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -73,7 +73,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 
 	@Test
 	public void mediansShouldMatchTheCreaturesValues() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -86,7 +86,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 
 	@Test
 	public void standardDeviationsShouldMatchTheCreaturesValues() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);

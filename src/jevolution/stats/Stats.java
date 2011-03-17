@@ -34,8 +34,9 @@ public class Stats {
 		this.environment = environment;
 	}
 
-	public void collect(Iterable<Creature> creatures) {
+	public void collect() {
 		long time = System.currentTimeMillis();
+		Iterable<Creature> creatures = environment.getCreatures();
 
 		for (Stat stat: trackedStats.values()) {
 			stat.saveSnapshot(time, creatures);

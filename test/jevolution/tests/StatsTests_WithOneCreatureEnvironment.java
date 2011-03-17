@@ -31,7 +31,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 
 	@Test
 	public void minimumsShouldMatchTheCreaturesValue() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -44,7 +44,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 
 	@Test
 	public void averagesShouldMatchTheCreaturesValue() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -57,7 +57,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 
 	@Test
 	public void maximumsShouldMatchTheCreaturesValue() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -70,7 +70,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 
 	@Test
 	public void mediansShouldMatchTheCreaturesValue() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		for (Stats.Keys key: Stats.Keys.values()) {
 			Stat stat = stats.lookup(key);
@@ -83,7 +83,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 
 	@Test
 	public void standardDeviationsShouldBeZero() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		double expected = 0;
 

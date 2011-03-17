@@ -25,7 +25,7 @@ public class StatsTests_WithEmptyEnvironment {
 
 	@Test
 	public void minimumsShouldBeZero() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		double expected = 0;
 
@@ -39,7 +39,7 @@ public class StatsTests_WithEmptyEnvironment {
 
 	@Test
 	public void averagesShouldBeZero() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		double expected = 0;
 
@@ -53,7 +53,7 @@ public class StatsTests_WithEmptyEnvironment {
 
 	@Test
 	public void maximumsShouldBeZero() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		double expected = 0;
 
@@ -67,7 +67,7 @@ public class StatsTests_WithEmptyEnvironment {
 
 	@Test
 	public void mediansShouldBeZero() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		double expected = 0;
 
@@ -81,7 +81,7 @@ public class StatsTests_WithEmptyEnvironment {
 
 	@Test
 	public void standardDeviationsShouldBeZero() {
-		stats.collect(environment.getCreatures());
+		stats.collect();
 
 		double expected = 0;
 
