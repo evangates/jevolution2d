@@ -1,7 +1,7 @@
 package jevolution.tests;
 
 import jevolution.Environment;
-import jevolution.Stats;
+import jevolution.stats.Stats;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -26,5 +26,4 @@ public class StatsTests {
     public void ctorTest() {
 		assertNotNull(stats);
 	}
-
 }

@@ -1,7 +1,8 @@
 package jevolution.tests;
 
 import jevolution.Environment;
-import jevolution.Stats;
+import jevolution.stats.Stat;
+import jevolution.stats.Stats;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -23,12 +24,72 @@ public class StatsTests_WithEmptyEnvironment {
     }
 
 	@Test
-	public void averageEnergyShouldBeZero() {
-		stats.collect();
+	public void minimumsShouldBeZero() {
+		stats.collect(environment.getCreatures());
 
-		double actual = stats.lookup(Stats.Keys.AverageEnergy);
 		double expected = 0;
 
-		assertEquals(expected, actual, TOLERANCE);
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double actual = stat.getMostRecentSnapshot().getMinimum();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void averagesShouldBeZero() {
+		stats.collect(environment.getCreatures());
+
+		double expected = 0;
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double actual = stat.getMostRecentSnapshot().getAverage();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void maximumsShouldBeZero() {
+		stats.collect(environment.getCreatures());
+
+		double expected = 0;
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double actual = stat.getMostRecentSnapshot().getMaximum();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void mediansShouldBeZero() {
+		stats.collect(environment.getCreatures());
+
+		double expected = 0;
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double actual = stat.getMostRecentSnapshot().getMedian();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void standardDeviationsShouldBeZero() {
+		stats.collect(environment.getCreatures());
+
+		double expected = 0;
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double actual = stat.getMostRecentSnapshot().getStandardDeviation();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
 	}
 }

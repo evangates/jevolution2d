@@ -1,8 +1,9 @@
 package jevolution.tests;
 
+import jevolution.stats.Stat;
 import jevolution.Creature;
 import jevolution.Environment;
-import jevolution.Stats;
+import jevolution.stats.Stats;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,12 +30,68 @@ public class StatsTests_WithOneCreatureEnvironment {
     }
 
 	@Test
-    public void averageEnergyShouldMatchCreaturesEnergy() {
-		stats.collect();
-		
-		double expected = creature.getEnergy();
-		double actual = stats.lookup(Stats.Keys.AverageEnergy);
+	public void minimumsShouldMatchTheCreaturesValue() {
+		stats.collect(environment.getCreatures());
 
-		assertEquals(expected, actual, TOLERANCE);
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double expected = stat.getValue(creature);
+			double actual = stat.getMostRecentSnapshot().getMinimum();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void averagesShouldMatchTheCreaturesValue() {
+		stats.collect(environment.getCreatures());
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double expected = stat.getValue(creature);
+			double actual = stat.getMostRecentSnapshot().getAverage();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void maximumsShouldMatchTheCreaturesValue() {
+		stats.collect(environment.getCreatures());
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double expected = stat.getValue(creature);
+			double actual = stat.getMostRecentSnapshot().getMaximum();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void mediansShouldMatchTheCreaturesValue() {
+		stats.collect(environment.getCreatures());
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double expected = stat.getValue(creature);
+			double actual = stat.getMostRecentSnapshot().getMedian();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
+	}
+
+	@Test
+	public void standardDeviationsShouldBeZero() {
+		stats.collect(environment.getCreatures());
+
+		double expected = 0;
+
+		for (Stats.Keys key: Stats.Keys.values()) {
+			Stat stat = stats.lookup(key);
+			double actual = stat.getMostRecentSnapshot().getStandardDeviation();
+
+			assertEquals(expected, actual, TOLERANCE);
+		}
 	}
 }
