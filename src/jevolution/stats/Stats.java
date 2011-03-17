@@ -20,12 +20,14 @@ import jevolution.Environment;
 public class Stats {
 	public static enum Keys {
 		Energy,
+		MaximumEnergy
 	}
 
 	private final static EnumMap<Keys, Stat> trackedStats;
 	static {
 		trackedStats = new EnumMap<Keys, Stat>(Keys.class);
 		trackedStats.put(Keys.Energy, new EnergyStat());
+		trackedStats.put(Keys.MaximumEnergy, new MaxEnergyStat());
 	}
 
 	private Environment environment;
