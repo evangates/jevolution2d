@@ -18,7 +18,7 @@ public class StatsPanel extends JPanel {
 		super(new MigLayout("fill, wrap"));
 		this.stats = stats;
 
-		graph = new Graph(stats.lookup(Stats.Keys.Energy));
+		graph = new Graph(stats.getTrackedStats());
 		graph.setPreferredSize(new Dimension(width, height - 20));
 
 		add(graph, "grow");

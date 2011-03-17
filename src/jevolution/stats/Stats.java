@@ -46,4 +46,8 @@ public class Stats {
 	public Stat lookup(Keys key) {
 		return trackedStats.get(key);
 	}
+
+	public Iterable<Stat> getTrackedStats() {
+		return trackedStats.values();
+	}
 }

@@ -117,4 +117,9 @@ public abstract class Stat {
 	public long getLatestTime() {
 		return snapshots.getLast().getTime();
 	}
+
+	@Override
+	public String toString() {
+		return getName();
+	}
 }
