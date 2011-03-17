@@ -35,8 +35,8 @@ public class Graph extends JPanel {
 		comboBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if (e.getID() == ItemEvent.SELECTED) {
-					Stat selectedStat = (Stat)((JComboBox)e.getSource()).getSelectedItem();
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+					Stat selectedStat = (Stat)e.getItem();
 
 					graph.setStat(selectedStat);
 				}
