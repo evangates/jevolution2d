@@ -38,7 +38,6 @@ public class Graph extends JPanel {
 		double xInterval = xDifference / NUM_INTERVALS;
 
 		g.drawString(title, 0, 10);
-		smallestYValue = 0;
 
 		for (Snapshot snapshot: stat.getSnapshots()) {
 			long time = snapshot.getTime();
@@ -57,11 +56,16 @@ public class Graph extends JPanel {
 	}
 
 	private void drawPoint(Graphics2D g, double minX, double maxX, double minY, double maxY, double xValue, double yValue) {
-		double scaledX = (xValue - minX) / (maxX - minX) * getWidth();
-		double scaledY = (yValue - minY) / (maxY - minY) * getHeight();
+		int width = getWidth();
+		int height = getHeight();
+		
+		double scaledX = (xValue - minX) / (maxX - minX) * width;
+		double scaledY = (yValue - minY) / (maxY - minY) * height;
 
 		int x = (int)Math.round(scaledX);
-		int y = (int)Math.round(scaledY);
+		// remember (0,0) is in the upper left corner
+		// have to flip y here so our graph has (0,0) at the bottom left
+		int y = height - (int)Math.round(scaledY);
 
 		g.drawRect(x, y, 1, 1);
 	}
