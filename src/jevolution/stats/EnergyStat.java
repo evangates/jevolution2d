@@ -11,4 +11,9 @@ class EnergyStat extends Stat {
 	public double getValue(Creature creature) {
 		return creature.getEnergy();
 	}
+
+	@Override
+	public String getName() {
+		return "Energy";
+	}
 }
