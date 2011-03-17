@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import jevolution.Environment;
 import jevolution.expressions.CreatureExpression;
+import jevolution.stats.Stats;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -12,11 +13,14 @@ public class ApplicationPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final static int TICK_INTERVAL = 15;
+	private final static int STAT_INTERVAL = 100;
 
 	private Environment environment;
 	private EnvironmentPanel environmentPanel;
-	private StatsPanel stats;
-	private Timer timer;
+	private Stats stats;
+	private StatsPanel statsPanel;
+	private Timer tickTimer;
+	private Timer statTimer;
 	private long startTime = 0;
 	private int numFrames = 0;
 	private double fps = 60.0f;
@@ -32,13 +36,15 @@ public class ApplicationPanel extends JPanel {
 
 		environment = new Environment(width, height);
 		environment.addCreatures();
+
+		stats = new Stats(environment);
 		
 		environmentPanel = new EnvironmentPanel(environment);
-		stats = new StatsPanel(width, height);
+		statsPanel = new StatsPanel(width, height, stats);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.BOTTOM);
 		tabbedPane.addTab("World", environmentPanel);
-		tabbedPane.addTab("Statistics", stats);
+		tabbedPane.addTab("Statistics", statsPanel);
 
 		this.add(tabbedPane);
 
@@ -49,7 +55,7 @@ public class ApplicationPanel extends JPanel {
 		this.add(configPanel, "grow");
 
 		speedModifier = 1d;
-		timer = new Timer(TICK_INTERVAL, new ActionListener() {
+		tickTimer = new Timer(TICK_INTERVAL, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				updateFPS();
@@ -57,7 +63,16 @@ public class ApplicationPanel extends JPanel {
 				environmentPanel.repaint();
 			}
 		});
-		timer.start();
+		statTimer = new Timer(STAT_INTERVAL, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				stats.collect();
+				statsPanel.repaint();
+			}
+		});
+
+		tickTimer.start();
+		statTimer.start();
 
 		this.setVisible(true);
 	}
