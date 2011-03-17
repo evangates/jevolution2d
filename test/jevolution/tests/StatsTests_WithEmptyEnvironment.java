@@ -66,20 +66,6 @@ public class StatsTests_WithEmptyEnvironment {
 	}
 
 	@Test
-	public void mediansShouldBeZero() {
-		stats.collect();
-
-		double expected = 0;
-
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
-			double actual = stat.getMostRecentSnapshot().getMedian();
-
-			assertEquals(expected, actual, TOLERANCE);
-		}
-	}
-
-	@Test
 	public void standardDeviationsShouldBeZero() {
 		stats.collect();
 

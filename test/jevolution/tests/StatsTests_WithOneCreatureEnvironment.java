@@ -69,19 +69,6 @@ public class StatsTests_WithOneCreatureEnvironment {
 	}
 
 	@Test
-	public void mediansShouldMatchTheCreaturesValue() {
-		stats.collect();
-
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
-			double expected = stat.getValue(creature);
-			double actual = stat.getMostRecentSnapshot().getMedian();
-
-			assertEquals(expected, actual, TOLERANCE);
-		}
-	}
-
-	@Test
 	public void standardDeviationsShouldBeZero() {
 		stats.collect();
 

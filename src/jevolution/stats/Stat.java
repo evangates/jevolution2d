@@ -23,7 +23,6 @@ public abstract class Stat {
 
 		double minimum = Double.MAX_VALUE;
 		double maximum = 0;
-		double median = 0;
 		double average = 0;
 		double standardDeviation = 0;
 		int numValues = 0;
@@ -56,17 +55,9 @@ public abstract class Stat {
 				sumOfSquares += difference * difference;
 			}
 			standardDeviation = Math.sqrt(sumOfSquares / numValues);
-
-			// median
-			if (numValues % 2 == 0) {
-				median = 0.5 * values.get(numValues / 2) + values.get(numValues / 2 + 1);
-			}
-			else {
-				median = values.get(numValues / 2);
-			}
 		}
 
-		snapshots.addLast(new Snapshot(time, minimum, maximum, average, standardDeviation, median));
+		snapshots.addLast(new Snapshot(time, minimum, maximum, average, standardDeviation));
 		dropExtraOldSnapshots();
 	}
 

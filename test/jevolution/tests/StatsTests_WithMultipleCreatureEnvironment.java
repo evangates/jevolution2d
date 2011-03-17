@@ -72,19 +72,6 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 	}
 
 	@Test
-	public void mediansShouldMatchTheCreaturesValues() {
-		stats.collect();
-
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
-			double expected = 0.5 * (stat.getValue(first) + stat.getValue(second));
-			double actual = stat.getMostRecentSnapshot().getMedian();
-
-			assertEquals(expected, actual, TOLERANCE);
-		}
-	}
-
-	@Test
 	public void standardDeviationsShouldMatchTheCreaturesValues() {
 		stats.collect();
 

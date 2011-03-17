@@ -5,16 +5,15 @@ package jevolution.stats;
  * @author kuhlmancer
  */
 public class Snapshot {
-	private double mininum, maximum, average, standardDeviation, median;
+	private double mininum, maximum, average, standardDeviation;
 	private long time;
 
-	Snapshot(long time, double minimum, double maximum, double average, double standardDeviation, double median) {
+	Snapshot(long time, double minimum, double maximum, double average, double standardDeviation) {
 		this.time = time;
 		this.mininum = minimum;
 		this.maximum = maximum;
 		this.average = average;
 		this.standardDeviation = standardDeviation;
-		this.median = median;
 	}
 
 	public double getAverage() {
@@ -27,10 +26,6 @@ public class Snapshot {
 
 	public double getMaximum() {
 		return maximum;
-	}
-
-	public double getMedian() {
-		return median;
 	}
 
 	public double getStandardDeviation() {
