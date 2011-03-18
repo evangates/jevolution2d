@@ -5,11 +5,7 @@
 
 package jevolution.stats;
 
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.EnumMap;
-import java.util.LinkedList;
-import java.util.List;
 import jevolution.Creature;
 import jevolution.Environment;
 
