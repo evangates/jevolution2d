@@ -6,7 +6,11 @@ import java.awt.Graphics2D;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.*;
+import jevolution.stats.Maximum;
+import jevolution.stats.Mean;
+import jevolution.stats.Minimum;
 import jevolution.stats.Snapshot;
+import jevolution.stats.StandardDeviation;
 import jevolution.stats.StatReport;
 import net.miginfocom.swing.MigLayout;
 
@@ -77,21 +81,26 @@ public class Graph extends JPanel {
 			for (Snapshot snapshot: stat.getSnapshots()) {
 				long time = snapshot.getTime();
 
+				double average = snapshot.getStat(Mean.class);
+				double standardDeviation = snapshot.getStat(StandardDeviation.class);
+				double minimum = snapshot.getStat(Minimum.class);
+				double maximum = snapshot.getStat(Maximum.class);
+
 				// standard deviation
 				g.setColor(Color.green);
-				drawStandardDeviation(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, snapshot.getAverage(), snapshot.getStandardDeviation());
+				drawStandardDeviation(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, average, standardDeviation);
 				
 				// minimum
 				g.setColor(Color.red);
-				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, snapshot.getMinimum());
+				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, minimum);
 
 				// average
 				g.setColor(Color.black);
-				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, snapshot.getAverage());
+				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, average);
 
 				// maximum
 				g.setColor(Color.blue);
-				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, snapshot.getMaximum());
+				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, maximum);
 			}
 		}
 

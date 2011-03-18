@@ -2,8 +2,10 @@ package jevolution.stats;
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import jevolution.Creature;
 
 /**
@@ -11,8 +13,15 @@ import jevolution.Creature;
  * @author kuhlmancer
  */
 public abstract class StatReport {
-	private Deque<Snapshot> snapshots;
 	public final static int MAX_NUM_SNAPSHOTS = 400;
+	private final static Stat[] stats = {
+		new Maximum(),
+		new Mean(),
+		new Minimum(),
+		new StandardDeviation()
+	};
+
+	private Deque<Snapshot> snapshots;
 
 	StatReport() {
 		snapshots = new LinkedList<Snapshot>();
@@ -21,43 +30,16 @@ public abstract class StatReport {
 	void saveSnapshot(long time, Iterable<Creature> creatures) {
 		List<Double> values = new ArrayList<Double>();
 
-		double minimum = Double.MAX_VALUE;
-		double maximum = 0;
-		double average = 0;
-		double standardDeviation = 0;
-		int numValues = 0;
-
-		// min, max, sum
-		double sum = 0;
 		for (Creature creature: creatures) {
-			double value = getValue(creature);
-			values.add(value);
-
-			minimum = Math.min(minimum, value);
-			maximum = Math.max(maximum, value);
-
-			sum += value;
-			++numValues;
+			values.add(getValue(creature));
 		}
 
-		if (values.isEmpty()) {
-			// 0 makes more sense than Double.MAX_VALUE as a default min when there are no creatures
-			// only reason we started with MAX_VALUE was to make sure the first creature would have a lower value
-			minimum = 0;
-		}
-		else {
-			average = sum / numValues;
-			
-			// standard deviation
-			double sumOfSquares = 0;
-			for(double value: values) {
-				double difference = value - average;
-				sumOfSquares += difference * difference;
-			}
-			standardDeviation = Math.sqrt(sumOfSquares / numValues);
+		Map<Class, Double> calculatedStats = new HashMap<Class, Double>();
+		for (Stat stat: stats) {
+			calculatedStats.put(stat.getClass(), stat.calculate(values, values.size()));
 		}
 
-		snapshots.addLast(new Snapshot(time, minimum, maximum, average, standardDeviation));
+		snapshots.addLast(new Snapshot(time, calculatedStats));
 		dropExtraOldSnapshots();
 	}
 
@@ -90,9 +72,14 @@ public abstract class StatReport {
 		double largestValue = Double.MIN_VALUE;
 
 		for (Snapshot snapshot: snapshots) {
-			largestValue = Math.max(largestValue, snapshot.getMaximum());
+			for (double value: snapshot.getValues()) {
+				largestValue = Math.max(largestValue, value);
+			}
 		}
 
+		// Shouldn't have to worry about this still being Double.MIN_VALUE
+		// because we're getting snapshots all the time.
+		// Should be ok for the value here to be weird at the beginning once.
 		return largestValue;
 	}
 
@@ -104,9 +91,14 @@ public abstract class StatReport {
 		double smallestValue = Double.MAX_VALUE;
 
 		for (Snapshot snapshot: snapshots) {
-			smallestValue = Math.min(smallestValue, snapshot.getMinimum());
+			for (double value: snapshot.getValues()) {
+				smallestValue = Math.min(smallestValue, value);
+			}
 		}
 
+		// Shouldn't have to worry about this still being Double.MAX_VALUE
+		// because we're getting snapshots all the time.
+		// Should be ok for the value here to be weird at the beginning once.
 		return smallestValue;
 	}
 

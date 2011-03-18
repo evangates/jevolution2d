@@ -1,35 +1,26 @@
 package jevolution.stats;
 
+import java.util.Map;
+
 /**
  *
  * @author kuhlmancer
  */
 public class Snapshot {
-	private double mininum, maximum, average, standardDeviation;
+	private Map<Class, Double> stats;
 	private long time;
 
-	Snapshot(long time, double minimum, double maximum, double average, double standardDeviation) {
+	Snapshot(long time, Map<Class, Double> stats) {
 		this.time = time;
-		this.mininum = minimum;
-		this.maximum = maximum;
-		this.average = average;
-		this.standardDeviation = standardDeviation;
+		this.stats = stats;
 	}
 
-	public double getAverage() {
-		return average;
+	public double getStat(Class klass) {
+		return stats.get(klass);
 	}
 
-	public double getMinimum() {
-		return mininum;
-	}
-
-	public double getMaximum() {
-		return maximum;
-	}
-
-	public double getStandardDeviation() {
-		return standardDeviation;
+	public Iterable<Double> getValues() {
+		return stats.values();
 	}
 
 	public long getTime() {

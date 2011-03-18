@@ -4,6 +4,10 @@ import jevolution.stats.StatReport;
 import jevolution.Creature;
 import jevolution.Environment;
 import jevolution.expressions.CreatureExpression;
+import jevolution.stats.Maximum;
+import jevolution.stats.Mean;
+import jevolution.stats.Minimum;
+import jevolution.stats.StandardDeviation;
 import jevolution.stats.StatReports;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +43,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
 			double expected = stat.getValue(creature);
-			double actual = stat.getMostRecentSnapshot().getMinimum();
+			double actual = stat.getMostRecentSnapshot().getStat(Minimum.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}
@@ -52,7 +56,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
 			double expected = stat.getValue(creature);
-			double actual = stat.getMostRecentSnapshot().getAverage();
+			double actual = stat.getMostRecentSnapshot().getStat(Mean.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}
@@ -65,7 +69,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
 			double expected = stat.getValue(creature);
-			double actual = stat.getMostRecentSnapshot().getMaximum();
+			double actual = stat.getMostRecentSnapshot().getStat(Maximum.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}
@@ -79,7 +83,7 @@ public class StatsTests_WithOneCreatureEnvironment {
 
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
-			double actual = stat.getMostRecentSnapshot().getStandardDeviation();
+			double actual = stat.getMostRecentSnapshot().getStat(StandardDeviation.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}

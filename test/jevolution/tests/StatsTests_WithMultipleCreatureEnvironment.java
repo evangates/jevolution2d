@@ -4,6 +4,10 @@ import jevolution.stats.StatReport;
 import jevolution.Creature;
 import jevolution.Environment;
 import jevolution.expressions.CreatureExpression;
+import jevolution.stats.Maximum;
+import jevolution.stats.Mean;
+import jevolution.stats.Minimum;
+import jevolution.stats.StandardDeviation;
 import jevolution.stats.StatReports;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +47,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
 			double expected = Math.min(stat.getValue(first), stat.getValue(second));
-			double actual = stat.getMostRecentSnapshot().getMinimum();
+			double actual = stat.getMostRecentSnapshot().getStat(Minimum.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}
@@ -56,7 +60,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
 			double expected = 0.5 * (stat.getValue(first) + stat.getValue(second));
-			double actual = stat.getMostRecentSnapshot().getAverage();
+			double actual = stat.getMostRecentSnapshot().getStat(Mean.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}
@@ -69,7 +73,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
 			double expected = Math.max(stat.getValue(first), stat.getValue(second));
-			double actual = stat.getMostRecentSnapshot().getMaximum();
+			double actual = stat.getMostRecentSnapshot().getStat(Maximum.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}
@@ -86,7 +90,7 @@ public class StatsTests_WithMultipleCreatureEnvironment {
 			double average = 0.5 * (firstValue + secondValue);
 			double sumOfDiffsSquared = (firstValue - average)*(firstValue - average) + (secondValue - average)*(secondValue - average);
 			double expected = Math.sqrt(sumOfDiffsSquared / 2);
-			double actual = stat.getMostRecentSnapshot().getStandardDeviation();
+			double actual = stat.getMostRecentSnapshot().getStat(StandardDeviation.class);
 
 			assertEquals(expected, actual, TOLERANCE);
 		}
