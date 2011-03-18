@@ -1,7 +1,7 @@
 package jevolution.tests;
 
 import jevolution.Environment;
-import jevolution.stats.Stats;
+import jevolution.stats.StatReports;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -12,14 +12,14 @@ import static org.junit.Assert.*;
  */
 public class StatsTests {
 	Environment environment;
-	Stats stats;
+	StatReports stats;
 
 	final static double TOLERANCE = 0.0001;
 
     @Before
     public void setUp() {
 		environment = new Environment(100, 100);
-		stats = new Stats(environment);
+		stats = new StatReports(environment);
     }
 
 	@Test

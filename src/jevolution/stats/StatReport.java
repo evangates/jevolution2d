@@ -10,11 +10,11 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public abstract class Stat {
+public abstract class StatReport {
 	private Deque<Snapshot> snapshots;
 	public final static int MAX_NUM_SNAPSHOTS = 400;
 
-	Stat() {
+	StatReport() {
 		snapshots = new LinkedList<Snapshot>();
 	}
 

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import jevolution.Environment;
 import jevolution.expressions.CreatureExpression;
-import jevolution.stats.Stats;
+import jevolution.stats.StatReports;
 import net.miginfocom.swing.MigLayout;
 
 
@@ -17,7 +17,7 @@ public class ApplicationPanel extends JPanel {
 
 	private Environment environment;
 	private EnvironmentPanel environmentPanel;
-	private Stats stats;
+	private StatReports stats;
 	private StatsPanel statsPanel;
 	private Timer tickTimer;
 	private Timer statTimer;
@@ -37,7 +37,7 @@ public class ApplicationPanel extends JPanel {
 		environment = new Environment(width, height);
 		environment.addCreatures();
 
-		stats = new Stats(environment);
+		stats = new StatReports(environment);
 		
 		environmentPanel = new EnvironmentPanel(environment);
 		statsPanel = new StatsPanel(width, height, stats);

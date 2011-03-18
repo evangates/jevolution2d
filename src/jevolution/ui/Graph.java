@@ -7,7 +7,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.*;
 import jevolution.stats.Snapshot;
-import jevolution.stats.Stat;
+import jevolution.stats.StatReport;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -20,15 +20,15 @@ public class Graph extends JPanel {
 	JComboBox comboBox;
 	GraphInnerPanel graph;
 
-	Graph(Iterable<Stat> stats) {
+	Graph(Iterable<StatReport> stats) {
 		super(new MigLayout("wrap, insets 0", "[grow]", "[][grow]"));
 
 		this.comboBox = new JComboBox();
-		for (Stat st: stats) {
+		for (StatReport st: stats) {
 			comboBox.addItem(st);
 		}
 
-		Stat selectedStat = (Stat)comboBox.getSelectedItem();
+		StatReport selectedStat = (StatReport)comboBox.getSelectedItem();
 
 		graph = new GraphInnerPanel(selectedStat);
 
@@ -36,7 +36,7 @@ public class Graph extends JPanel {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
-					Stat selectedStat = (Stat)e.getItem();
+					StatReport selectedStat = (StatReport)e.getItem();
 
 					graph.setStat(selectedStat);
 				}
@@ -48,14 +48,14 @@ public class Graph extends JPanel {
 	}
 
 	private class GraphInnerPanel extends JPanel {
-		private Stat stat;
+		private StatReport stat;
 
-		GraphInnerPanel(Stat stat) {
+		GraphInnerPanel(StatReport stat) {
 			this.stat = stat;
 			this.setBackground(Color.white);
 		}
 
-		void setStat(Stat stat) {
+		void setStat(StatReport stat) {
 			this.stat = stat;
 		}
 

@@ -1,8 +1,8 @@
 package jevolution.tests;
 
 import jevolution.Environment;
-import jevolution.stats.Stat;
-import jevolution.stats.Stats;
+import jevolution.stats.StatReport;
+import jevolution.stats.StatReports;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -13,14 +13,14 @@ import static org.junit.Assert.*;
  */
 public class StatsTests_WithEmptyEnvironment {
 	Environment environment;
-	Stats stats;
+	StatReports stats;
 
 	final static double TOLERANCE = 0.0001;
 	
     @Before
     public void setUp() {
 		environment = new Environment(100, 100);
-		stats = new Stats(environment);
+		stats = new StatReports(environment);
     }
 
 	@Test
@@ -29,8 +29,8 @@ public class StatsTests_WithEmptyEnvironment {
 
 		double expected = 0;
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double actual = stat.getMostRecentSnapshot().getMinimum();
 
 			assertEquals(expected, actual, TOLERANCE);
@@ -43,8 +43,8 @@ public class StatsTests_WithEmptyEnvironment {
 
 		double expected = 0;
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double actual = stat.getMostRecentSnapshot().getAverage();
 
 			assertEquals(expected, actual, TOLERANCE);
@@ -57,8 +57,8 @@ public class StatsTests_WithEmptyEnvironment {
 
 		double expected = 0;
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double actual = stat.getMostRecentSnapshot().getMaximum();
 
 			assertEquals(expected, actual, TOLERANCE);
@@ -71,8 +71,8 @@ public class StatsTests_WithEmptyEnvironment {
 
 		double expected = 0;
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double actual = stat.getMostRecentSnapshot().getStandardDeviation();
 
 			assertEquals(expected, actual, TOLERANCE);

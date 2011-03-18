@@ -6,15 +6,14 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class StrengthStat extends Stat {
+class EnergyReport extends StatReport {
 	@Override
 	public double getValue(Creature creature) {
-		return creature.getStrength();
+		return creature.getEnergy();
 	}
 
 	@Override
 	public String getName() {
-		return "Strength";
+		return "Energy";
 	}
-
 }

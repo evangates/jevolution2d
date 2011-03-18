@@ -1,9 +1,10 @@
 package jevolution.tests;
 
-import jevolution.stats.Stat;
+import jevolution.stats.StatReport;
 import jevolution.Creature;
 import jevolution.Environment;
-import jevolution.stats.Stats;
+import jevolution.expressions.CreatureExpression;
+import jevolution.stats.StatReports;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -16,25 +17,27 @@ public class StatsTests_WithOneCreatureEnvironment {
 	private final static double TOLERANCE = 0.001;
 
 	Environment environment;
-	Stats stats;
+	StatReports stats;
 	Creature creature;
 
     @Before
     public void setUp() {
 		environment = new Environment(100, 100);
+		environment.setStrengthExpression(new CreatureExpression("blue"));
+		environment.setCostOfLivingExpression(new CreatureExpression("red"));
 		creature = environment.newRandomCreature();
 
 		environment.addCreature(creature);
 
-		stats = new Stats(environment);
+		stats = new StatReports(environment);
     }
 
 	@Test
 	public void minimumsShouldMatchTheCreaturesValue() {
 		stats.collect();
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double expected = stat.getValue(creature);
 			double actual = stat.getMostRecentSnapshot().getMinimum();
 
@@ -46,8 +49,8 @@ public class StatsTests_WithOneCreatureEnvironment {
 	public void averagesShouldMatchTheCreaturesValue() {
 		stats.collect();
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double expected = stat.getValue(creature);
 			double actual = stat.getMostRecentSnapshot().getAverage();
 
@@ -59,8 +62,8 @@ public class StatsTests_WithOneCreatureEnvironment {
 	public void maximumsShouldMatchTheCreaturesValue() {
 		stats.collect();
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double expected = stat.getValue(creature);
 			double actual = stat.getMostRecentSnapshot().getMaximum();
 
@@ -74,8 +77,8 @@ public class StatsTests_WithOneCreatureEnvironment {
 
 		double expected = 0;
 
-		for (Stats.Keys key: Stats.Keys.values()) {
-			Stat stat = stats.lookup(key);
+		for (StatReports.Keys key: StatReports.Keys.values()) {
+			StatReport stat = stats.lookup(key);
 			double actual = stat.getMostRecentSnapshot().getStandardDeviation();
 
 			assertEquals(expected, actual, TOLERANCE);

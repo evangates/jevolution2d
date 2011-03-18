@@ -2,6 +2,7 @@ package jevolution.tests.suites;
 
 import jevolution.expressions.tests.*;
 import jevolution.tests.StatsTests_WithEmptyEnvironment;
+import jevolution.tests.StatsTests_WithMultipleCreatureEnvironment;
 import jevolution.tests.StatsTests_WithOneCreatureEnvironment;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -18,7 +19,8 @@ import org.junit.runners.Suite;
 	BinaryExpressionTests.class,
 
 	StatsTests_WithEmptyEnvironment.class,
-	StatsTests_WithOneCreatureEnvironment.class
+	StatsTests_WithOneCreatureEnvironment.class,
+	StatsTests_WithMultipleCreatureEnvironment.class
 })
 public class AllTests {
 }

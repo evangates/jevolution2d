@@ -2,7 +2,7 @@ package jevolution.ui;
 
 import java.awt.Dimension;
 import javax.swing.*;
-import jevolution.stats.Stats;
+import jevolution.stats.StatReports;
 import net.miginfocom.swing.MigLayout;
 
 /**
@@ -10,11 +10,11 @@ import net.miginfocom.swing.MigLayout;
  * @author kuhlmancer
  */
 public class StatsPanel extends JPanel {
-	Stats stats;
+	StatReports stats;
 
 	Graph graph;
 
-	public StatsPanel(int width, int height, Stats stats) {
+	public StatsPanel(int width, int height, StatReports stats) {
 		super(new MigLayout("fill, wrap"));
 		this.stats = stats;
 

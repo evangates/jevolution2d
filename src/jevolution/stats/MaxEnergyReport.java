@@ -6,7 +6,7 @@ import jevolution.Creature;
  *
  * @author kuhlmancer
  */
-public class MaxEnergyStat extends Stat {
+public class MaxEnergyReport extends StatReport {
 
 	@Override
 	public double getValue(Creature creature) {

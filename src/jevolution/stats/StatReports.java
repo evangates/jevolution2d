@@ -13,24 +13,24 @@ import jevolution.Environment;
  *
  * @author kuhlmancer
  */
-public class Stats {
+public class StatReports {
 	public static enum Keys {
 		Energy,
 		MaximumEnergy,
 		Strength,
 	}
 
-	private final static EnumMap<Keys, Stat> trackedStats;
+	private final static EnumMap<Keys, StatReport> trackedStats;
 	static {
-		trackedStats = new EnumMap<Keys, Stat>(Keys.class);
-		trackedStats.put(Keys.Energy, new EnergyStat());
-		trackedStats.put(Keys.MaximumEnergy, new MaxEnergyStat());
-		trackedStats.put(Keys.Strength, new StrengthStat());
+		trackedStats = new EnumMap<Keys, StatReport>(Keys.class);
+		trackedStats.put(Keys.Energy, new EnergyReport());
+		trackedStats.put(Keys.MaximumEnergy, new MaxEnergyReport());
+		trackedStats.put(Keys.Strength, new StrengthReport());
 	}
 
 	private Environment environment;
 
-	public Stats(Environment environment) {
+	public StatReports(Environment environment) {
 		this.environment = environment;
 	}
 
@@ -38,16 +38,16 @@ public class Stats {
 		long time = System.currentTimeMillis();
 		Iterable<Creature> creatures = environment.getCreatures();
 
-		for (Stat stat: trackedStats.values()) {
+		for (StatReport stat: trackedStats.values()) {
 			stat.saveSnapshot(time, creatures);
 		}
 	}
 
-	public Stat lookup(Keys key) {
+	public StatReport lookup(Keys key) {
 		return trackedStats.get(key);
 	}
 
-	public Iterable<Stat> getTrackedStats() {
+	public Iterable<StatReport> getTrackedStats() {
 		return trackedStats.values();
 	}
 }
