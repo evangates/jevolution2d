@@ -52,6 +52,7 @@ public class Graph extends JPanel {
 
 		GraphInnerPanel(Stat stat) {
 			this.stat = stat;
+			this.setBackground(Color.white);
 		}
 
 		void setStat(Stat stat) {
