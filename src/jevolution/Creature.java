@@ -118,6 +118,7 @@ public class Creature implements Comparable<Creature> {
 
 	Color color;
 	private DNA dna;
+	private long generation;
 	double height;
 	double maxEnergy;
 
@@ -336,6 +337,10 @@ public class Creature implements Comparable<Creature> {
 
 	public int getGreen() {
 		return color.getGreen();
+	}
+
+	public long getGeneration() {
+		return generation;
 	}
 
 	private double getMass() {
