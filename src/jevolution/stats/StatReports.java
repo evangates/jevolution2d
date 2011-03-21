@@ -18,6 +18,7 @@ public class StatReports {
 		Energy,
 		MaximumEnergy,
 		Strength,
+		Blue,
 	}
 
 	private final static EnumMap<Keys, StatReport> trackedStats;
@@ -26,6 +27,7 @@ public class StatReports {
 		trackedStats.put(Keys.Energy, new EnergyReport());
 		trackedStats.put(Keys.MaximumEnergy, new MaxEnergyReport());
 		trackedStats.put(Keys.Strength, new StrengthReport());
+		trackedStats.put(Keys.Blue, new BlueReport());
 	}
 
 	private Environment environment;
