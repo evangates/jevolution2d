@@ -12,13 +12,14 @@ import jevolution.Creature;
  * 
  * @author kuhlmancer
  */
-public class GenerationFilter {
+public class GenerationFilter implements CreatureFilter {
 	private long generation;
 
 	public GenerationFilter(long generation) {
 		this.generation = generation;
 	}
 
+	@Override
 	public Iterable<Creature> filter(Iterable<Creature> creatures) {
 		List<Creature> retval = new LinkedList<Creature>();
 

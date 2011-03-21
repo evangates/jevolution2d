@@ -51,6 +51,9 @@ public class Creature implements Comparable<Creature> {
 				child.takeEnergyFrom(two, two.childEnergyDonation);
 				one.numChildren++;
 				two.numChildren++;
+
+				child.setGeneration(1 + Math.max(one.getGeneration(), two.getGeneration()));
+
 				return child;
 			}
 		}
@@ -341,6 +344,10 @@ public class Creature implements Comparable<Creature> {
 
 	public long getGeneration() {
 		return generation;
+	}
+
+	private void setGeneration(long value) {
+		this.generation = value;
 	}
 
 	private double getMass() {

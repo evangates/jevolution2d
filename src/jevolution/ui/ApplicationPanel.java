@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import jevolution.Environment;
 import jevolution.expressions.CreatureExpression;
+import jevolution.stats.CreatureFilter;
+import jevolution.stats.GenerationFilter;
 import jevolution.stats.StatReports;
 import net.miginfocom.swing.MigLayout;
 
@@ -15,6 +17,7 @@ public class ApplicationPanel extends JPanel {
 	private final static int TICK_INTERVAL = 15;
 	private final static int STAT_INTERVAL = 100;
 
+	private CreatureFilter filter;
 	private Environment environment;
 	private EnvironmentPanel environmentPanel;
 	private StatReports stats;
@@ -37,7 +40,8 @@ public class ApplicationPanel extends JPanel {
 		environment = new Environment(width, height);
 		environment.addCreatures();
 
-		stats = new StatReports(environment);
+		filter = new GenerationFilter(1);
+		stats = new StatReports(environment, filter);
 		
 		environmentPanel = new EnvironmentPanel(environment);
 		statsPanel = new StatsPanel(width, height, stats);

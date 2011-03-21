@@ -29,17 +29,23 @@ public class StatReports {
 	}
 
 	private Environment environment;
+	private CreatureFilter filter;
 
 	public StatReports(Environment environment) {
+		this(environment, NullFilter.NULL);
+	}
+
+	public StatReports(Environment environment, CreatureFilter filter) {
 		this.environment = environment;
+		this.filter = filter;
 	}
 
 	public void collect() {
 		long time = System.currentTimeMillis();
-		Iterable<Creature> creatures = environment.getCreatures();
+		Iterable<Creature> filteredCreatures = filter.filter(environment.getCreatures());
 
 		for (StatReport stat: trackedStats.values()) {
-			stat.saveSnapshot(time, creatures);
+			stat.saveSnapshot(time, filteredCreatures);
 		}
 	}
 

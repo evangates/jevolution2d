@@ -2,6 +2,7 @@ package jevolution.tests.suites;
 
 import jevolution.expressions.tests.*;
 import jevolution.stats.tests.GenerationFilterTests;
+import jevolution.stats.tests.NullFilterTests;
 import jevolution.stats.tests.StatsTests_WithEmptyEnvironment;
 import jevolution.stats.tests.StatsTests_WithMultipleCreatureEnvironment;
 import jevolution.stats.tests.StatsTests_WithOneCreatureEnvironment;
@@ -23,7 +24,8 @@ import org.junit.runners.Suite;
 	StatsTests_WithOneCreatureEnvironment.class,
 	StatsTests_WithMultipleCreatureEnvironment.class,
 
-	GenerationFilterTests.class
+	GenerationFilterTests.class,
+	NullFilterTests.class
 })
 public class AllTests {
 }
