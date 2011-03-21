@@ -20,6 +20,7 @@ import net.miginfocom.swing.MigLayout;
  */
 public class Graph extends JPanel {
 	private final static int NUM_INTERVALS = 20;
+	private final static int TICK_PIXEL_LENGTH = 5;
 
 	JComboBox comboBox;
 	GraphInnerPanel graph;
@@ -73,10 +74,15 @@ public class Graph extends JPanel {
 			double yDifference = largestYValue - smallestYValue;
 			double yInterval = yDifference / NUM_INTERVALS;
 
+			// add some padding to the top and bottom y values
+			// so they aren't at the edge of the graph
+			largestYValue = largestYValue + yInterval;
+			smallestYValue = smallestYValue - yInterval;
+
 			long largestXValue = stat.getLatestTime();
 			long smallestXValue = stat.getEarliestTime();
-			double xDifference = largestXValue - smallestXValue;
-			double xInterval = xDifference / NUM_INTERVALS;
+			long xDifference = largestXValue - smallestXValue;
+			long xInterval = xDifference / NUM_INTERVALS;
 
 			for (Snapshot snapshot: stat.getSnapshots()) {
 				long time = snapshot.getTime();
@@ -101,7 +107,22 @@ public class Graph extends JPanel {
 				// maximum
 				g.setColor(Color.blue);
 				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, maximum);
+
+				// zero line
+				g.setColor(Color.black);
+				drawHorizontalLine(g, smallestYValue, largestYValue, 0);
 			}
+		}
+
+		private void drawHorizontalLine(Graphics2D g, double minY, double maxY, double lineYValue) {
+			int height = getHeight();
+
+			double scaledY = (lineYValue - minY) / (maxY - minY) * height;
+
+			// remember to flip the y-axis to get into normal cartesian coords
+			int y = height - (int)Math.round(scaledY);
+
+			g.drawLine(0, y, getWidth(), y);
 		}
 
 		private void drawPoint(Graphics2D g, double minX, double maxX, double minY, double maxY, double xValue, double yValue) {
