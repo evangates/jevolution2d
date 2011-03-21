@@ -1,9 +1,9 @@
 package jevolution.tests.suites;
 
 import jevolution.expressions.tests.*;
-import jevolution.tests.StatsTests_WithEmptyEnvironment;
-import jevolution.tests.StatsTests_WithMultipleCreatureEnvironment;
-import jevolution.tests.StatsTests_WithOneCreatureEnvironment;
+import jevolution.stats.tests.StatsTests_WithEmptyEnvironment;
+import jevolution.stats.tests.StatsTests_WithMultipleCreatureEnvironment;
+import jevolution.stats.tests.StatsTests_WithOneCreatureEnvironment;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 

@@ -1,4 +1,4 @@
-package jevolution.tests;
+package jevolution.stats.tests;
 
 import jevolution.Environment;
 import jevolution.stats.StatReports;

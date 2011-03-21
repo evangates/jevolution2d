@@ -1,11 +1,13 @@
-package jevolution.tests;
+package jevolution.stats.tests;
 
+import jevolution.stats.StatReport;
+import jevolution.Creature;
 import jevolution.Environment;
+import jevolution.expressions.CreatureExpression;
 import jevolution.stats.Maximum;
 import jevolution.stats.Mean;
 import jevolution.stats.Minimum;
 import jevolution.stats.StandardDeviation;
-import jevolution.stats.StatReport;
 import jevolution.stats.StatReports;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,26 +17,32 @@ import static org.junit.Assert.*;
  *
  * @author kuhlmancer
  */
-public class StatsTests_WithEmptyEnvironment {
+public class StatsTests_WithOneCreatureEnvironment {
+	private final static double TOLERANCE = 0.001;
+
 	Environment environment;
 	StatReports stats;
+	Creature creature;
 
-	final static double TOLERANCE = 0.0001;
-	
     @Before
     public void setUp() {
 		environment = new Environment(100, 100);
+		environment.setStrengthExpression(new CreatureExpression("blue"));
+		environment.setCostOfLivingExpression(new CreatureExpression("red"));
+		creature = environment.newRandomCreature();
+
+		environment.addCreature(creature);
+
 		stats = new StatReports(environment);
     }
 
 	@Test
-	public void minimumsShouldBeZero() {
+	public void minimumsShouldMatchTheCreaturesValue() {
 		stats.collect();
-
-		double expected = 0;
 
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
+			double expected = stat.getValue(creature);
 			double actual = stat.getMostRecentSnapshot().getStat(Minimum.class);
 
 			assertEquals(expected, actual, TOLERANCE);
@@ -42,13 +50,12 @@ public class StatsTests_WithEmptyEnvironment {
 	}
 
 	@Test
-	public void averagesShouldBeZero() {
+	public void averagesShouldMatchTheCreaturesValue() {
 		stats.collect();
-
-		double expected = 0;
 
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
+			double expected = stat.getValue(creature);
 			double actual = stat.getMostRecentSnapshot().getStat(Mean.class);
 
 			assertEquals(expected, actual, TOLERANCE);
@@ -56,13 +63,12 @@ public class StatsTests_WithEmptyEnvironment {
 	}
 
 	@Test
-	public void maximumsShouldBeZero() {
+	public void maximumsShouldMatchTheCreaturesValue() {
 		stats.collect();
-
-		double expected = 0;
 
 		for (StatReports.Keys key: StatReports.Keys.values()) {
 			StatReport stat = stats.lookup(key);
+			double expected = stat.getValue(creature);
 			double actual = stat.getMostRecentSnapshot().getStat(Maximum.class);
 
 			assertEquals(expected, actual, TOLERANCE);
