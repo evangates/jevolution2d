@@ -76,8 +76,8 @@ public class Graph extends JPanel {
 
 			// add some padding to the top and bottom y values
 			// so they aren't at the edge of the graph
-			largestYValue = largestYValue + yInterval;
-			smallestYValue = smallestYValue - yInterval;
+			double paddedLargestYValue = largestYValue + yInterval;
+			double paddedSmallestYValue = smallestYValue - yInterval;
 
 			long largestXValue = stat.getLatestTime();
 			long smallestXValue = stat.getEarliestTime();
@@ -94,24 +94,39 @@ public class Graph extends JPanel {
 
 				// standard deviation
 				g.setColor(Color.green);
-				drawStandardDeviation(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, average, standardDeviation);
+				drawStandardDeviation(g, smallestXValue, largestXValue, paddedSmallestYValue, paddedLargestYValue, time, average, standardDeviation);
 				
 				// minimum
 				g.setColor(Color.red);
-				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, minimum);
+				drawPoint(g, smallestXValue, largestXValue, paddedSmallestYValue, paddedLargestYValue, time, minimum);
 
 				// average
 				g.setColor(Color.black);
-				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, average);
+				drawPoint(g, smallestXValue, largestXValue, paddedSmallestYValue, paddedLargestYValue, time, average);
 
 				// maximum
 				g.setColor(Color.blue);
-				drawPoint(g, smallestXValue, largestXValue, smallestYValue, largestYValue, time, maximum);
-
-				// zero line
-				g.setColor(Color.black);
-				drawHorizontalLine(g, smallestYValue, largestYValue, 0);
+				drawPoint(g, smallestXValue, largestXValue, paddedSmallestYValue, paddedLargestYValue, time, maximum);
 			}
+
+			// zero line
+			g.setColor(Color.black);
+			drawHorizontalLine(g, paddedSmallestYValue, paddedLargestYValue, 0);
+
+			// max value
+			drawYValue(g, paddedSmallestYValue, paddedLargestYValue, largestYValue);
+
+			// min value
+			drawYValue(g, paddedSmallestYValue, paddedLargestYValue, smallestYValue);
+		}
+
+		private void drawYValue(Graphics2D g, double minY, double maxY, double yValue) {
+			int height = getHeight();
+			String formattedValueStr = String.format("%5.2f", yValue);
+
+			double scaledY = (yValue - minY) / (maxY - minY) * height;
+
+			g.drawString(formattedValueStr, 1, height - (float)scaledY);
 		}
 
 		private void drawHorizontalLine(Graphics2D g, double minY, double maxY, double lineYValue) {
