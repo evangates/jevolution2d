@@ -52,7 +52,7 @@ public class Creature implements Comparable<Creature> {
 				one.numChildren++;
 				two.numChildren++;
 
-				child.setGeneration(1 + Math.max(one.getGeneration(), two.getGeneration()));
+				child.setGeneration(1 + Math.min(one.getGeneration(), two.getGeneration()));
 
 				return child;
 			}
