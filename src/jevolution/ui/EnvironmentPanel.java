@@ -73,7 +73,7 @@ public class EnvironmentPanel extends JPanel {
 		String ageStr = String.format(Math.abs(strength) < 1 ? "%.2f" : "%.0f", strength);
 		g.drawString(ageStr, (int)x, (int)y + 10);
 
-		g.drawString("" + creature.getNumChildren(), (int)x, (int)y + 20);
+		g.drawString("" + creature.getGeneration(), (int)x, (int)y + 20);
 	}
 
 	private double headingLineMagnitude(Creature c) {
