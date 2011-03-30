@@ -43,7 +43,7 @@ public class StatReports {
 	}
 
 	public void collect() {
-		long time = System.currentTimeMillis();
+		double time = environment.getTime();
 		Iterable<Creature> filteredCreatures = filter.filter(environment.getCreatures());
 
 		for (StatReport stat: trackedStats.values()) {

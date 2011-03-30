@@ -70,7 +70,10 @@ public class ApplicationPanel extends JPanel {
 		statTimer = new Timer(STAT_INTERVAL, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				stats.collect();
+				// don't collect stats if we're paused
+				if (speedModifier > 0) {
+					stats.collect();
+				}
 				statsPanel.repaint();
 			}
 		});

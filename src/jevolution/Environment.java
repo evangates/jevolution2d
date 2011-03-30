@@ -39,9 +39,13 @@ public class Environment {
 	private double timeSinceLastRandom;
 	private double timeSinceLastMating;
 
+	private double time;
+
 	public Environment(int width, int height) {
 		this.width = width;
 		this.height = height;
+
+		time = 0;
 
 		timeSinceLastRandom = 0;
 		timeSinceLastMating = 0;
@@ -73,6 +77,10 @@ public class Environment {
 
 	public CreatureExpression getStrengthExpression() {
 		return this.strengthExpression;
+	}
+
+	public double getTime() {
+		return time;
 	}
 
 	public CreatureExpression getCostOfLivingExpression() {
@@ -152,5 +160,6 @@ public class Environment {
 
 		timeSinceLastRandom += timePerFrame;
 		timeSinceLastMating += timePerFrame;
+		time += timePerFrame;
 	}
 }

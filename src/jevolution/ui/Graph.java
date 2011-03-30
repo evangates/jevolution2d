@@ -79,13 +79,13 @@ public class Graph extends JPanel {
 			double paddedLargestYValue = largestYValue + yInterval;
 			double paddedSmallestYValue = smallestYValue - yInterval;
 
-			long largestXValue = stat.getLatestTime();
-			long smallestXValue = stat.getEarliestTime();
-			long xDifference = largestXValue - smallestXValue;
-			long xInterval = xDifference / NUM_INTERVALS;
+			double largestXValue = stat.getLatestTime();
+			double smallestXValue = stat.getEarliestTime();
+			double xDifference = largestXValue - smallestXValue;
+			double xInterval = xDifference / NUM_INTERVALS;
 
 			for (Snapshot snapshot: stat.getSnapshots()) {
-				long time = snapshot.getTime();
+				double time = snapshot.getTime();
 
 				double average = snapshot.getStat(Mean.class);
 				double standardDeviation = snapshot.getStat(StandardDeviation.class);

@@ -27,7 +27,7 @@ public abstract class StatReport {
 		snapshots = new LinkedList<Snapshot>();
 	}
 
-	void saveSnapshot(long time, Iterable<Creature> creatures) {
+	void saveSnapshot(double time, Iterable<Creature> creatures) {
 		List<Double> values = new ArrayList<Double>();
 
 		for (Creature creature: creatures) {
@@ -102,11 +102,11 @@ public abstract class StatReport {
 		return smallestValue;
 	}
 
-	public long getEarliestTime() {
+	public double getEarliestTime() {
 		return snapshots.getFirst().getTime();
 	}
 
-	public long getLatestTime() {
+	public double getLatestTime() {
 		return snapshots.getLast().getTime();
 	}
 

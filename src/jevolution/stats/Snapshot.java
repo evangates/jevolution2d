@@ -8,9 +8,9 @@ import java.util.Map;
  */
 public class Snapshot {
 	private Map<Class, Double> stats;
-	private long time;
+	private double time;
 
-	Snapshot(long time, Map<Class, Double> stats) {
+	Snapshot(double time, Map<Class, Double> stats) {
 		this.time = time;
 		this.stats = stats;
 	}
@@ -23,7 +23,7 @@ public class Snapshot {
 		return stats.values();
 	}
 
-	public long getTime() {
+	public double getTime() {
 		return time;
 	}
 }
