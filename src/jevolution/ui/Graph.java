@@ -77,7 +77,7 @@ public class Graph extends JPanel {
 			// add some padding to the top and bottom y values
 			// so they aren't at the edge of the graph
 			double paddedLargestYValue = largestYValue + yInterval;
-			double paddedSmallestYValue = smallestYValue - yInterval;
+			double paddedSmallestYValue = Math.min(smallestYValue,0) - yInterval; // keep y=0 in the graph to act as a refence since we scale it dynamically
 
 			double largestXValue = stat.getLatestTime();
 			double smallestXValue = stat.getEarliestTime();
